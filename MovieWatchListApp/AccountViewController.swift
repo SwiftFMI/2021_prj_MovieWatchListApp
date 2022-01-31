@@ -1,8 +1,11 @@
-//
-//  AccountViewController.swift
-//  MovieWatchListApp
-//
-//  Created by Konstantin Zaimov on 1/31/22.
-//
+import UIKit
 
-import Foundation
+class AccountViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+
+
+}

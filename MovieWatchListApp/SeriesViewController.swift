@@ -1,13 +1,12 @@
-//import UIKit
-//
-//class ViewController: UIViewController {
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view.
-//        print("minava ot tuk vse pak")
-//    }
-//
-//
-//}
-//
+import UIKit
+
+class SeriesViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+
+
+}
+
