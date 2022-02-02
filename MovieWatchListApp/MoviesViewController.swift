@@ -1,12 +1,26 @@
 import UIKit
 
+
+extension UIView {
+func addBackground() {
+    let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
+    backgroundImageView.image = UIImage(named: "background.png")
+    backgroundImageView.contentMode = UIView.ContentMode.scaleToFill
+    backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+
+    self.addSubview(backgroundImageView)
+    self.sendSubviewToBack(backgroundImageView)
+}}
+
 class MoviesViewController: UIViewController {
     
     var mockMovies = MockModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.view.addBackground()
+        
     }
 
 
