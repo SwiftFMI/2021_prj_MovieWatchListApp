@@ -4,9 +4,8 @@ import UIKit
 extension UIView {
 func addBackground() {
     let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
-    backgroundImageView.image = UIImage(named: "background.png")
+    backgroundImageView.image = UIImage(named: "background3.png")
     backgroundImageView.contentMode = UIView.ContentMode.scaleToFill
-    backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
 
     self.addSubview(backgroundImageView)
     self.sendSubviewToBack(backgroundImageView)
@@ -23,6 +22,14 @@ class MoviesViewController: UIViewController {
         
     }
 
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            super.prepare(for: segue, sender: sender)
+            if segue.identifier == "openMovieDetails" {
+                    if let next = segue.destination as! DetailViewController? {
+                        next.details = sender as? Details
+                            }
+            }
+        }
 
 }
 
@@ -56,15 +63,9 @@ extension MoviesViewController : UICollectionViewDataSource {
     
 }
 
-//extension MoviesViewController : UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.performSegue(withIdentifier: "openMovieDetails", sender: nil)
-////        self.openDetails(details: Details)
-//    }
-//}
-//
-//extension MoviesViewController {
-////    func openDetails(details: Details){
-////        self.performSegue(withIdentifier: "openDetails", sender: nil)
-////    }
-//}
+extension MoviesViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let details = Details(title: mockMovies.listOfMovies[indexPath.section].movies[indexPath.row].title, image: "", raiting: 10)
+        self.performSegue(withIdentifier: "openMovieDetails", sender: details)
+    }
+}
