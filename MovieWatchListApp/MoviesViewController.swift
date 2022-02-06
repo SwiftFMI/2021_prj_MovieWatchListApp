@@ -4,7 +4,7 @@ import UIKit
 extension UIView {
 func addBackground() {
     let backgroundImageView = UIImageView(frame: UIScreen.main.bounds)
-    backgroundImageView.image = UIImage(named: "background3.png")
+    backgroundImageView.image = UIImage(named: "background.png")
     backgroundImageView.contentMode = UIView.ContentMode.scaleToFill
 
     self.addSubview(backgroundImageView)

@@ -6,6 +6,7 @@ class DetailViewController: UIViewController {
     var details: Details!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addBackground()
         if let details = details {
             detailTitle.text = details.title
         }
