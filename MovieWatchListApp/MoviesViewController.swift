@@ -13,6 +13,7 @@ func addBackground() {
 
 class MoviesViewController: UIViewController {
     
+    @IBOutlet weak var moviesCollectionView: UICollectionView!
     var mockMovies = MockModel()
 
     override func viewDidLoad() {
@@ -40,6 +41,10 @@ extension MoviesViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if !mockMovies.listOfMovies[section].isExpanded
+        {
+            return 0
+        }
         return mockMovies.listOfMovies[section].movies.count
     }
     
@@ -57,7 +62,36 @@ extension MoviesViewController : UICollectionViewDataSource {
         
         let headerData = mockMovies.listOfMovies[indexPath.section].category
         header.movieCategoryHeader.text = headerData
+        header.expandCollapseButton.addTarget(self, action: #selector(handleExpandCollapse), for: .touchUpInside)
+        header.expandCollapseButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width - 50, bottom: 0, right: 0)
+        header.expandCollapseButton.tag = indexPath.section
+        
         return header
+    }
+    
+    @objc func handleExpandCollapse(button: UIButton) {
+        
+        let section = button.tag
+        
+        var indexPaths = [IndexPath]()
+        for movie in mockMovies.listOfMovies[section].movies.indices {
+            let indexPath = IndexPath(row: movie, section: section)
+            indexPaths.append(indexPath)
+        }
+        
+        let isExpanded = mockMovies.listOfMovies[section].isExpanded
+        mockMovies.listOfMovies[section].isExpanded = !isExpanded
+        
+        if isExpanded {
+            moviesCollectionView.deleteItems(at: indexPaths)
+        }
+        else{
+            moviesCollectionView.insertItems(at: indexPaths)
+        }
+        
+        button.setImage(UIImage(systemName: isExpanded ? "chevron.right" : "chevron.down"), for: .normal)
+        
+        
     }
     
     

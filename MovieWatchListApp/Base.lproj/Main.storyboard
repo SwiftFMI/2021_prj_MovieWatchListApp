@@ -258,17 +258,30 @@
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ziG-u0-k1l">
-                                            <rect key="frame" x="19" y="8" width="128" height="28"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Lq-DM-sBg">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" image="chevron.down" catalog="system"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ip6-wh-zUp">
+                                            <rect key="frame" x="8" y="15" width="193" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <color key="highlightedColor" red="0.071993950310144467" green="0.063711208800153893" blue="0.083403609918773713" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" red="0.36270625960000002" green="0.46690802869999998" blue="0.48555558920000003" alpha="1" colorSpace="custom" customColorSpace="deviceRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="1Lq-DM-sBg" firstAttribute="leading" secondItem="kAk-If-Z4s" secondAttribute="leading" id="2Rf-e5-8Zm"/>
+                                        <constraint firstAttribute="bottom" secondItem="1Lq-DM-sBg" secondAttribute="bottom" id="ATm-KB-lrr"/>
+                                        <constraint firstItem="1Lq-DM-sBg" firstAttribute="top" secondItem="kAk-If-Z4s" secondAttribute="top" id="FlF-9Y-B2b"/>
+                                        <constraint firstAttribute="trailing" secondItem="1Lq-DM-sBg" secondAttribute="trailing" id="qZV-8L-GEC"/>
+                                    </constraints>
                                     <connections>
-                                        <outlet property="movieCategoryHeader" destination="ziG-u0-k1l" id="jwb-jj-rtL"/>
+                                        <outlet property="expandCollapseButton" destination="1Lq-DM-sBg" id="GJb-6h-6B8"/>
+                                        <outlet property="movieCategoryHeader" destination="Ip6-wh-zUp" id="9CC-Qh-dhN"/>
                                     </connections>
                                 </collectionReusableView>
                                 <connections>
@@ -282,6 +295,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Movies" id="XMW-hz-Xe0"/>
                     <connections>
+                        <outlet property="moviesCollectionView" destination="76h-I2-MoL" id="UYQ-bH-qFr"/>
                         <segue destination="TwG-vY-6VA" kind="show" identifier="openMovieDetails" id="HKj-eH-jiR"/>
                     </connections>
                 </viewController>
@@ -353,6 +367,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0079653048889999998" green="0.043737091120000002" blue="0.1230909005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.0081592658529999994" green="0.048090934750000001" blue="0.13081881400000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textShadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -365,6 +383,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="film" catalog="system" width="128" height="93"/>
         <image name="logo" width="200" height="200"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
