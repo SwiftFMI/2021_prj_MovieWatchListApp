@@ -8,6 +8,6 @@ struct Setting {
 
 extension Setting {
     static func getSettingsData() -> [Setting] {
-        return [Setting]([Setting(image: "folder.fill", label: "General", description: ""), Setting(image: "person.fill", label: "About", description: ""), Setting(image: "power", label: "Log out", description: "")])
+        return [Setting]([Setting(image: "general", label: "General", description: ""), Setting(image: "about", label: "About", description: ""), Setting(image: "logout", label: "Log out", description: "")])
     }
 }

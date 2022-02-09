@@ -29,7 +29,7 @@ extension AccountViewController : UITableViewDataSource {
         let cell: SettingTableViewCell? = tableView.dequeueReusableCell(withIdentifier: "settingCell", for: indexPath) as? SettingTableViewCell
         if let settingCell = cell {
             settingCell.settingName.text = data.label
-            settingCell.settingImage.image = UIImage(systemName: data.image)
+            settingCell.settingImage.image = UIImage(named: data.image)
             return settingCell
         }
         

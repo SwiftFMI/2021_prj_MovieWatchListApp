@@ -12,6 +12,7 @@
 		8470476327A85D34003C7BE6 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8470476227A85D34003C7BE6 /* FirebaseDatabase */; };
 		F517D16A27ADA69500C4BD80 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517D16927ADA69500C4BD80 /* DetailViewController.swift */; };
 		F517D16C27ADA8C600C4BD80 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517D16B27ADA8C600C4BD80 /* DetailsViewModel.swift */; };
+		F5281A5327B425CB003959EC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5281A5227B425CB003959EC /* LoginViewController.swift */; };
 		F54B038627A98D7E00D9BD7D /* MoviesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54B038527A98D7E00D9BD7D /* MoviesViewCell.swift */; };
 		F54B038927A9903B00D9BD7D /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54B038827A9903B00D9BD7D /* Movie.swift */; };
 		F555562B27A880F600DB015E /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562A27A880F600DB015E /* MoviesViewController.swift */; };
@@ -31,6 +32,7 @@
 		843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F517D16927ADA69500C4BD80 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F517D16B27ADA8C600C4BD80 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		F5281A5227B425CB003959EC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F54B038527A98D7E00D9BD7D /* MoviesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewCell.swift; sourceTree = "<group>"; };
 		F54B038827A9903B00D9BD7D /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		F555562A27A880F600DB015E /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F5281A5127B42593003959EC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F5DCE1DC27A84D0100E0592C /* SeriesViewController.swift */,
+				F555562A27A880F600DB015E /* MoviesViewController.swift */,
+				F555562C27A8829700DB015E /* AccountViewController.swift */,
+				F555562E27A882B000DB015E /* DiscoverViewController.swift */,
+				F517D16927ADA69500C4BD80 /* DetailViewController.swift */,
+				F5281A5227B425CB003959EC /* LoginViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		F54B038727A9902400D9BD7D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,20 +105,16 @@
 		F5DCE1D727A84D0100E0592C /* MovieWatchListApp */ = {
 			isa = PBXGroup;
 			children = (
+				F5281A5127B42593003959EC /* ViewControllers */,
 				F5F71D7927B2C426004A9E6F /* ViewCellsModels */,
 				F54B038727A9902400D9BD7D /* Models */,
 				F5DCE1D827A84D0100E0592C /* AppDelegate.swift */,
 				F5DCE1DA27A84D0100E0592C /* SceneDelegate.swift */,
-				F5DCE1DC27A84D0100E0592C /* SeriesViewController.swift */,
 				F5DCE1DE27A84D0100E0592C /* Main.storyboard */,
 				F5DCE1E127A84D0200E0592C /* Assets.xcassets */,
 				F5DCE1E327A84D0200E0592C /* LaunchScreen.storyboard */,
 				F5DCE1E627A84D0200E0592C /* Info.plist */,
 				843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */,
-				F555562A27A880F600DB015E /* MoviesViewController.swift */,
-				F555562C27A8829700DB015E /* AccountViewController.swift */,
-				F555562E27A882B000DB015E /* DiscoverViewController.swift */,
-				F517D16927ADA69500C4BD80 /* DetailViewController.swift */,
 			);
 			path = MovieWatchListApp;
 			sourceTree = "<group>";
@@ -206,6 +217,7 @@
 				F5DCE1DB27A84D0100E0592C /* SceneDelegate.swift in Sources */,
 				F517D16C27ADA8C600C4BD80 /* DetailsViewModel.swift in Sources */,
 				F54B038927A9903B00D9BD7D /* Movie.swift in Sources */,
+				F5281A5327B425CB003959EC /* LoginViewController.swift in Sources */,
 				F555562B27A880F600DB015E /* MoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
