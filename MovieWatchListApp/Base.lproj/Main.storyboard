@@ -9,12 +9,105 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Register View Controller-->
+        <scene sceneID="vkT-bw-Sgn">
+            <objects>
+                <viewController id="QTf-js-Yhi" customClass="RegisterViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5vh-b7-IGy">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EM8-Sn-K8T">
+                                <rect key="frame" x="16" y="151" width="358" height="405"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1BR-iO-Kcb">
+                                        <rect key="frame" x="73" y="8" width="213" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HoeflerText-Italic" family="Hoefler Text" pointSize="36"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="83h-IP-zpB">
+                                        <rect key="frame" x="44" y="79" width="270" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UHN-fU-71F">
+                                        <rect key="frame" x="44" y="206" width="270" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2z-V2-mSq">
+                                        <rect key="frame" x="73" y="343" width="213" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <state key="normal" title="Register"/>
+                                        <connections>
+                                            <action selector="RegisterPressed:" destination="QTf-js-Yhi" eventType="touchUpInside" id="JW8-Va-8fT"/>
+                                        </connections>
+                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="4e3-76-btQ">
+                                        <rect key="frame" x="8" y="79" width="35" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="key" translatesAutoresizingMaskIntoConstraints="NO" id="7Dt-yg-NQy">
+                                        <rect key="frame" x="8" y="206" width="35" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pCm-Pm-MXr">
+                                        <rect key="frame" x="44" y="143" width="270" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="caM-Ew-FT1">
+                                        <rect key="frame" x="44" y="273" width="270" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="at" translatesAutoresizingMaskIntoConstraints="NO" id="EbO-hX-7qN">
+                                        <rect key="frame" x="8" y="143" width="35" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.10273407750000001" green="0.20732109409999999" blue="0.29261712560000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="EVM-zW-m1a">
+                                <rect key="frame" x="16" y="44" width="85" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="b2L-GR-r08"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="caM-Ew-FT1" id="51G-Z8-Rf0"/>
+                        <outlet property="emailTextField" destination="pCm-Pm-MXr" id="kaL-AW-HyU"/>
+                        <outlet property="logo" destination="EVM-zW-m1a" id="3lD-PD-ZUq"/>
+                        <outlet property="passwordTextField" destination="UHN-fU-71F" id="kCs-4R-Huv"/>
+                        <outlet property="registerButton" destination="R2z-V2-mSq" id="Ax2-bD-iEj"/>
+                        <outlet property="registerFormView" destination="EM8-Sn-K8T" id="UGr-Ie-diw"/>
+                        <outlet property="usernameTextField" destination="83h-IP-zpB" id="ULq-OV-lCC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o8W-Ew-4n4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1863" y="498"/>
+        </scene>
         <!--Discover-->
         <scene sceneID="reo-PT-vFf">
             <objects>
                 <viewController title="Discover" id="Mip-Ie-Ets" customClass="DiscoverViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kts-Gh-mxd">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="🔍Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2XX-wY-Eav">
@@ -46,7 +139,7 @@
             <objects>
                 <viewController title="Series" id="mRJ-hz-3na" customClass="SeriesViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e2V-Rh-zTE">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Series" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9w-se-Et2">
@@ -71,11 +164,11 @@
             <objects>
                 <viewController title="Account" id="GjO-Lu-puz" customClass="AccountViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c3S-bV-NDz">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PN-Rh-afu">
-                                <rect key="frame" x="40" y="44" width="310" height="21"/>
+                                <rect key="frame" x="40" y="0.0" width="310" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="1sI-oP-ntD"/>
                                 </constraints>
@@ -84,7 +177,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61u-q6-gPi">
-                                <rect key="frame" x="0.0" y="92" width="390" height="170"/>
+                                <rect key="frame" x="0.0" y="48" width="390" height="170"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="zmv-tS-eq8">
                                         <rect key="frame" x="8" y="8" width="120" height="154"/>
@@ -273,7 +366,7 @@
             <objects>
                 <viewController title="Movies" id="Tz4-Jh-snU" customClass="MoviesViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YBQ-hj-t4H">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="76h-I2-MoL">
@@ -376,7 +469,7 @@
             <objects>
                 <viewController id="TwG-vY-6VA" customClass="DetailViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ypq-kj-ivt">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-93-1eL">
@@ -440,9 +533,12 @@
                                         <rect key="frame" x="73" y="220" width="213" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
-                                        <state key="normal" title="Log in"/>
+                                        <state key="normal" title="Log in🎬"/>
+                                        <connections>
+                                            <action selector="LoginPressed:" destination="m5X-bw-jZZ" eventType="touchUpInside" id="tSf-P0-DoR"/>
+                                        </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First time here? Sign up for free: " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P1x-1n-qVm">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First time here? Register for free: " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P1x-1n-qVm">
                                         <rect key="frame" x="90" y="275" width="179" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -453,7 +549,10 @@
                                         <rect key="frame" x="73" y="333" width="213" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" systemColor="systemTealColor"/>
-                                        <state key="normal" title="Sign up"/>
+                                        <state key="normal" title="Register"/>
+                                        <connections>
+                                            <action selector="RegisterPressed:" destination="m5X-bw-jZZ" eventType="touchUpInside" id="3uM-H4-jdI"/>
+                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="QhU-5V-7he">
                                         <rect key="frame" x="8" y="79" width="35" height="35"/>
@@ -466,6 +565,10 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.10273407746082501" green="0.20732109411359095" blue="0.29261712560815967" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Guu-ZO-GgH">
+                                <rect key="frame" x="16" y="44" width="85" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SX4-tN-Z7I"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -474,8 +577,11 @@
                         <outlet property="LoginButton" destination="JTr-fN-kTC" id="4vd-a3-sTv"/>
                         <outlet property="RegisterButton" destination="7Ks-me-RZc" id="fyc-TL-fxy"/>
                         <outlet property="loginFormView" destination="xRH-Ez-Dw6" id="HAj-Gc-AFY"/>
+                        <outlet property="logo" destination="Guu-ZO-GgH" id="dSB-lE-XKO"/>
                         <outlet property="passwordTextField" destination="A6f-hR-aEG" id="KnJ-4v-9dt"/>
                         <outlet property="usernameTextField" destination="hrh-Wd-iD4" id="MLt-sN-2ZE"/>
+                        <segue destination="F6h-S1-uCI" kind="showDetail" identifier="login" id="yvC-0z-jPH"/>
+                        <segue destination="QTf-js-Yhi" kind="showDetail" identifier="openRegister" id="a5g-mt-bQE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lvm-Rb-Zkx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -486,6 +592,7 @@
         <scene sceneID="Dxf-l6-toY">
             <objects>
                 <tabBarController id="F6h-S1-uCI" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="tQX-wr-wc0"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ewq-vz-vl9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -510,7 +617,7 @@
                     <tabBarItem key="tabBarItem" title="Movies" image="film" catalog="system" id="zZv-iO-6vE" userLabel="Movies"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="raX-lg-H8f">
-                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0079653048889999998" green="0.043737091120000002" blue="0.1230909005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.0081592658529999994" green="0.048090934750000001" blue="0.13081881400000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -530,6 +637,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="at" width="512" height="512"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="film" catalog="system" width="128" height="93"/>
