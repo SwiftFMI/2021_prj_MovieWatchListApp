@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		843ECA9F27A856E900F6BE55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */; };
+		845557BF27B52B64005E253B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845557BE27B52B64005E253B /* Utilities.swift */; };
 		8470476127A85D34003C7BE6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8470476027A85D34003C7BE6 /* FirebaseAuth */; };
 		8470476327A85D34003C7BE6 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8470476227A85D34003C7BE6 /* FirebaseDatabase */; };
 		F517D16A27ADA69500C4BD80 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517D16927ADA69500C4BD80 /* DetailViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		845557BE27B52B64005E253B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		F517D16927ADA69500C4BD80 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F517D16B27ADA8C600C4BD80 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		F5281A5227B425CB003959EC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +67,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		845557BD27B52B42005E253B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				845557BE27B52B64005E253B /* Utilities.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		F5281A5127B42593003959EC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		F5DCE1D727A84D0100E0592C /* MovieWatchListApp */ = {
 			isa = PBXGroup;
 			children = (
+				845557BD27B52B42005E253B /* Helpers */,
 				F5281A5127B42593003959EC /* ViewControllers */,
 				F5F71D7927B2C426004A9E6F /* ViewCellsModels */,
 				F54B038727A9902400D9BD7D /* Models */,
@@ -212,6 +223,7 @@
 				F517D16A27ADA69500C4BD80 /* DetailViewController.swift in Sources */,
 				F5DCE1DD27A84D0100E0592C /* SeriesViewController.swift in Sources */,
 				F5F71D7D27B2C570004A9E6F /* SettingsModelData.swift in Sources */,
+				845557BF27B52B64005E253B /* Utilities.swift in Sources */,
 				F555562D27A8829700DB015E /* AccountViewController.swift in Sources */,
 				F5DCE1D927A84D0100E0592C /* AppDelegate.swift in Sources */,
 				F555562F27A882B000DB015E /* DiscoverViewController.swift in Sources */,
