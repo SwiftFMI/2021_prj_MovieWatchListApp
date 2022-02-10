@@ -14,7 +14,7 @@
             <objects>
                 <viewController id="QTf-js-Yhi" customClass="RegisterViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5vh-b7-IGy">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EM8-Sn-K8T">
@@ -96,18 +96,19 @@
                         <outlet property="registerButton" destination="R2z-V2-mSq" id="Ax2-bD-iEj"/>
                         <outlet property="registerFormView" destination="EM8-Sn-K8T" id="UGr-Ie-diw"/>
                         <outlet property="usernameTextField" destination="83h-IP-zpB" id="ULq-OV-lCC"/>
+                        <segue destination="m5X-bw-jZZ" kind="presentation" identifier="registerSuccess" modalPresentationStyle="fullScreen" id="zgR-JV-qT6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o8W-Ew-4n4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1863" y="498"/>
+            <point key="canvasLocation" x="-2911" y="556"/>
         </scene>
         <!--Discover-->
         <scene sceneID="reo-PT-vFf">
             <objects>
                 <viewController title="Discover" id="Mip-Ie-Ets" customClass="DiscoverViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kts-Gh-mxd">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="🔍Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2XX-wY-Eav">
@@ -139,7 +140,7 @@
             <objects>
                 <viewController title="Series" id="mRJ-hz-3na" customClass="SeriesViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="e2V-Rh-zTE">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Series" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9w-se-Et2">
@@ -164,11 +165,11 @@
             <objects>
                 <viewController title="Account" id="GjO-Lu-puz" customClass="AccountViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c3S-bV-NDz">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PN-Rh-afu">
-                                <rect key="frame" x="40" y="0.0" width="310" height="21"/>
+                                <rect key="frame" x="40" y="44" width="310" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="1sI-oP-ntD"/>
                                 </constraints>
@@ -177,7 +178,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61u-q6-gPi">
-                                <rect key="frame" x="0.0" y="48" width="390" height="170"/>
+                                <rect key="frame" x="0.0" y="92" width="390" height="170"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="zmv-tS-eq8">
                                         <rect key="frame" x="8" y="8" width="120" height="154"/>
@@ -366,7 +367,7 @@
             <objects>
                 <viewController title="Movies" id="Tz4-Jh-snU" customClass="MoviesViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YBQ-hj-t4H">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="76h-I2-MoL">
@@ -469,7 +470,7 @@
             <objects>
                 <viewController id="TwG-vY-6VA" customClass="DetailViewController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ypq-kj-ivt">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="790"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bf0-93-1eL">
@@ -573,6 +574,7 @@
                         <viewLayoutGuide key="safeArea" id="SX4-tN-Z7I"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="T2O-9g-2lt"/>
                     <connections>
                         <outlet property="LoginButton" destination="JTr-fN-kTC" id="4vd-a3-sTv"/>
                         <outlet property="RegisterButton" destination="7Ks-me-RZc" id="fyc-TL-fxy"/>
@@ -580,8 +582,8 @@
                         <outlet property="logo" destination="Guu-ZO-GgH" id="dSB-lE-XKO"/>
                         <outlet property="passwordTextField" destination="A6f-hR-aEG" id="KnJ-4v-9dt"/>
                         <outlet property="usernameTextField" destination="hrh-Wd-iD4" id="MLt-sN-2ZE"/>
-                        <segue destination="F6h-S1-uCI" kind="showDetail" identifier="login" id="yvC-0z-jPH"/>
-                        <segue destination="QTf-js-Yhi" kind="showDetail" identifier="openRegister" id="a5g-mt-bQE"/>
+                        <segue destination="F6h-S1-uCI" kind="presentation" identifier="login" modalPresentationStyle="fullScreen" id="yvC-0z-jPH"/>
+                        <segue destination="QTf-js-Yhi" kind="presentation" identifier="openRegister" modalPresentationStyle="fullScreen" id="a5g-mt-bQE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lvm-Rb-Zkx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -617,7 +619,7 @@
                     <tabBarItem key="tabBarItem" title="Movies" image="film" catalog="system" id="zZv-iO-6vE" userLabel="Movies"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="raX-lg-H8f">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0079653048889999998" green="0.043737091120000002" blue="0.1230909005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.0081592658529999994" green="0.048090934750000001" blue="0.13081881400000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -644,8 +646,8 @@
         <image name="key" width="512" height="512"/>
         <image name="logo" width="200" height="200"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="person" catalog="system" width="128" height="117"/>
         <image name="person" width="128" height="128"/>
+        <image name="person" catalog="system" width="128" height="117"/>
         <image name="recordingtape" catalog="system" width="128" height="60"/>
         <image name="user" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">

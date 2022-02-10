@@ -63,6 +63,8 @@ class RegisterViewController : UIViewController {
         } else {
           // create user
         }
+//        performSegue(withIdentifier: "registerSuccess", sender: sender)
+        dismiss(animated: true, completion: nil)
     }
     
     func showError(_ message:String) {
