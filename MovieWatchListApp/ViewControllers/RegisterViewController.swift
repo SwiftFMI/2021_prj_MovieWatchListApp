@@ -1,5 +1,5 @@
 import UIKit
-
+import Firebase
 class RegisterViewController : UIViewController {
     
     @IBOutlet weak var logo: UIImageView!
@@ -24,6 +24,12 @@ class RegisterViewController : UIViewController {
             passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
             confirmPasswordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
             return "Please fill in all fields"
+        }
+        //Valid Username
+        let cleanedUsername = usernameTextField.text!.trimmingCharacters(in: .whitespaces)
+        
+        if !Utilities.isUsernameValid(cleanedUsername) {
+            return "Wrong username format"
         }
         
         //Valid Password
@@ -62,6 +68,20 @@ class RegisterViewController : UIViewController {
              showError(error!)
         } else {
           // create user
+            let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:
+                .whitespacesAndNewlines)
+            let cleanedEmail = emailTextField.text!.trimmingCharacters(in:
+                .whitespacesAndNewlines)
+            
+            Auth.auth().createUser(withEmail: cleanedEmail, password: cleanedPassword) { authResult, error in
+                if error != nil {
+                    // error?.localizedDescription //error description message
+                    self.showError("Error creating user")
+                }
+                else {
+                    
+                }
+            }
         }
 //        performSegue(withIdentifier: "registerSuccess", sender: sender)
         dismiss(animated: true, completion: nil)
