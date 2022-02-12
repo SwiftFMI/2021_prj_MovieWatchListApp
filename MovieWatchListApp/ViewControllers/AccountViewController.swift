@@ -43,4 +43,21 @@ extension AccountViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = .clear
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if settings[indexPath.row].label == "Log out" {
+            performSegue(withIdentifier: "logout", sender: nil)
+        }
+        else if settings[indexPath.row].label == "General" {
+            performSegue(withIdentifier: "openGeneralSettings", sender: nil)
+        }
+    }
+}
+
+
+class GeneralSettingsViewController : UITableViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
 }
