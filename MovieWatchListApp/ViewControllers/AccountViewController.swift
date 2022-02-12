@@ -51,6 +51,9 @@ extension AccountViewController : UITableViewDelegate {
         else if settings[indexPath.row].label == "General" {
             performSegue(withIdentifier: "openGeneralSettings", sender: nil)
         }
+        else if settings[indexPath.row].label == "About" {
+            performSegue(withIdentifier: "openAboutSettings", sender: nil)
+        }
     }
 }
 
@@ -58,6 +61,13 @@ extension AccountViewController : UITableViewDelegate {
 class GeneralSettingsViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.tableFooterView = UIView(frame: .zero)
+    }
+}
+
+class AboutSettingsViewController : UITableViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.tableFooterView = UIView(frame: .zero)
     }
 }
