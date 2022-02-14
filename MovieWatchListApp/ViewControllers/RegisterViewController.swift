@@ -1,5 +1,6 @@
 import UIKit
 import Firebase
+import FirebaseFirestore
 class RegisterViewController : UIViewController {
     
     @IBOutlet weak var logo: UIImageView!
@@ -16,7 +17,7 @@ class RegisterViewController : UIViewController {
         registerFormView.layer.cornerRadius = 30
         registerButton.layer.cornerRadius = 30
     }
-
+    
     
     func validateFields() -> String? {
         if usernameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -34,7 +35,7 @@ class RegisterViewController : UIViewController {
         
         //Valid Password
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:
-            .whitespacesAndNewlines)
+                                                                                .whitespacesAndNewlines)
         
         if !Utilities.isPasswordValid(cleanedPassword) {
             return "Wrong password format"
@@ -42,7 +43,7 @@ class RegisterViewController : UIViewController {
         
         // Valid Email
         let cleanedEmail = emailTextField.text!.trimmingCharacters(in:
-            .whitespacesAndNewlines)
+                                                                        .whitespacesAndNewlines)
         
         if !Utilities.isEmailValid(cleanedEmail) {
             return "Invalid email"
@@ -50,7 +51,7 @@ class RegisterViewController : UIViewController {
         
         // Confirmed Password
         let cleanedConfirmPassword = confirmPasswordTextField.text!.trimmingCharacters(in:
-            .whitespacesAndNewlines)
+                                                                                            .whitespacesAndNewlines)
         
         if cleanedPassword != cleanedConfirmPassword {
             return "Passwords do not match"
@@ -65,13 +66,14 @@ class RegisterViewController : UIViewController {
         
         if error != nil {
             // There is an error
-             showError(error!)
+            showError(error!)
         } else {
-          // create user
+            // create user
             let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:
-                .whitespacesAndNewlines)
+                                                                                    .whitespacesAndNewlines)
             let cleanedEmail = emailTextField.text!.trimmingCharacters(in:
-                .whitespacesAndNewlines)
+                                                                            .whitespacesAndNewlines)
+            let cleanedUsername = usernameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
             Auth.auth().createUser(withEmail: cleanedEmail, password: cleanedPassword) { authResult, error in
                 if error != nil {
@@ -79,11 +81,17 @@ class RegisterViewController : UIViewController {
                     self.showError("Error creating user")
                 }
                 else {
-                    
+                    let db = Firestore.firestore()
+                    db.collection("users").addDocument(data: ["username":cleanedUsername, "uid": authResult!.user.uid, "watchedMovies":[], "watchedSeries":[]]) {(error) in
+                        
+                        if error != nil {
+                            self.showError("Error saving user data")
+                        }
+                    }
                 }
             }
         }
-//        performSegue(withIdentifier: "registerSuccess", sender: sender)
+        //        performSegue(withIdentifier: "registerSuccess", sender: sender)
         dismiss(animated: true, completion: nil)
     }
     
