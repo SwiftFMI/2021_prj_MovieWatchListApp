@@ -12,10 +12,17 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var config: [String: Any]?
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseApp.configure()
+        FirebaseApp.configure()        
+        if let infoPlistPath = Bundle.main.path(forResource: "Info", ofType: "plist"),
+           let dict = NSDictionary(contentsOfFile: infoPlistPath) as? [String: Any] {
+            config = dict
+        }
+        print(config!["API_KEY"]!)
         return true
     }
 
