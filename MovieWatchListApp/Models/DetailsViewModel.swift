@@ -1,6 +1,6 @@
 import UIKit
 
-struct Details{
+struct Details {
     let title: String
     let image: String
     let raiting: Int

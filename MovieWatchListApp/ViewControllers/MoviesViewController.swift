@@ -52,8 +52,8 @@ extension MoviesViewController : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieViewCell
         let moviesForCategory = mockMovies.listOfMovies[indexPath.section].movies
         cell.movieTitle.text = moviesForCategory[indexPath.row].title
-        cell.movieRaiting.text =  moviesForCategory[indexPath.row].raiting?.description
-        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
+//        cell.movieRaiting.text =  moviesForCategory[indexPath.row].raiting?.description
+//        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
         return cell
     }
     
