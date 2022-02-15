@@ -8,6 +8,8 @@ class LoginViewController : UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var LoginButton: UIButton!
     @IBOutlet weak var RegisterButton: UIButton!
+    @IBOutlet weak var validationMessage: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBackground()
@@ -17,6 +19,9 @@ class LoginViewController : UIViewController {
         logo.layer.cornerRadius = logo.frame.height/2
     }
     @IBAction func LoginPressed(_ sender: Any) {
+//        if invalid {
+//            validationMessage.text = "Error"
+//        }
         performSegue(withIdentifier: "login", sender: sender)
     }
     @IBAction func RegisterPressed(_ sender: Any) {

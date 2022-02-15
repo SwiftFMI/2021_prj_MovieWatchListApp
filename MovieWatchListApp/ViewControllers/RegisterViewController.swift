@@ -10,6 +10,8 @@ class RegisterViewController : UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var validationMessage: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBackground()
@@ -62,6 +64,8 @@ class RegisterViewController : UIViewController {
     
     @IBAction func RegisterPressed(_ sender: Any) {
         
+        activityIndicator.startAnimating()
+        
         let error = validateFields()
         
         if error != nil {
@@ -91,12 +95,11 @@ class RegisterViewController : UIViewController {
                 }
             }
         }
-        //        performSegue(withIdentifier: "registerSuccess", sender: sender)
+        activityIndicator.stopAnimating()
         dismiss(animated: true, completion: nil)
     }
     
     func showError(_ message:String) {
-        // errorLabel.text = message
-        // errorLabel.alpha = 1
+        validationMessage.text = message
     }
 }
