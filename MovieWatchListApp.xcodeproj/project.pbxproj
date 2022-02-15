@@ -16,6 +16,10 @@
 		84B6C11F27BAF1F1006A1DD3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 84B6C11E27BAF1F1006A1DD3 /* FirebaseFirestore */; };
 		84B6C12127BAF1FD006A1DD3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 84B6C12027BAF1FD006A1DD3 /* FirebaseStorage */; };
 		84B6C12327BAF55C006A1DD3 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 84B6C12227BAF55C006A1DD3 /* FirebaseFirestoreSwift-Beta */; };
+		84E392F827BC3F80006BDDB0 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E392F727BC3F80006BDDB0 /* Genre.swift */; };
+		84E392FA27BC402B006BDDB0 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E392F927BC402B006BDDB0 /* MovieService.swift */; };
+		84E392FC27BC4C98006BDDB0 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 84E392FB27BC4C98006BDDB0 /* Secrets.xcconfig */; };
+		84E3930027BC5EDF006BDDB0 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E392FF27BC5EDF006BDDB0 /* Media.swift */; };
 		F517D16A27ADA69500C4BD80 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517D16927ADA69500C4BD80 /* DetailViewController.swift */; };
 		F517D16C27ADA8C600C4BD80 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517D16B27ADA8C600C4BD80 /* DetailsViewModel.swift */; };
 		F5281A5327B425CB003959EC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5281A5227B425CB003959EC /* LoginViewController.swift */; };
@@ -44,6 +48,10 @@
 		845557BE27B52B64005E253B /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		84B6C11927BAD83E006A1DD3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84B6C11B27BADC71006A1DD3 /* Series.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Series.swift; sourceTree = "<group>"; };
+		84E392F727BC3F80006BDDB0 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		84E392F927BC402B006BDDB0 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieService.swift; path = MovieWatchListApp/Models/MovieService.swift; sourceTree = SOURCE_ROOT; };
+		84E392FB27BC4C98006BDDB0 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
+		84E392FF27BC5EDF006BDDB0 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		F517D16927ADA69500C4BD80 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F517D16B27ADA8C600C4BD80 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		F5281A5227B425CB003959EC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +104,7 @@
 		84826B4027BA841F00C32675 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				84E392F927BC402B006BDDB0 /* MovieService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -131,6 +140,8 @@
 				F5F71D7C27B2C570004A9E6F /* SettingsModelData.swift */,
 				84B6C11927BAD83E006A1DD3 /* User.swift */,
 				84B6C11B27BADC71006A1DD3 /* Series.swift */,
+				84E392F727BC3F80006BDDB0 /* Genre.swift */,
+				84E392FF27BC5EDF006BDDB0 /* Media.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,7 +149,7 @@
 		F5DCE1CC27A84D0100E0592C = {
 			isa = PBXGroup;
 			children = (
-				F5CDE88A27BC322100767CBB /* Secrets.xcconfig */,
+				84E392FB27BC4C98006BDDB0 /* Secrets.xcconfig */,
 				F5DCE1D727A84D0100E0592C /* MovieWatchListApp */,
 				F5DCE1D627A84D0100E0592C /* Products */,
 				84B6C11D27BAF1F1006A1DD3 /* Frameworks */,
@@ -251,7 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5DCE1E527A84D0200E0592C /* LaunchScreen.storyboard in Resources */,
-				F5CDE88B27BC322100767CBB /* Secrets.xcconfig in Resources */,
+				84E392FC27BC4C98006BDDB0 /* Secrets.xcconfig in Resources */,
 				843ECA9F27A856E900F6BE55 /* GoogleService-Info.plist in Resources */,
 				F5DCE1E227A84D0200E0592C /* Assets.xcassets in Resources */,
 				F5DCE1E027A84D0100E0592C /* Main.storyboard in Resources */,
@@ -267,17 +278,20 @@
 			files = (
 				F567D09E27B7F82A002BF1C6 /* LogoutModalViewController.swift in Sources */,
 				F517D16A27ADA69500C4BD80 /* DetailViewController.swift in Sources */,
+				84E3930027BC5EDF006BDDB0 /* Media.swift in Sources */,
 				F5DCE1DD27A84D0100E0592C /* SeriesViewController.swift in Sources */,
 				F5F71D7D27B2C570004A9E6F /* SettingsModelData.swift in Sources */,
 				845557BF27B52B64005E253B /* Utilities.swift in Sources */,
 				F555562D27A8829700DB015E /* AccountViewController.swift in Sources */,
 				84B6C11C27BADC71006A1DD3 /* Series.swift in Sources */,
+				84E392F827BC3F80006BDDB0 /* Genre.swift in Sources */,
 				F5DCE1D927A84D0100E0592C /* AppDelegate.swift in Sources */,
 				84B6C11A27BAD83E006A1DD3 /* User.swift in Sources */,
 				F555562F27A882B000DB015E /* DiscoverViewController.swift in Sources */,
 				F54B038627A98D7E00D9BD7D /* MoviesViewCell.swift in Sources */,
 				F5F71D7B27B2C452004A9E6F /* SettingsViewCell.swift in Sources */,
 				F5DCE1DB27A84D0100E0592C /* SceneDelegate.swift in Sources */,
+				84E392FA27BC402B006BDDB0 /* MovieService.swift in Sources */,
 				F5281A5527B45237003959EC /* RegisterViewController.swift in Sources */,
 				F517D16C27ADA8C600C4BD80 /* DetailsViewModel.swift in Sources */,
 				F54B038927A9903B00D9BD7D /* Movie.swift in Sources */,

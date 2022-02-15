@@ -1,10 +1,3 @@
-//
-//  Utilities.swift
-//  MovieWatchListApp
-//
-//  Created by Admin on 10.02.22.
-//
-
 import Foundation
 
 
@@ -28,5 +21,11 @@ class Utilities {
         let usernameMatch = NSPredicate(format:"SELF MATCHES %@", usernameRegex)
         return usernameMatch.evaluate(with: username)
     }
+    
+    static let dateFormatter: DateFormatter = {
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-mm-dd"
+           return dateFormatter
+       }()
     
 }
