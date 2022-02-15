@@ -32,6 +32,9 @@ class MoviesViewController: UIViewController {
             }
         }
 
+    @IBAction func searchClicked(_ sender: Any) {
+        performSegue(withIdentifier: "openSearchBox", sender: nil)
+    }
 }
 
 extension MoviesViewController : UICollectionViewDataSource {

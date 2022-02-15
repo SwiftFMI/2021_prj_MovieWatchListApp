@@ -4,12 +4,10 @@ class LogoutModalViewController : UIViewController {
     
     @IBOutlet weak var modalView: UIView!
     @IBOutlet weak var signOutButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         modalView.layer.cornerRadius = 30
         signOutButton.layer.cornerRadius = signOutButton.frame.height/2
-        cancelButton.layer.cornerRadius = cancelButton.frame.height/2
     }
     @IBAction func closeModalView(_ sender: Any) {
         dismiss(animated: true, completion: nil)

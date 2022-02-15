@@ -28,6 +28,7 @@
 		F567D09E27B7F82A002BF1C6 /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */; };
 		F5CDE88927BC31DF00767CBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5CDE88827BC31DF00767CBB /* Alamofire */; };
 		F5CDE88B27BC322100767CBB /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5CDE88A27BC322100767CBB /* Secrets.xcconfig */; };
+		F5CDE88D27BC4ECA00767CBB /* SearchModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */; };
 		F5DCE1D927A84D0100E0592C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DCE1D827A84D0100E0592C /* AppDelegate.swift */; };
 		F5DCE1DB27A84D0100E0592C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DCE1DA27A84D0100E0592C /* SceneDelegate.swift */; };
 		F5DCE1DD27A84D0100E0592C /* SeriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DCE1DC27A84D0100E0592C /* SeriesViewController.swift */; };
@@ -54,6 +55,7 @@
 		F555562E27A882B000DB015E /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
 		F5CDE88A27BC322100767CBB /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
+		F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModalViewController.swift; sourceTree = "<group>"; };
 		F5DCE1D527A84D0100E0592C /* MovieWatchListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieWatchListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DCE1D827A84D0100E0592C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5DCE1DA27A84D0100E0592C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				F5281A5227B425CB003959EC /* LoginViewController.swift */,
 				F5281A5427B45237003959EC /* RegisterViewController.swift */,
 				F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */,
+				F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				F517D16C27ADA8C600C4BD80 /* DetailsViewModel.swift in Sources */,
 				F54B038927A9903B00D9BD7D /* Movie.swift in Sources */,
 				F5281A5327B425CB003959EC /* LoginViewController.swift in Sources */,
+				F5CDE88D27BC4ECA00767CBB /* SearchModalViewController.swift in Sources */,
 				F555562B27A880F600DB015E /* MoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
