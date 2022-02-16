@@ -9,7 +9,7 @@ struct Series: Identifiable, Codable,Media {
     var summary: String
     var language: String
     var genresIDs: [Int]
-    var genres: [Genre]
+    var genres: [Genre]?
     var seasons: Int
     var rating: Double
     var releaseDate: String?

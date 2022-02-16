@@ -3,7 +3,7 @@ import Alamofire
 
 public enum ApiRequest: URLRequestConvertible {
     
-    static let baseURL = "https://api.themoviedb.org/3"
+    static let baseURL:String = "https://api.themoviedb.org/3"
     static let jsonDecoder = Utilities.jsonDecoder
     static var apiKey = Utilities.getApiKey()
     
@@ -19,7 +19,7 @@ public enum ApiRequest: URLRequestConvertible {
         }
     }
     
-    var path: String {
+    public var path: String {
         switch self {
         case .fetchSeriesByID(let id):
             return "/tv/\(id)"

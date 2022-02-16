@@ -2,7 +2,7 @@ import Foundation
 
 protocol Media {
     var posterPath: String? { get  set }
-    var genres: [Genre] { get  set }
+    var genres: [Genre]? { get  set }
     var genresIDs : [Int] { get set }
     var summary: String { get set }
     var language: String { get set }
@@ -16,7 +16,7 @@ extension Media {
     }
     
     var genreText: String {
-        genres.first?.name ?? "n/a"
+        genres?.first?.name ?? "n/a"
     }
     
     var yearText: String {

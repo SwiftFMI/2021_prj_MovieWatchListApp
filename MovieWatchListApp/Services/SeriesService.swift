@@ -9,7 +9,7 @@ class SeriesService {
         fetchEntity(from: ApiRequest.fetchSeriesByID(id), successHandler: successHandler, errorHandler: errorHandler)
     }
     
-    func searchMovie(query: String, successHandler: @escaping (MovieSearch) -> Void, errorHandler: @escaping (SearchError) -> Void) {
+    func searchSeries(query: String, successHandler: @escaping (MovieSearch) -> Void, errorHandler: @escaping (SearchError) -> Void) {
         fetchEntity(from: ApiRequest.searchSeriesByText(query), successHandler: successHandler, errorHandler: errorHandler)
     }
 }
