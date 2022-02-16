@@ -1,10 +1,6 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct SeriesResponse {
-    let response:[Series]
-}
-
 struct Series: Identifiable, Codable,Media {
     @DocumentID var id: String? = UUID().uuidString
     var seriesId: Int
@@ -12,6 +8,7 @@ struct Series: Identifiable, Codable,Media {
     var posterPath: String?
     var summary: String
     var language: String
+    var genresIDs: [Int]
     var genres: [Genre]
     var seasons: Int
     var rating: Double
@@ -23,6 +20,7 @@ struct Series: Identifiable, Codable,Media {
         case posterPath = "poster_path"
         case summary = "overview"
         case language = "original_language"
+        case genresIDs = "genre_ids"
         case genres
         case seasons = "number_of_episodes"
         case rating = "vote_average"

@@ -1,17 +1,14 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct MovieResponse {
-    let result:[Movie]
-}
-
 struct Movie: Identifiable, Codable,Media {
     @DocumentID var id: String? = UUID().uuidString
     var movieId: Int
     var title: String
-    var summary: String
     var posterPath: String?
+    var summary: String
     var language: String
+    var genresIDs: [Int]
     var genres: [Genre]
     var rating: Double
     var releaseDate: String?
@@ -19,27 +16,14 @@ struct Movie: Identifiable, Codable,Media {
     enum CodingKeys: String, CodingKey {
         case movieId = "id"
         case title
-        case summary = "overview"
         case posterPath = "poster_path"
-        case genres
+        case summary = "overview"
         case language = "original_language"
+        case genresIDs = "genre_ids"
+        case genres
         case rating = "vote_average"
         case releaseDate = "release_date"
     }
-    //    var posterURL: URL {
-    //        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
-    //    }
-    //
-    //    var genreText: String {
-    //        genres.first?.name ?? "n/a"
-    //    }
-    //
-    //    var yearText: String {
-    //        guard let releaseDate = self.releaseDate, let date = Utilities.dateFormatter.date(from: releaseDate) else {
-    //            return "n/a"
-    //        }
-    //        return Utilities.dateFormatter.string(from: date)
-    //    }
 }
 
 struct Movies {
