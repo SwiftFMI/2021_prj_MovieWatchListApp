@@ -1,6 +1,10 @@
 import Foundation
 import FirebaseFirestoreSwift
 
+struct SeriesResponse {
+    let response:[Series]
+}
+
 struct Series: Identifiable, Codable,Media {
     @DocumentID var id: String? = UUID().uuidString
     var seriesId: Int

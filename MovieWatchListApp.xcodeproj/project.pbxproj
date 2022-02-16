@@ -31,7 +31,6 @@
 		F555562F27A882B000DB015E /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562E27A882B000DB015E /* DiscoverViewController.swift */; };
 		F567D09E27B7F82A002BF1C6 /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */; };
 		F5CDE88927BC31DF00767CBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5CDE88827BC31DF00767CBB /* Alamofire */; };
-		F5CDE88B27BC322100767CBB /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5CDE88A27BC322100767CBB /* Secrets.xcconfig */; };
 		F5CDE88D27BC4ECA00767CBB /* SearchModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */; };
 		F5DCE1D927A84D0100E0592C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DCE1D827A84D0100E0592C /* AppDelegate.swift */; };
 		F5DCE1DB27A84D0100E0592C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DCE1DA27A84D0100E0592C /* SceneDelegate.swift */; };
@@ -49,7 +48,7 @@
 		84B6C11927BAD83E006A1DD3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84B6C11B27BADC71006A1DD3 /* Series.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Series.swift; sourceTree = "<group>"; };
 		84E392F727BC3F80006BDDB0 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
-		84E392F927BC402B006BDDB0 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieService.swift; path = MovieWatchListApp/Models/MovieService.swift; sourceTree = SOURCE_ROOT; };
+		84E392F927BC402B006BDDB0 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieService.swift; path = MovieWatchListApp/Services/MovieService.swift; sourceTree = SOURCE_ROOT; };
 		84E392FB27BC4C98006BDDB0 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
 		84E392FF27BC5EDF006BDDB0 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		F517D16927ADA69500C4BD80 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -62,7 +61,6 @@
 		F555562C27A8829700DB015E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		F555562E27A882B000DB015E /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
-		F5CDE88A27BC322100767CBB /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
 		F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModalViewController.swift; sourceTree = "<group>"; };
 		F5DCE1D527A84D0100E0592C /* MovieWatchListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieWatchListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DCE1D827A84D0100E0592C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,7 +99,7 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		84826B4027BA841F00C32675 /* Services */ = {
+		849A8B8F27BC7DB8003CEDF4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				84E392F927BC402B006BDDB0 /* MovieService.swift */,
@@ -167,7 +165,7 @@
 		F5DCE1D727A84D0100E0592C /* MovieWatchListApp */ = {
 			isa = PBXGroup;
 			children = (
-				84826B4027BA841F00C32675 /* Services */,
+				849A8B8F27BC7DB8003CEDF4 /* Services */,
 				845557BD27B52B42005E253B /* Helpers */,
 				F5281A5127B42593003959EC /* ViewControllers */,
 				F5F71D7927B2C426004A9E6F /* ViewCellsModels */,

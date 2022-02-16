@@ -3,6 +3,13 @@ import Foundation
 
 class Utilities {
     
+    static func getApiKey() -> String {
+        if let infoPlistPath = Bundle.main.path(forResource: "Info", ofType: "plist"),
+           let dict = NSDictionary(contentsOfFile: infoPlistPath) as? [String: Any] {
+            return dict["API_KEY"] as! String
+        }
+        return ""
+    }
     static func isPasswordValid(_ password: String) -> Bool {
         // Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number
         let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
@@ -22,10 +29,17 @@ class Utilities {
         return usernameMatch.evaluate(with: username)
     }
     
+    static let jsonDecoder: JSONDecoder = {
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+        jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
+        return jsonDecoder
+    }()
+    
     static let dateFormatter: DateFormatter = {
-           let dateFormatter = DateFormatter()
-           dateFormatter.dateFormat = "yyyy-mm-dd"
-           return dateFormatter
-       }()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        return dateFormatter
+    }()
     
 }

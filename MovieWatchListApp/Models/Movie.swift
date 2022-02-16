@@ -1,6 +1,10 @@
 import Foundation
 import FirebaseFirestoreSwift
 
+struct MovieResponse {
+    let result:[Movie]
+}
+
 struct Movie: Identifiable, Codable,Media {
     @DocumentID var id: String? = UUID().uuidString
     var movieId: Int
@@ -22,20 +26,20 @@ struct Movie: Identifiable, Codable,Media {
         case rating = "vote_average"
         case releaseDate = "release_date"
     }
-//    var posterURL: URL {
-//        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
-//    }
-//
-//    var genreText: String {
-//        genres.first?.name ?? "n/a"
-//    }
-//
-//    var yearText: String {
-//        guard let releaseDate = self.releaseDate, let date = Utilities.dateFormatter.date(from: releaseDate) else {
-//            return "n/a"
-//        }
-//        return Utilities.dateFormatter.string(from: date)
-//    }
+    //    var posterURL: URL {
+    //        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
+    //    }
+    //
+    //    var genreText: String {
+    //        genres.first?.name ?? "n/a"
+    //    }
+    //
+    //    var yearText: String {
+    //        guard let releaseDate = self.releaseDate, let date = Utilities.dateFormatter.date(from: releaseDate) else {
+    //            return "n/a"
+    //        }
+    //        return Utilities.dateFormatter.string(from: date)
+    //    }
 }
 
 struct Movies {
@@ -46,9 +50,9 @@ struct Movies {
 
 struct MockModel {
     var listOfMovies = [Movies]()
-//    var listOfMovies = [
-//        Movies( category: "Watched", isExpanded: true, movies: [Movie(title: "Iron Man", posterImage: UIImage(named: ""), raiting: 9)]),
-//        Movies( category: "Watching now", isExpanded: true, movies: [Movie(title: "Hulk", posterImage: UIImage(named: ""), raiting: 3)]),
-//        Movies( category: "Plan to watch", isExpanded: true, movies: [Movie(title: "Doctor Strange", posterImage: UIImage(named: ""), raiting: 7), Movie(title: "Moon Night", posterImage: UIImage(named: ""), raiting: -1)])
-//    ]
+    //    var listOfMovies = [
+    //        Movies( category: "Watched", isExpanded: true, movies: [Movie(title: "Iron Man", posterImage: UIImage(named: ""), raiting: 9)]),
+    //        Movies( category: "Watching now", isExpanded: true, movies: [Movie(title: "Hulk", posterImage: UIImage(named: ""), raiting: 3)]),
+    //        Movies( category: "Plan to watch", isExpanded: true, movies: [Movie(title: "Doctor Strange", posterImage: UIImage(named: ""), raiting: 7), Movie(title: "Moon Night", posterImage: UIImage(named: ""), raiting: -1)])
+    //    ]
 }
