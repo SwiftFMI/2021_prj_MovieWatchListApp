@@ -11,10 +11,11 @@ func addBackground() {
     self.sendSubviewToBack(backgroundImageView)
 }}
 
-class MoviesViewController: UIViewController {
+class MoviesViewController: UIViewController, DataEnteredDelegate {
     
     @IBOutlet weak var moviesCollectionView: UICollectionView!
     var mockMovies = MockModel()
+    var filter = MovieSearchFilter(title: nil, genre: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,14 +24,23 @@ class MoviesViewController: UIViewController {
         
     }
 
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             super.prepare(for: segue, sender: sender)
             if segue.identifier == "openMovieDetails" {
-                    if let next = segue.destination as! DetailViewController? {
+                    if let next = segue.destination as! MovieDetailViewController? {
                         next.details = sender as? Details
                             }
             }
-        }
+            if segue.identifier == "openSearchBox" {
+                let searchViewController = segue.destination as! SearchModalViewController
+                searchViewController.delegate = self
+            }
+    }
+    
+    func updateFilter(searchFilter: MovieSearchFilter) {
+        filter.title = searchFilter.title
+        filter.genre = searchFilter.genre
+    }
 
     @IBAction func searchClicked(_ sender: Any) {
         performSegue(withIdentifier: "openSearchBox", sender: nil)
