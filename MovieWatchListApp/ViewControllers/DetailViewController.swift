@@ -2,13 +2,13 @@ import UIKit
 
 class MovieDetailViewController: UIViewController {
 
-    @IBOutlet weak var detailTitle: UILabel!
+    @IBOutlet weak var navigationBar: UINavigationItem!
     var details: Details!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBackground()
         if let details = details {
-            detailTitle.text = details.title
+            navigationBar.title = details.title
         }
     }
 }

@@ -84,7 +84,8 @@ extension SeriesViewController : UICollectionViewDataSource {
 
 extension SeriesViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let details = Details(title: mockMovies.listOfMovies[indexPath.section].movies[indexPath.row].title, image: "", raiting: 10)
+        let mockMovie = mockMovies.listOfMovies[indexPath.section].movies[indexPath.row]
+        let details = Details(title: mockMovie.title, image: "", raiting: 10, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132)
         self.performSegue(withIdentifier: "openMovieDetails", sender: details)
     }
 }
