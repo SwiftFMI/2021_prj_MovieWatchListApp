@@ -1,7 +1,8 @@
 import Foundation
 import FirebaseFirestoreSwift
+import UIKit
 
-struct Movie: Identifiable, Codable,Media {
+struct Movie: Identifiable,Codable,Media {
     @DocumentID var id: String? = UUID().uuidString
     var movieId: Int
     var title: String
@@ -12,6 +13,7 @@ struct Movie: Identifiable, Codable,Media {
     var genres: [Genre]?
     var rating: Double
     var releaseDate: String?
+    var duration: Double?
     
     enum CodingKeys: String, CodingKey {
         case movieId = "id"
@@ -23,7 +25,9 @@ struct Movie: Identifiable, Codable,Media {
         case genres
         case rating = "vote_average"
         case releaseDate = "release_date"
+        case duration = "runtime"
     }
+    
 }
 
 struct Movies {
