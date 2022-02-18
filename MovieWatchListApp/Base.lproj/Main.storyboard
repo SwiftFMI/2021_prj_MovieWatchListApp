@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m5X-bw-jZZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m5X-bw-jZZ">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-<deployment identifier="iOS"/>
-<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -37,7 +36,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="3nu-su-J7G"/>
                                         </constraints>
-<fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -48,7 +47,7 @@
                                             <constraint firstAttribute="height" constant="35" id="rcq-ci-W4u"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-<textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UHN-fU-71F">
                                         <rect key="frame" x="41.333333333333357" y="239.33333333333337" width="248.66666666666663" height="35"/>
@@ -57,7 +56,7 @@
                                             <constraint firstAttribute="height" constant="35" id="5BI-mT-nMw"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-<textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2z-V2-mSq">
                                         <rect key="frame" x="82.666666666666686" y="450" width="166" height="30"/>
@@ -91,7 +90,7 @@
                                             <constraint firstAttribute="height" constant="35" id="N50-NZ-1uM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-<textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Confirm password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="caM-Ew-FT1">
                                         <rect key="frame" x="41.333333333333357" y="308" width="248.66666666666663" height="35"/>
@@ -100,7 +99,7 @@
                                             <constraint firstAttribute="height" constant="35" id="jtK-Dx-GxG"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-<textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="at" translatesAutoresizingMaskIntoConstraints="NO" id="EbO-hX-7qN">
                                         <rect key="frame" x="6.3333333333333321" y="170.66666666666666" width="35" height="35"/>
@@ -1641,10 +1640,10 @@
                         <outlet property="LoginButton" destination="JTr-fN-kTC" id="4vd-a3-sTv"/>
                         <outlet property="RegisterButton" destination="7Ks-me-RZc" id="fyc-TL-fxy"/>
                         <outlet property="activityIndicator" destination="PVQ-6i-J3d" id="gmU-V3-mEC"/>
+                        <outlet property="emailTextField" destination="hrh-Wd-iD4" id="5z5-L8-TvF"/>
                         <outlet property="loginFormView" destination="xRH-Ez-Dw6" id="HAj-Gc-AFY"/>
                         <outlet property="logo" destination="Guu-ZO-GgH" id="dSB-lE-XKO"/>
                         <outlet property="passwordTextField" destination="A6f-hR-aEG" id="KnJ-4v-9dt"/>
-                        <outlet property="usernameTextField" destination="hrh-Wd-iD4" id="MLt-sN-2ZE"/>
                         <outlet property="validationMessage" destination="ZmG-JZ-LiH" id="Xau-HJ-viM"/>
                         <segue destination="F6h-S1-uCI" kind="presentation" identifier="login" modalPresentationStyle="fullScreen" id="yvC-0z-jPH"/>
                         <segue destination="QTf-js-Yhi" kind="presentation" identifier="openRegister" modalPresentationStyle="fullScreen" id="a5g-mt-bQE"/>
@@ -1762,8 +1761,8 @@
         <image name="key" width="512" height="512"/>
         <image name="logo" width="200" height="200"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="person" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person" width="128" height="128"/>
         <image name="recordingtape" catalog="system" width="128" height="60"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="user" width="512" height="512"/>
@@ -1786,6 +1785,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
