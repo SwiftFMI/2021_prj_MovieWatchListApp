@@ -14,8 +14,8 @@ class Utilities {
     }
     
     static func isPasswordValid(_ password: String) -> Bool {
-        // Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number
-        let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+        // Minimum eight characters, at least one letter, one number and one special character:
+        let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$"
         let passwordMatch = NSPredicate(format:"SELF MATCHES %@", passwordRegex)
         return passwordMatch.evaluate(with: password)
     }

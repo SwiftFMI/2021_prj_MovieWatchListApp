@@ -65,9 +65,7 @@ class RegisterViewController : UIViewController {
     @IBAction func RegisterPressed(_ sender: Any) {
         
         activityIndicator.startAnimating()
-        
         let error = validateFields()
-        
         if error != nil {
             // There is an error
             showError(error!)
@@ -76,7 +74,13 @@ class RegisterViewController : UIViewController {
             let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
             let cleanedEmail = emailTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
             let cleanedUsername = usernameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            
+//            let searchRef = database.database().reference().child("users").queryOrdered(byChild: "email").queryEqual(toValue: cleanedEmail)
+//
+//                     searchRef.observeSingleEvent(of: .value, with: { (snapshot)
+//                         if snapshot.value != nil {
+//                             let email = snapshot.value as! String;
+//                             // this email already exists
+//                         }
             Auth.auth().createUser(withEmail: cleanedEmail, password: cleanedPassword) { authResult, error in
                 if error != nil {
                     // error?.localizedDescription //error description message
@@ -85,16 +89,16 @@ class RegisterViewController : UIViewController {
                 else {
                     let db = Firestore.firestore()
                     db.collection("users").addDocument(data: ["username":cleanedUsername, "uid": authResult!.user.uid, "watchedMovies":[], "watchedSeries":[]]) {(error) in
-                        
                         if error != nil {
                             self.showError("Error saving user data")
+                        }else{
+                            self.dismiss(animated: true, completion: nil)
                         }
                     }
                 }
             }
         }
         
-        dismiss(animated: true, completion: nil)
     }
     
     func showError(_ message:String) {
