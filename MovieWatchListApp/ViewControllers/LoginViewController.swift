@@ -28,7 +28,7 @@ class LoginViewController : UIViewController {
             } else{
                     self?.performSegue(withIdentifier: "login", sender: sender)
             }
-            
+
         }
     }
     @IBAction func RegisterPressed(_ sender: Any) {
