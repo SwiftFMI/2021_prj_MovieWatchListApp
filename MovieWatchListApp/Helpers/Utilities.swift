@@ -11,6 +11,7 @@ class Utilities {
         }
         return ""
     }
+    
     static func isPasswordValid(_ password: String) -> Bool {
         // Minimum 8 characters at least 1 Uppercase Alphabet, 1 Lowercase Alphabet and 1 Number
         let passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"

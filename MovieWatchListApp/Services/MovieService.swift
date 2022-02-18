@@ -3,12 +3,15 @@ import Alamofire
 import UIKit
 class MovieService {
     
+    let baseURL:String = "https://api.themoviedb.org/3"
+    var apiKey = Utilities.getApiKey()
+    
     static let shared = MovieService()
     private init() {}
     
     func getMovie(id: Int) -> Movie? {
         var movie: Movie? = nil
-        let url:String = "\(ApiRequest.baseURL)/movie/\(id)?api_key=\(ApiRequest.apiKey)"
+        let url:String = "\(baseURL)/movie/\(id)?api_key=\(apiKey)"
         let headers:HTTPHeaders = ["Content-Type" : "application/json","Accept" : "application/json"]
         
         AF.request(url,headers: headers)
@@ -16,9 +19,8 @@ class MovieService {
                 switch response.result {
                 case .success:
                     movie = response.value
-                    print(movie?.title)
                 case .failure:
-                    print(response.error?.localizedDescription)
+                    print(response.error?.localizedDescription ?? "")
                 }
             }
         return  movie ?? nil
@@ -26,7 +28,7 @@ class MovieService {
 
     func searchMovie(query: String) -> MovieSearch? {
             var movieSearchResult: MovieSearch? = nil
-            let url:String = "\(ApiRequest.baseURL)/search/movie?query=\(query)&api_key=\(ApiRequest.apiKey)"
+            let url:String = "\(baseURL)/search/movie?query=\(query)&api_key=\(apiKey)"
             let headers:HTTPHeaders = ["Content-Type" : "application/json","Accept" : "application/json"]
             AF.request(url,headers: headers)
                 .responseDecodable(of: MovieSearch.self) { response in
@@ -51,10 +53,7 @@ class MovieService {
             }
         return image
     }
-    
-    //    func searchMovie(query: String, successHandler: @escaping (MovieSearch) -> Void, errorHandler: @escaping (SearchError) -> Void) {
-    //        fetchEntity(from: ApiRequest.searchMovieByText(query), successHandler: successHandler, errorHandler: errorHandler)
-    //    }
+
 }
 
 

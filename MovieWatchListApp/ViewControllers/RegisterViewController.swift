@@ -73,10 +73,8 @@ class RegisterViewController : UIViewController {
             showError(error!)
         } else {
             // create user
-            let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:
-                                                                                    .whitespacesAndNewlines)
-            let cleanedEmail = emailTextField.text!.trimmingCharacters(in:
-                                                                            .whitespacesAndNewlines)
+            let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
+            let cleanedEmail = emailTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
             let cleanedUsername = usernameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
             Auth.auth().createUser(withEmail: cleanedEmail, password: cleanedPassword) { authResult, error in
