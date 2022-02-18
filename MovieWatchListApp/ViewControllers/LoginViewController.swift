@@ -57,25 +57,31 @@ class LoginViewController : UIViewController {
                 } else {
                     let user = Auth.auth().currentUser
                     if let user = user {
-                        let uid = user.uid
-                        let email = user.email
-                        print(uid,email)
-                    }
+                        self.finishedLoggingIn(user: user)
+                                       }
                     print(user)
                     self.performSegue(withIdentifier: "login", sender: sender)
                 }
                 
             }
-        
+            
+        }
     }
-}
     
-@IBAction func RegisterPressed(_ sender: Any) {
-    performSegue(withIdentifier: "openRegister", sender: sender)
-}
-func showError(_ message:String) {
-    validationMessage.text = message
-    validationMessage.alpha = 1
-    activityIndicator.stopAnimating()
-}
+    @IBAction func RegisterPressed(_ sender: Any) {
+        performSegue(withIdentifier: "openRegister", sender: sender)
+    }
+    
+    func showError(_ message:String) {
+        validationMessage.text = message
+        validationMessage.alpha = 1
+        activityIndicator.stopAnimating()
+    }
+    func finishedLoggingIn(user: Firebase.User) {
+        let defaults = UserDefaults.standard
+        
+        defaults.set(user.uid, forKey: "uid")
+        defaults.set(Date(), forKey: "loginDate")
+        defaults.set(user.email,forKey:"email")
+    }
 }

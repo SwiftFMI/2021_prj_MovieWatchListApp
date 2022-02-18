@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 
 class Utilities {
@@ -43,5 +44,19 @@ class Utilities {
         dateFormatter.dateFormat = "yyyy-mm-dd"
         return dateFormatter
     }()
-    
+}
+
+extension UIImageView {
+    public func load(urlString: String) {
+        let url = URL(string: urlString)
+            DispatchQueue.global().async { [weak self] in
+                if let data = try? Data(contentsOf: url!) {
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.image = image
+                        }
+                    }
+                }
+            }
+        }
 }
