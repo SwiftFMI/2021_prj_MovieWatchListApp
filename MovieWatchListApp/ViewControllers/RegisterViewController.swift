@@ -93,11 +93,13 @@ class RegisterViewController : UIViewController {
                 }
             }
         }
-        activityIndicator.stopAnimating()
+        
         dismiss(animated: true, completion: nil)
     }
     
     func showError(_ message:String) {
         validationMessage.text = message
+        validationMessage.alpha = 1
+        activityIndicator.stopAnimating()
     }
 }

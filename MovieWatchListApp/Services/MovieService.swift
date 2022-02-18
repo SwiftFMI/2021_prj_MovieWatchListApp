@@ -48,7 +48,7 @@ class MovieService {
         AF.download("https://image.tmdb.org/t/p/w500\(posterPath)")
             .responseData { response in
                 if let data = response.value {
-                    image = UIImage(data: data)
+                    image = UIImage(data: data, scale: 1)
                 }
             }
         return image
