@@ -66,6 +66,7 @@ class LoginViewController : UIViewController {
             }
 
         }
+        activityIndicator.stopAnimating()
     }
     
     @IBAction func RegisterPressed(_ sender: Any) {

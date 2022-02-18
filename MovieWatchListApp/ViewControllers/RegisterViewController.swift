@@ -98,7 +98,7 @@ class RegisterViewController : UIViewController {
                 }
             }
         }
-        
+        activityIndicator.stopAnimating()
     }
     
     func showError(_ message:String) {

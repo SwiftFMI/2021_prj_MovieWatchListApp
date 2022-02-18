@@ -68,3 +68,42 @@ class SerieDetailViewController: UIViewController {
     }
     }
 }
+
+protocol UpdateDelegate {
+    func update(entity: String)
+}
+
+class PickerModalViewController : UIViewController {
+    
+    var delegate: UpdateDelegate? = nil
+    var pickerData: [String] = [String]()
+    
+    @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var updateButton: UIButton!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateButton.layer.cornerRadius = 25
+        pickerData = ["Watched", "Watching", "Plan to watch"]
+    }
+    @IBAction func dismissPickerModal(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func updateClicked(_ sender: Any) {
+//        delegate?.update(entity: pickerData[picker.selectedRow(inComponent: 0)])
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension PickerModalViewController : UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+}
