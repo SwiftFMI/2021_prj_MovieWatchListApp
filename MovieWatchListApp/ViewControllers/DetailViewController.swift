@@ -1,6 +1,10 @@
 import UIKit
 
-class MovieDetailViewController: UIViewController {
+protocol UpdateDelegate {
+    func update(entity: PickerReturnModel)
+}
+
+class MovieDetailViewController: UIViewController, UpdateDelegate {
 
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var movieImage: UIImageView!
@@ -26,23 +30,66 @@ class MovieDetailViewController: UIViewController {
             movieTitle.text = details.title
             movieGenres.text = details.genre.joined(separator: ", ")
             movieReleaseDate.text = details.releaseDate
-            movieLength.text = details.length.description
-            movieRaiting.text = details.raiting.description
+            var length = details.length.description
+            length.append(" minutes")
+            movieLength.text = length
+            var raiting = details.raiting.description
+            raiting.append("/10")
+            movieRaiting.text = raiting
             movieSummary.text = details.summary
         }
     }
-    @IBAction func CategoryButtonClicked(_ sender: Any) {
-        performSegue(withIdentifier: "openPicker", sender: nil)
+    
+    func update(entity: PickerReturnModel) {
+        if entity.btnToUpdate == "category" {
+            categoryButton.setTitle(entity.selectedItem, for: .normal)
+        }
+        else {
+            var title = entity.selectedItem
+            title.append("/10")
+            myRaitingButton.setTitle(title, for: .normal)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "openPicker" {
+            if let next = segue.destination as! PickerModalViewController? {
+                next.pickerData = sender as? PickerModel
+                next.delegate = self
+            }
+        }
+    }
+    
+    @IBAction func CategoryButtonClicked(_ sender: UIButton) {
+        
+        let data = ["Watched", "Watching", "Plan to watch"]
+        let index = data.firstIndex(of: (sender.titleLabel?.text)!)
+        let pickerData = PickerModel(btnToUpdate: "category", selected: index!, pickerData: data)
+        
+        performSegue(withIdentifier: "openPicker", sender: pickerData)
+    }
+    @IBAction func MyRaitingButtonClicked(_ sender: UIButton) {
+        let data = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+        let separator = sender.titleLabel!.text!.firstIndex(of: "/")!
+        let mySubstring = sender.titleLabel?.text?.prefix(upTo: separator)
+        let index = (data.firstIndex(of: mySubstring!.description) ?? 0)
+        let pickerData = PickerModel(btnToUpdate: "raiting", selected: index, pickerData: data)
+        
+        performSegue(withIdentifier: "openPicker", sender: pickerData)
     }
 }
 
-class SerieDetailViewController: UIViewController {
+class SerieDetailViewController: UIViewController, UpdateDelegate {
+
+    
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var serieImage: UIImageView!
     @IBOutlet weak var serieTitle: UILabel!
     @IBOutlet weak var categoryButton: UIButton!
     @IBOutlet weak var myRaitingButton: UIButton!
-    @IBOutlet weak var progressButton: UIButton!
+    @IBOutlet weak var seasonButton: UIButton!
+    @IBOutlet weak var episodeButton: UIButton!
     @IBOutlet weak var serieGenres: UILabel!
     @IBOutlet weak var serieReleaseDate: UILabel!
     @IBOutlet weak var serieLength: UILabel!
@@ -56,7 +103,8 @@ class SerieDetailViewController: UIViewController {
         detailsViewContainer.addBackground()
         categoryButton.layer.cornerRadius = 25
         myRaitingButton.layer.cornerRadius = 25
-        progressButton.layer.cornerRadius = 25
+        seasonButton.layer.cornerRadius = 25
+        episodeButton.layer.cornerRadius = 25
         if let details = details {
             navigationBar.title = details.title
             serieTitle.text = details.title
@@ -65,31 +113,73 @@ class SerieDetailViewController: UIViewController {
             serieLength.text = details.length.description
             serieRaiting.text = details.raiting.description
             serieSummary.text = details.summary
+        }
     }
+    
+    func update(entity: PickerReturnModel) {
+        if entity.btnToUpdate == "category" {
+            categoryButton.setTitle(entity.selectedItem, for: .normal)
+        }
+        else {
+            var title = entity.selectedItem
+            title.append("/10")
+            myRaitingButton.setTitle(title, for: .normal)
+        }
     }
-}
-
-protocol UpdateDelegate {
-    func update(entity: String)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "openPicker" {
+            if let next = segue.destination as! PickerModalViewController? {
+                next.pickerData = sender as? PickerModel
+                next.delegate = self
+            }
+        }
+    }
+    
+    @IBAction func CategoryButtonClicked(_ sender: UIButton) {
+        let data = ["Watched", "Watching", "Plan to watch"]
+        let index = data.firstIndex(of: (sender.titleLabel?.text)!)
+        let pickerData = PickerModel(btnToUpdate: "category", selected: index!, pickerData: data)
+        
+        performSegue(withIdentifier: "openPicker", sender: pickerData)
+    }
+    @IBAction func RaitingButtonClicked(_ sender: UIButton) {
+        let data = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+        let separator = sender.titleLabel!.text!.firstIndex(of: "/")!
+        let mySubstring = sender.titleLabel?.text?.prefix(upTo: separator)
+        let index = (data.firstIndex(of: mySubstring!.description) ?? 0)
+        let pickerData = PickerModel(btnToUpdate: "raiting", selected: index, pickerData: data)
+        
+        performSegue(withIdentifier: "openPicker", sender: pickerData)
+    }
+    @IBAction func SeasonButtonClicked(_ sender: UIButton) {
+        
+    }
+    @IBAction func EpisodeButtonClicked(_ sender: UIButton) {
+    }
 }
 
 class PickerModalViewController : UIViewController {
     
     var delegate: UpdateDelegate? = nil
-    var pickerData: [String] = [String]()
+    var pickerData: PickerModel!
     
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var updateButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         updateButton.layer.cornerRadius = 25
-        pickerData = ["Watched", "Watching", "Plan to watch"]
+        if let pickerData = pickerData {
+            picker.selectRow(pickerData.selected, inComponent: 0, animated: false)
+        }
     }
     @IBAction func dismissPickerModal(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func updateClicked(_ sender: Any) {
-//        delegate?.update(entity: pickerData[picker.selectedRow(inComponent: 0)])
+        let result = PickerReturnModel(btnToUpdate: pickerData.btnToUpdate, selectedItem: pickerData.pickerData[picker.selectedRow(inComponent: 0)])
+        delegate?.update(entity: result)
         dismiss(animated: true, completion: nil)
     }
 }
@@ -100,10 +190,10 @@ extension PickerModalViewController : UIPickerViewDataSource, UIPickerViewDelega
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
+        return pickerData.pickerData.count
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
+        return pickerData.pickerData[row]
     }
     
 }
