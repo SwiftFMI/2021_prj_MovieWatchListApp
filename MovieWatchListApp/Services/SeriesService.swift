@@ -35,7 +35,7 @@ class SeriesService {
                     switch response.result {
                     case .success:
                         seriesSearchResult = response.value
-                        print(seriesSearchResult?.results[0].title)
+                        print(seriesSearchResult?.results[0].name)
                     case .failure:
                         print(response.error?.localizedDescription)
                     }

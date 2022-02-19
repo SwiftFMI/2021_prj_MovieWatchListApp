@@ -2,7 +2,7 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 class LoginViewController : UIViewController {
-    
+    var db = Firestore.firestore()
     @IBOutlet weak var loginFormView: UIView!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
@@ -52,19 +52,17 @@ class LoginViewController : UIViewController {
             let cleanedEmail = emailTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
             Auth.auth().signIn(withEmail: cleanedEmail, password: cleanedPassword) { authResult, error in
                 if error != nil{
-                    debugPrint(error)
                     self.showError(error!.localizedDescription)
                 } else {
                     let user = Auth.auth().currentUser
                     if let user = user {
                         self.finishedLoggingIn(user: user)
-                                       }
-                    print(user)
+                    }
                     self.performSegue(withIdentifier: "login", sender: sender)
                 }
                 
             }
-
+            
         }
         activityIndicator.stopAnimating()
     }
@@ -79,10 +77,17 @@ class LoginViewController : UIViewController {
         activityIndicator.stopAnimating()
     }
     func finishedLoggingIn(user: Firebase.User) {
-        let defaults = UserDefaults.standard
         
-        defaults.set(user.uid, forKey: "uid")
-        defaults.set(Date(), forKey: "loginDate")
-        defaults.set(user.email,forKey:"email")
+        let userRef = db.collection("users").whereField("uid", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                var userFromDB = querySnapshot!.documents[0].data()
+                
+                let defaults = UserDefaults.standard
+                defaults.set(true,forKey:"isLogged")
+                defaults.set(userFromDB,forKey:"loggedUser")
+                }
+        }
     }
 }

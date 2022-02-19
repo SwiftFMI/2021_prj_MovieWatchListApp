@@ -73,24 +73,24 @@ class RegisterViewController : UIViewController {
             // create user
             let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
             let cleanedEmail = emailTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
-            let cleanedUsername = usernameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-//            let searchRef = database.database().reference().child("users").queryOrdered(byChild: "email").queryEqual(toValue: cleanedEmail)
-//
-//                     searchRef.observeSingleEvent(of: .value, with: { (snapshot)
-//                         if snapshot.value != nil {
-//                             let email = snapshot.value as! String;
-//                             // this email already exists
-//                         }
+            let cleanedUsername = usernameTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
+            
             Auth.auth().createUser(withEmail: cleanedEmail, password: cleanedPassword) { authResult, error in
                 if error != nil {
-                    // error?.localizedDescription //error description message
-                    self.showError("Error creating user")
+                    self.showError(error!.localizedDescription)
                 }
                 else {
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["username":cleanedUsername, "uid": authResult!.user.uid, "watchedMovies":[], "watchedSeries":[]]) {(error) in
+                    db.collection("users").addDocument(data: [
+                        "username":cleanedUsername,
+                        "email":cleanedEmail,
+                        "uid":authResult!.user.uid,
+                        "registeredAt":Date(),
+                        "watchedMovies":[],
+                        "watchedSeries":[]
+                    ]) {(error) in
                         if error != nil {
-                            self.showError("Error saving user data")
+                            self.showError(error!.localizedDescription)
                         }else{
                             self.dismiss(animated: true, completion: nil)
                         }
@@ -98,7 +98,6 @@ class RegisterViewController : UIViewController {
                 }
             }
         }
-        activityIndicator.stopAnimating()
     }
     
     func showError(_ message:String) {

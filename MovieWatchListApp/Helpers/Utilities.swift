@@ -12,7 +12,9 @@ class Utilities {
         }
         return ""
     }
-    
+    static func imageUrl(path: String) -> String {
+        return "https://image.tmdb.org/t/p/w500\(path)"
+    }
     static func isPasswordValid(_ password: String) -> Bool {
         // Minimum eight characters, at least one letter, one number and one special character:
         let passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$"
@@ -47,10 +49,9 @@ class Utilities {
 }
 
 extension UIImageView {
-    public func load(urlString: String) {
-        let url = URL(string: urlString)
+    public func load(url: URL) {
             DispatchQueue.global().async { [weak self] in
-                if let data = try? Data(contentsOf: url!) {
+                if let data = try? Data(contentsOf: url) {
                     if let image = UIImage(data: data) {
                         DispatchQueue.main.async {
                             self?.image = image

@@ -9,7 +9,6 @@ class DiscoverViewController: UIViewController {
         let movie = MovieService.shared.getMovie(id: 27205)
         searchResult = MovieService.shared.searchMovie(query: "Am")
         print(searchResult?.results[0].title)
-        let image = MovieService.shared.getImage(posterPath: searchResult?.results[0].posterPath ?? "")
     }
 
 

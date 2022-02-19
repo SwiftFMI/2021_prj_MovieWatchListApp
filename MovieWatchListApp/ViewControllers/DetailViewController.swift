@@ -28,7 +28,6 @@ class MovieDetailViewController: UIViewController {
             movieLength.text = details.length.description
             movieRaiting.text = details.raiting.description
             movieSummary.text = details.summary
-            movieImage.load(urlString:"https://image.tmdb.org/t/p/w500/5Gf83qYgLY8Qivn7jpv5nxxZPu6.jpg")
         }
     }
     @IBAction func CategoryButtonClicked(_ sender: Any) {

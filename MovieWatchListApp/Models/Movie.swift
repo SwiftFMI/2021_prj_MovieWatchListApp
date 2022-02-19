@@ -28,6 +28,26 @@ struct Movie: Identifiable,Codable,Media {
         case duration = "runtime"
     }
     
+    
+}
+
+
+struct MovieShort: Identifiable,Codable {
+    @DocumentID var id: String? = UUID().uuidString
+    var movieId: Int
+    var title: String
+    var myRating: Double
+    var posterPath: String?
+    var category: Category?
+    
+//  enum CodingKeys: String, CodingKey {
+//        case movieId
+//        case title
+//        case myRating
+//        case posterPath
+//        case category
+//
+//    }
 }
 
 struct Movies {
