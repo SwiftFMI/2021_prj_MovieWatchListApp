@@ -20,6 +20,7 @@ class MovieDetailViewController: UIViewController {
         myRaitingButton.layer.cornerRadius = 25
         self.view.addBackground()
         detailsViewContainer.addBackground()
+        
         if let details = details {
             navigationBar.title = details.title
             movieTitle.text = details.title

@@ -77,17 +77,18 @@ class LoginViewController : UIViewController {
         activityIndicator.stopAnimating()
     }
     func finishedLoggingIn(user: Firebase.User) {
-        
-        let userRef = db.collection("users").whereField("uid", isEqualTo: user.uid).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                var userFromDB = querySnapshot!.documents[0].data()
-                
-                let defaults = UserDefaults.standard
-                defaults.set(true,forKey:"isLogged")
-                defaults.set(userFromDB,forKey:"loggedUser")
+        let userRef = db.collection("users")
+            .whereField("uid", isEqualTo: user.uid)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    var userFromDB = querySnapshot!.documents[0].data()
+                    
+                    let defaults = UserDefaults.standard
+                    defaults.set(true,forKey:"isLogged")
+                    defaults.set(userFromDB,forKey:"loggedUser")
                 }
-        }
+            }
     }
 }

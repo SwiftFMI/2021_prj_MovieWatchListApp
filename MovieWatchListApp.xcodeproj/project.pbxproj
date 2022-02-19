@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840060DC27C111C500683A02 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 840060DB27C111C500683A02 /* Secrets.xcconfig */; };
 		843ECA9F27A856E900F6BE55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */; };
 		8454B7F727BD0D0600E83693 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454B7F627BD0D0600E83693 /* SearchResult.swift */; };
 		8454B7FB27BD2BE300E83693 /* SeriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454B7FA27BD2BE300E83693 /* SeriesService.swift */; };
@@ -32,7 +33,6 @@
 		F555562D27A8829700DB015E /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562C27A8829700DB015E /* AccountViewController.swift */; };
 		F555562F27A882B000DB015E /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562E27A882B000DB015E /* DiscoverViewController.swift */; };
 		F567D09E27B7F82A002BF1C6 /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */; };
-		F58AC9C927BFABB000CDB990 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F58AC9C827BFABB000CDB990 /* Secrets.xcconfig */; };
 		F5CDE88927BC31DF00767CBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5CDE88827BC31DF00767CBB /* Alamofire */; };
 		F5CDE88D27BC4ECA00767CBB /* SearchModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */; };
 		F5DCE1D927A84D0100E0592C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DCE1D827A84D0100E0592C /* AppDelegate.swift */; };
@@ -46,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840060DB27C111C500683A02 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Desktop/Secrets.xcconfig; sourceTree = "<group>"; };
 		843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8454B7F627BD0D0600E83693 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		8454B7FA27BD2BE300E83693 /* SeriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesService.swift; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		F555562C27A8829700DB015E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		F555562E27A882B000DB015E /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
-		F58AC9C827BFABB000CDB990 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
 		F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModalViewController.swift; sourceTree = "<group>"; };
 		F5DCE1D527A84D0100E0592C /* MovieWatchListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieWatchListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DCE1D827A84D0100E0592C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 		F5DCE1CC27A84D0100E0592C = {
 			isa = PBXGroup;
 			children = (
-				F58AC9C827BFABB000CDB990 /* Secrets.xcconfig */,
+				840060DB27C111C500683A02 /* Secrets.xcconfig */,
 				F5DCE1D727A84D0100E0592C /* MovieWatchListApp */,
 				F5DCE1D627A84D0100E0592C /* Products */,
 				84B6C11D27BAF1F1006A1DD3 /* Frameworks */,
@@ -269,7 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5DCE1E527A84D0200E0592C /* LaunchScreen.storyboard in Resources */,
-				F58AC9C927BFABB000CDB990 /* Secrets.xcconfig in Resources */,
+				840060DC27C111C500683A02 /* Secrets.xcconfig in Resources */,
 				843ECA9F27A856E900F6BE55 /* GoogleService-Info.plist in Resources */,
 				F5DCE1E227A84D0200E0592C /* Assets.xcassets in Resources */,
 				F5DCE1E027A84D0100E0592C /* Main.storyboard in Resources */,
@@ -335,6 +335,7 @@
 /* Begin XCBuildConfiguration section */
 		F5DCE1E727A84D0200E0592C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 840060DB27C111C500683A02 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -396,6 +397,7 @@
 		};
 		F5DCE1E827A84D0200E0592C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 840060DB27C111C500683A02 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
