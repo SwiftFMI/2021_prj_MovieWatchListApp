@@ -6,48 +6,61 @@ class MovieService {
     
     let baseURL:String = "https://api.themoviedb.org/3"
     var apiKey = Utilities.getApiKey()
+    typealias moviesCallBack = (_ countries:MovieSearch?, _ status: Bool, _ message:String) -> Void
+    typealias movieCallBack = (_ countries:Movie?, _ status: Bool, _ message:String) -> Void
+    
+    var searchCallBack:moviesCallBack?
+    var movieDeatailsCallBack: movieCallBack?
     
     static let shared = MovieService()
     private init() {}
     
-    func getMovie(id: Int) -> Movie? {
-        var movie: Movie? = nil
+    func getMovie(id: Int) {
+        var movieById: Movie?
         let url:String = "\(baseURL)/movie/\(id)?api_key=\(apiKey)"
-        let headers:HTTPHeaders = ["Content-Type" : "application/json","Accept" : "application/json"]
-        AF.request(url)
-            .responseDecodable(of: Movie.self) { response in
-                switch response.result {
-                case .success:
-                    movie = response.value
-                case .failure:
-                    print(response.error?.localizedDescription ?? "")
+        let headers:HTTPHeaders = [
+            .accept("application/json"),
+            .contentType("application/json")]
+        AF.request(url,headers: headers)
+            .responseDecodable(of: Movie.self) { (response) in
+                guard let data = response.data else {
+                    self.movieDeatailsCallBack?(nil, false, "")
+                    return}
+                do {
+                    let movie = response.value
+                    self.movieDeatailsCallBack?(movie, true,"Success!")
+                } catch {
+                    self.movieDeatailsCallBack?(nil, false, error.localizedDescription)
                 }
+                
             }
-        return  movie ?? nil
     }
     
-    func searchMovie(query: String) -> MovieSearch? {
+    
+    func searchMovie(query: String) {
         var movieSearchResult: MovieSearch? = nil
         let url:String = "\(baseURL)/search/movie?query=\(query)&api_key=\(apiKey)"
         let headers:HTTPHeaders = ["Content-Type" : "application/json","Accept" : "application/json"]
         AF.request(url,headers: headers)
             .responseDecodable(of: MovieSearch.self) { response in
-                switch response.result {
-                case .success:
-                    movieSearchResult = response.value
-                    print(movieSearchResult?.results[0].title)
-                case .failure:
-                    print(response.error?.localizedDescription)
+                
+                guard let data = response.data else {
+                    self.searchCallBack?(nil, false, "")
+                    return}
+                do {
+                    let movieSearch = response.value
+                    self.searchCallBack?(movieSearch, true,"Success!")
+                } catch {
+                    self.searchCallBack?(nil, false, error.localizedDescription)
                 }
             }
-        return  movieSearchResult ?? nil
     }
     
     func getMovieDb(movieId:Int) -> Movie? {
         var movieResult: Movie?
         let db = Firestore.firestore()
         db.collection("movies")
-            .whereField("movieId", isEqualTo: movieId)
+            .whereField("id", isEqualTo: movieId)
             .getDocuments { (snapshot, error) in
                 if let error = error {
                     print(error)
@@ -63,13 +76,20 @@ class MovieService {
     func setMovieDb(movie:Movie) -> Bool {
         let db = Firestore.firestore()
         do {
-            try db.collection("movies").document(movie.id!).setData(from: movie)
+            try db.collection("movies").document(movie.uid!).setData(from: movie)
             return true
         } catch {
             print(error)
             return false
         }
     }
+    
+    func completionHandlerDetails(callBack: @escaping movieCallBack) {
+            self.movieDeatailsCallBack = callBack
+        }
+    func completionHandlerSearch(callBack: @escaping moviesCallBack) {
+            self.searchCallBack = callBack
+        }
 }
 
 

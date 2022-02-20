@@ -48,23 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
             endingLineNumber = "66"
-            landmarkName = "setMovieDb(movie:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C5E12FF5-9C41-4452-80C3-993E9985D180"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MovieWatchListApp/ViewControllers/DiscoverViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "10"
-            endingLineNumber = "10"
-            landmarkName = "viewDidLoad()"
+            landmarkName = "getMovieDb(movieId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

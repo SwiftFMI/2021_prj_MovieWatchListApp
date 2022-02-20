@@ -42,6 +42,7 @@ class LoginViewController : UIViewController {
     }
     
     @IBAction func LoginPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "login", sender: sender) // remove
         activityIndicator.startAnimating()
         let error = validateFields()
         if error != nil {
@@ -58,7 +59,7 @@ class LoginViewController : UIViewController {
                     if let user = user {
                         self.finishedLoggingIn(user: user)
                     }
-                    self.performSegue(withIdentifier: "login", sender: sender)
+                    //self.performSegue(withIdentifier: "login", sender: sender)
                 }
                 
             }

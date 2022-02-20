@@ -7,7 +7,6 @@ class Utilities {
     static func getApiKey() -> String {
         if let infoPlistPath = Bundle.main.path(forResource: "Info", ofType: "plist"),
            let dict = NSDictionary(contentsOfFile: infoPlistPath) as? [String: Any] {
-            debugPrint(dict["API_KEY"])
             return dict["API_KEY"] as! String
         }
         return ""

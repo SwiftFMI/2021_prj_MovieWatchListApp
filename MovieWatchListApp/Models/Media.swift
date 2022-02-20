@@ -3,7 +3,7 @@ import Foundation
 protocol Media {
     var posterPath: String? { get  set }
     var genres: [Genre]? { get  set }
-    var genresIDs : [Int] { get set }
+    var genresIDs : [Int]? { get set }
     var summary: String { get set }
     var language: String { get set }
     var rating: Double { get set }

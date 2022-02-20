@@ -1,14 +1,14 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Series: Identifiable, Codable,Media {
-    @DocumentID var id: String? = UUID().uuidString
+struct Series: Codable,Media {
+    @DocumentID var uid: String? = UUID().uuidString
     var seriesId: Int
     var name: String
     var posterPath: String?
     var summary: String
     var language: String
-    var genresIDs: [Int]
+    var genresIDs: [Int]?
     var genres: [Genre]?
     var seasons: Int
     var rating: Double
