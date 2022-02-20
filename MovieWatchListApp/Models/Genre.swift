@@ -8,5 +8,5 @@ struct Genre: Codable {
 enum Category: String,Codable {
     case watched
     case watching
-    case planedToWatched = "planed to watch"
+    case planedToWatched = "Plan to watch"
 }

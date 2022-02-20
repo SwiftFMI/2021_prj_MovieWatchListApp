@@ -38,7 +38,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         expandCollapseButton.tag = section
         header.addSubview(expandCollapseButton)
         
-        let category = UILabel(frame: CGRect(x: 10, y: 10, width: 100, height: 30))
+        let category = UILabel(frame: CGRect(x: 10, y: 10, width: 250, height: 30))
         category.text = mockMovies.listOfMovies[section].category
         category.textColor = .white
         category.font = .systemFont(ofSize: 22, weight: .bold)
@@ -88,14 +88,16 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "serieCell", for: indexPath) as! SerieTableViewCell
         let moviesForCategory = mockMovies.listOfMovies[indexPath.section].movies
         cell.serieTitle.text = moviesForCategory[indexPath.row].title
-//        cell.movieRaiting.text =  moviesForCategory[indexPath.row].raiting?.description
+        var raiting = moviesForCategory[indexPath.row].myRaiting?.description
+        raiting?.append("/10⭐️")
+        cell.serieRaiting.text = raiting
 //        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mockMovie = mockMovies.listOfMovies[indexPath.section].movies[indexPath.row]
-        let details = Details(title: mockMovie.title, image: "", raiting: 10, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132)
+        let details = Details(title: mockMovie.title, image: "", myRaiting: mockMovie.myRaiting, raiting: mockMovie.rating, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132, category: mockMovies.listOfMovies[indexPath.section].category, section: indexPath.section, row: indexPath.row)
 
         self.performSegue(withIdentifier: "openSerieDetails", sender: details)
     }

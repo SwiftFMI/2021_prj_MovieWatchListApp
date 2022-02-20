@@ -11,8 +11,8 @@ func addBackground() {
     self.sendSubviewToBack(backgroundImageView)
 }}
 
-class MoviesViewController : UIViewController, DataEnteredDelegate {
-    
+class MoviesViewController : UIViewController, DataEnteredDelegate, UpdateMovieTableData {
+
     @IBOutlet weak var moviesTableView: UITableView!
     var mockMovies = MockModel()
     var filter = MovieSearchFilter(title: nil, genre: nil)
@@ -29,6 +29,7 @@ class MoviesViewController : UIViewController, DataEnteredDelegate {
             if segue.identifier == "openMovieDetails" {
                     if let next = segue.destination as! MovieDetailViewController? {
                         next.details = sender as? Details
+                        next.delegate = self
                             }
             }
             if segue.identifier == "openSearchBox" {
@@ -40,6 +41,14 @@ class MoviesViewController : UIViewController, DataEnteredDelegate {
     func updateFilter(searchFilter: MovieSearchFilter) {
         filter.title = searchFilter.title
         filter.genre = searchFilter.genre
+    }
+    func updateCategory(section: Int, row: Int, newCategory: String) {
+        mockMovies.switchCategory(section: section, row: row, newCategory: newCategory)
+        moviesTableView.reloadData()
+    }
+    func updateRaiting(section: Int, row: Int, newRaiting: String) {
+        mockMovies.updateRaiting(section: section, row: row, newRaiting: newRaiting)
+        moviesTableView.reloadData()
     }
     @IBAction func searchClicked(_ sender: Any) {
         performSegue(withIdentifier: "openSearchBox", sender: nil)
@@ -64,7 +73,7 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         expandCollapseButton.tag = section
         header.addSubview(expandCollapseButton)
         
-        let category = UILabel(frame: CGRect(x: 10, y: 10, width: 100, height: 30))
+        let category = UILabel(frame: CGRect(x: 10, y: 10, width: 250, height: 30))
         category.text = mockMovies.listOfMovies[section].category
         category.textColor = .white
         category.font = .systemFont(ofSize: 22, weight: .bold)
@@ -114,14 +123,16 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MoviewTableViewCell
         let moviesForCategory = mockMovies.listOfMovies[indexPath.section].movies
         cell.movieTitle.text = moviesForCategory[indexPath.row].title
-//        cell.movieRaiting.text =  moviesForCategory[indexPath.row].raiting?.description
+        var raiting = moviesForCategory[indexPath.row].myRaiting?.description
+        raiting?.append("/10⭐️")
+        cell.movieRaiting.text = raiting
 //        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mockMovie = mockMovies.listOfMovies[indexPath.section].movies[indexPath.row]
-        let details = Details(title: mockMovie.title, image: "", raiting: 10, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132)
+        let details = Details(title: mockMovie.title, image: "", myRaiting: mockMovie.myRaiting, raiting: mockMovie.rating, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132, category: mockMovies.listOfMovies[indexPath.section].category, section: indexPath.section, row: indexPath.row)
 
         self.performSegue(withIdentifier: "openMovieDetails", sender: details)
     }

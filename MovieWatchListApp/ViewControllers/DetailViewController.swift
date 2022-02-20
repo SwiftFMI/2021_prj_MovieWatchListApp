@@ -3,6 +3,10 @@ import UIKit
 protocol UpdateDelegate {
     func update(entity: PickerReturnModel)
 }
+protocol UpdateMovieTableData {
+    func updateCategory(section: Int, row: Int, newCategory: String)
+    func updateRaiting(section: Int, row: Int, newRaiting: String)
+}
 
 class MovieDetailViewController: UIViewController, UpdateDelegate {
 
@@ -18,6 +22,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
     @IBOutlet weak var movieSummary: UILabel!
     @IBOutlet weak var detailsViewContainer: UIView!
     var details: Details!
+    var delegate: UpdateMovieTableData? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryButton.layer.cornerRadius = 25
@@ -33,21 +38,27 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
             var length = details.length.description
             length.append(" minutes")
             movieLength.text = length
-            var raiting = details.raiting.description
+            var raiting = details.raiting == nil ? "-" : details.raiting!.description
             raiting.append("/10")
             movieRaiting.text = raiting
             movieSummary.text = details.summary
+            categoryButton.setTitle(details.category, for: .normal)
+            var myRaiting = details.myRaiting == nil ? "-" : details.myRaiting!.description
+            myRaiting.append("/10")
+            myRaitingButton.setTitle(myRaiting, for: .normal)
         }
     }
     
     func update(entity: PickerReturnModel) {
         if entity.btnToUpdate == "category" {
             categoryButton.setTitle(entity.selectedItem, for: .normal)
+            delegate?.updateCategory(section: details.section, row: details.row, newCategory: entity.selectedItem)
         }
         else {
             var title = entity.selectedItem
             title.append("/10")
             myRaitingButton.setTitle(title, for: .normal)
+            delegate?.updateRaiting(section: details.section, row: details.row, newRaiting: entity.selectedItem)
         }
     }
     
@@ -111,7 +122,7 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
             serieGenres.text = details.genre.joined(separator: ", ")
             serieReleaseDate.text = details.releaseDate
             serieLength.text = details.length.description
-            serieRaiting.text = details.raiting.description
+            serieRaiting.text = details.raiting?.description
             serieSummary.text = details.summary
         }
     }
