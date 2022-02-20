@@ -9,6 +9,7 @@ class SeriesController : UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.addBackground()
+        seriesTableView.tableFooterView = UIView(frame: .zero)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             super.prepare(for: segue, sender: sender)
@@ -97,6 +98,39 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         let details = Details(title: mockMovie.title, image: "", raiting: 10, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132)
 
         self.performSegue(withIdentifier: "openSerieDetails", sender: details)
+    }
+    
+    private func handleIncrementEpisode() {
+        
+    }
+    private func handleRemove(section: Int, row: Int) {
+        mockMovies.remove(section: section, row: row)
+        
+        var indexPaths = [IndexPath]()
+        indexPaths.append(IndexPath(row: row, section: section))
+        seriesTableView.deleteRows(at: indexPaths, with: .fade)
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "➕\n1 ep.") { [weak self] (action, view, completitionHandler) in
+            self?.handleIncrementEpisode()
+            completitionHandler(true)
+        }
+        action.backgroundColor = .green
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "🗑Remove") { [weak self] (action, view, completitionHandler) in
+            self?.handleRemove(section: indexPath.section, row: indexPath.row)
+        completitionHandler(true)
+        }
+        return UISwipeActionsConfiguration(actions: [action])
     }
 }
 

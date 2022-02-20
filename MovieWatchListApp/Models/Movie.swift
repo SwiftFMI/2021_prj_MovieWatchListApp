@@ -68,5 +68,8 @@ struct MockModel {
         
         Movies(category: "Watched", isExpanded: true, movies: [Movie(uid:UUID().uuidString ,movieId:299537,title: "Captain Marvel", posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", summary:"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.", language: "en",genresIDs:[28,12,878],rating: 6.9, releaseDate:"2019-03-06")])]
     
+    mutating func remove(section: Int, row: Int) {
+        listOfMovies[section].movies.remove(at: row)
+    }
     
 }

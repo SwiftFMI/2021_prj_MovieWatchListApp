@@ -20,6 +20,7 @@ class MoviesViewController : UIViewController, DataEnteredDelegate {
         super.viewDidLoad()
         
         self.view.addBackground()
+        moviesTableView.tableFooterView = UIView(frame: .zero)
         
     }
     
@@ -123,6 +124,40 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         let details = Details(title: mockMovie.title, image: "", raiting: 10, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132)
 
         self.performSegue(withIdentifier: "openMovieDetails", sender: details)
+    }
+    
+    private func handleCompletition() {
+
+    }
+    private func handleRemove(section: Int, row: Int) {
+        mockMovies.remove(section: section, row: row)
+        
+        var indexPaths = [IndexPath]()
+        indexPaths.append(IndexPath(row: row, section: section))
+        moviesTableView.deleteRows(at: indexPaths, with: .fade)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "✅Complete") { [weak self] (action, view, completitionHandler) in
+            self?.handleCompletition()
+            completitionHandler(true)
+        }
+        action.backgroundColor = .green
+        
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "🗑Remove") { [weak self] (action, view, completitionHandler) in
+        self?.handleRemove(section: indexPath.section, row: indexPath.row)
+        completitionHandler(true)
+        }
+        return UISwipeActionsConfiguration(actions: [action])
     }
     
 }
