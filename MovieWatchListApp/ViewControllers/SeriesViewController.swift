@@ -1,11 +1,10 @@
 import UIKit
 
-class SeriesViewController: UIViewController {
 
-    @IBOutlet weak var seriesCollectionView: UICollectionView!
-    //change to series and the logic below
+class SeriesController : UIViewController {
     var mockMovies = MockModel()
     
+    @IBOutlet weak var seriesTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -19,39 +18,30 @@ class SeriesViewController: UIViewController {
                             }
             }
     }
-
 }
-extension SeriesViewController : UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+
+extension SeriesController : UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return mockMovies.listOfMovies.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if !mockMovies.listOfMovies[section].isExpanded
-        {
-            return 0
-        }
-        return mockMovies.listOfMovies[section].movies.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "serieCell", for: indexPath) as! SerieViewCell
-        let moviesForCategory = mockMovies.listOfMovies[indexPath.section].movies
-        cell.serieTitle.text = moviesForCategory[indexPath.row].title
-//        cell.movieRaiting.text =  moviesForCategory[indexPath.row].raiting?.description
-//        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "seriesCategoryHeader", for: indexPath) as! SerieCategoryHeaderView
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 50))
+        header.backgroundColor = .darkGray
         
-        let headerData = mockMovies.listOfMovies[indexPath.section].category
-        header.categoryLabel.text = headerData
-        header.colapseExpandButton.addTarget(self, action: #selector(handleExpandCollapse), for: .touchUpInside)
-        header.colapseExpandButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width - 50, bottom: 0, right: 0)
-        header.colapseExpandButton.tag = indexPath.section
+        let expandCollapseButton = UIButton(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 50))
+        expandCollapseButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width - 50, bottom: 0, right: 0)
+        expandCollapseButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        expandCollapseButton.tintColor = .white
+        expandCollapseButton.addTarget(self, action: #selector(handleExpandCollapse), for: .touchUpInside)
+        expandCollapseButton.tag = section
+        header.addSubview(expandCollapseButton)
+        
+        let category = UILabel(frame: CGRect(x: 10, y: 10, width: 100, height: 30))
+        category.text = mockMovies.listOfMovies[section].category
+        category.textColor = .white
+        category.font = .systemFont(ofSize: 22, weight: .bold)
+        header.addSubview(category)
         
         return header
     }
@@ -70,24 +60,43 @@ extension SeriesViewController : UICollectionViewDataSource {
         mockMovies.listOfMovies[section].isExpanded = !isExpanded
         
         if isExpanded {
-            seriesCollectionView.deleteItems(at: indexPaths)
+            seriesTableView.deleteRows(at: indexPaths, with: .fade)
         }
         else{
-            seriesCollectionView.insertItems(at: indexPaths)
+            seriesTableView.insertRows(at: indexPaths, with: .fade)
         }
         
         button.setImage(UIImage(systemName: isExpanded ? "chevron.right" : "chevron.down"), for: .normal)
         
         
     }
-}
-
-extension SeriesViewController : UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !mockMovies.listOfMovies[section].isExpanded
+        {
+            return 0
+        }
+        return mockMovies.listOfMovies[section].movies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "serieCell", for: indexPath) as! SerieTableViewCell
+        let moviesForCategory = mockMovies.listOfMovies[indexPath.section].movies
+        cell.serieTitle.text = moviesForCategory[indexPath.row].title
+//        cell.movieRaiting.text =  moviesForCategory[indexPath.row].raiting?.description
+//        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mockMovie = mockMovies.listOfMovies[indexPath.section].movies[indexPath.row]
         let details = Details(title: mockMovie.title, image: "", raiting: 10, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132)
+
         self.performSegue(withIdentifier: "openSerieDetails", sender: details)
     }
 }
-
 
