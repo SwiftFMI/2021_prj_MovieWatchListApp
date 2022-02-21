@@ -94,6 +94,38 @@ class MovieService {
             }
     }
     
+    func discoverByGennres(genresId: [Int],page: Int = 1) {
+        var genresQuery: String = (genresId.map{String($0)}).joined(separator: ",")
+        let url:String = "\(baseURL)/discover/movie?api_key=\(apiKey)&with_genres=\(genresQuery)&language=en-US&page=\(page)&sort_by=popularity.desc"
+        
+        AF.request(url,headers: headers)
+            .responseDecodable(of: MovieSearch.self) { response in
+                
+                guard let _ = response.data else {
+                    self.movieSearchCallBack?(nil, false, "")
+                    return}
+                do {
+                    let movieSearch = response.value
+                    self.movieSearchCallBack?(movieSearch, true,"Success!")
+                }
+            }
+    }
+
+    func popularMovies(page: Int = 1) {
+        let url:String = "\(baseURL)/movie/popular?api_key=\(apiKey)&page=\(page)"
+        
+        AF.request(url,headers: headers)
+            .responseDecodable(of: MovieSearch.self) { response in
+                
+                guard let _ = response.data else {
+                    self.movieSearchCallBack?(nil, false, "")
+                    return}
+                do {
+                    let movieSearch = response.value
+                    self.movieSearchCallBack?(movieSearch, true,"Success!")
+                }
+            }
+    }
 }
 
 

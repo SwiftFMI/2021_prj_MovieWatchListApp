@@ -90,4 +90,36 @@ class SeriesService {
             }
     }
     
+    func discoverByGennres(genresId: [Int],page: Int = 1) {
+        let genresQuery: String = (genresId.map{String($0)}).joined(separator: ",")
+        let url:String = "\(baseURL)/discover/tv?api_key=\(apiKey)&with_genres=\(genresQuery)&language=en-US&page=\(page)&sort_by=popularity.desc"
+        
+        AF.request(url,headers: headers)
+            .responseDecodable(of: SeriesSearch.self) { response in
+                
+                guard let _ = response.data else {
+                    self.seriesSearchCallBack?(nil, false, "")
+                    return}
+                do {
+                    let seriesSearch = response.value
+                    self.seriesSearchCallBack?(seriesSearch, true,"Success!")
+                }
+            }
+    }
+
+    func popularSeries(page: Int = 1) {
+        let url:String = "\(baseURL)/tv/popular?api_key=\(apiKey)&page=\(page)"
+        
+        AF.request(url,headers: headers)
+            .responseDecodable(of: SeriesSearch.self) { response in
+                
+                guard let _ = response.data else {
+                    self.seriesSearchCallBack?(nil, false, "")
+                    return}
+                do {
+                    let seriesSearch = response.value
+                    self.seriesSearchCallBack?(seriesSearch, true,"Success!")
+                }
+            }
+    }
 }

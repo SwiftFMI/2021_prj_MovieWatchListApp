@@ -13,6 +13,9 @@ class LogoutModalViewController : UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func signOut(_ sender: Any) {
+        let defaults = UserDefaults.standard
+        defaults.set(false,forKey:"isLogged")
+        defaults.set(nil,forKey:"loggedUser")
         performSegue(withIdentifier: "signOut", sender: nil)
     }
     @IBAction func CancelPressed(_ sender: Any) {

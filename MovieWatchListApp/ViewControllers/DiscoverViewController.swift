@@ -35,16 +35,15 @@ class DiscoverViewController: UIViewController {
 //            }
 //        }
         
-        //        MovieService.shared.searchMovie(query: "Am")
-        //        MovieService.shared.completionHandlerSearch { [weak self] (movieSearch,status,message) in
-        //            if status {
-        //                guard let self = self else {return}
-        //                guard let _movieSearch = movieSearch else {return}
-        //                self.movieSearch = _movieSearch
-        //            }
-        //        }
-        //    }
-        
-        
+        //MovieService.shared.searchMovie(query: "Am")
+//        MovieService.shared.popularMovies()
+//        MovieService.shared.completionHandlerSearch { [weak self] (movieSearch,status,message) in
+//                    if status {
+//                        guard let self = self else {return}
+//                        guard let _movieSearch = movieSearch else {return}
+//                        self.movieSearch = _movieSearch
+//                        print(movieSearch?.results[0].title)
+//                    }
+//                }
+            }
     }
-}
