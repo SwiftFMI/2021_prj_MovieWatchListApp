@@ -3,32 +3,42 @@ import Alamofire
 import Firebase
 import FirebaseFirestore
 class MovieService {
+
+    private init() {}
+    static let shared = MovieService()
     
     let baseURL:String = "https://api.themoviedb.org/3"
     var apiKey = Utilities.getApiKey()
     
-    typealias moviesCallBack = (_ countries:MovieSearch?, _ status: Bool, _ message:String) -> Void
-    typealias movieCallBack = (_ countries:Movie?, _ status: Bool, _ message:String) -> Void
+    typealias moviesCallBack = (_ movies:MovieSearch?, _ status: Bool, _ message:String) -> Void
+    typealias movieDetailsCallBack = (_ movies:Movie?, _ status: Bool, _ message:String) -> Void
     
-    var searchCallBack:moviesCallBack?
-    var movieDeatailsCallBack: movieCallBack?
+    var movieSearchCallBack: moviesCallBack?
+    var movieDetailsCallBack: movieDetailsCallBack?
     
-    static let shared = MovieService()
-    private init() {}
+    func completionHandlerDetails(callBack: @escaping movieDetailsCallBack) {
+        self.movieDetailsCallBack = callBack
+    }
+    
+    func completionHandlerSearch(callBack: @escaping moviesCallBack) {
+        self.movieSearchCallBack = callBack
+    }
+    
+    let headers:HTTPHeaders = [
+        .accept("application/json"),
+        .contentType("application/json")]
     
     func getMovie(id: Int) {
         let url:String = "\(baseURL)/movie/\(id)?api_key=\(apiKey)"
-        let headers:HTTPHeaders = [
-            .accept("application/json"),
-            .contentType("application/json")]
+        
         AF.request(url,headers: headers)
             .responseDecodable(of: Movie.self) { (response) in
                 guard let _ = response.data else {
-                    self.movieDeatailsCallBack?(nil, false, "")
+                    self.movieDetailsCallBack?(nil, false, "")
                     return}
                 do {
                     let movie = response.value
-                    self.movieDeatailsCallBack?(movie, true,"Success!")
+                    self.movieDetailsCallBack?(movie, true,"Success!")
                 }
                 
             }
@@ -36,16 +46,16 @@ class MovieService {
     
     func searchMovie(query: String) {
         let url:String = "\(baseURL)/search/movie?query=\(query)&api_key=\(apiKey)"
-        let headers:HTTPHeaders = ["Content-Type" : "application/json","Accept" : "application/json"]
+        
         AF.request(url,headers: headers)
             .responseDecodable(of: MovieSearch.self) { response in
                 
                 guard let _ = response.data else {
-                    self.searchCallBack?(nil, false, "")
+                    self.movieSearchCallBack?(nil, false, "")
                     return}
                 do {
                     let movieSearch = response.value
-                    self.searchCallBack?(movieSearch, true,"Success!")
+                    self.movieSearchCallBack?(movieSearch, true,"Success!")
                 }
             }
     }
@@ -61,7 +71,7 @@ class MovieService {
                 } else if let snapshot = snapshot {
                     let _ = snapshot.documents.compactMap {
                         movieResult =  try? $0.data(as: Movie.self)
-                        self.movieDeatailsCallBack?(movieResult, true,"Success!")
+                        self.movieDetailsCallBack?(movieResult, true,"Success!")
                     }
                 }
             }
@@ -84,12 +94,6 @@ class MovieService {
             }
     }
     
-    func completionHandlerDetails(callBack: @escaping movieCallBack) {
-        self.movieDeatailsCallBack = callBack
-    }
-    func completionHandlerSearch(callBack: @escaping moviesCallBack) {
-        self.searchCallBack = callBack
-    }
 }
 
 

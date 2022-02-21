@@ -45,6 +45,28 @@ class Utilities {
         dateFormatter.dateFormat = "yyyy-mm-dd"
         return dateFormatter
     }()
+    static func readLocalJSONFile(fileName file: String) -> Data? {
+        do {
+            if let filePath = Bundle.main.path(forResource: file, ofType: "json") {
+                let fileUrl = URL(fileURLWithPath: filePath)
+                let data = try Data(contentsOf: fileUrl)
+                return data
+            }
+        } catch {
+            print("error: \(error)")
+        }
+        return nil
+    }
+    static func readGenres(fileName file: String) -> [Genre] {
+        do {
+            let decodedData = try JSONDecoder().decode([Genre].self, from: Utilities.readLocalJSONFile(fileName: file) ?? Data())
+            return decodedData
+        } catch {
+            print("error: \(error)")
+        }
+        return [Genre]()
+    }
+
 }
 
 extension UIImageView {

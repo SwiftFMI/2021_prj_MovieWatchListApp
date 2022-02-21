@@ -1,46 +1,93 @@
 import Foundation
 import Alamofire
-
+import FirebaseFirestore
 class SeriesService {
+    
+    private init() {}
+    static let shared = SeriesService()
     
     let baseURL:String = "https://api.themoviedb.org/3"
     var apiKey = Utilities.getApiKey()
     
-    static let shared = SeriesService()
-    private init() {}
+    typealias seriesSearchCallBack = (_ seriesSearch:SeriesSearch?, _ status: Bool, _ message:String) -> Void
+    typealias seriesDetailsCallBack = (_ series:Series?, _ status: Bool, _ message:String) -> Void
     
-    func getSeries(id: Int) -> Series? {
-        var series: Series? = nil
+    var seriesSearchCallBack: seriesSearchCallBack?
+    var seriesDetailsCallBack: seriesDetailsCallBack?
+    
+    let headers:HTTPHeaders = [
+        .accept("application/json"),
+        .contentType("application/json")]
+    
+    func completionHandlerDetails(callBack: @escaping seriesDetailsCallBack) {
+        self.seriesDetailsCallBack = callBack
+    }
+    
+    func completionHandlerSearch(callBack: @escaping seriesSearchCallBack) {
+        self.seriesSearchCallBack = callBack
+    }
+    
+    func getSeries(id: Int) {
         let url:String = "\(baseURL)/tv/\(id)?api_key=\(apiKey)"
-        let headers:HTTPHeaders = ["Content-Type" : "application/json","Accept" : "application/json"]
         
         AF.request(url,headers: headers)
             .responseDecodable(of: Series.self) { response in
-                switch response.result {
-                case .success:
-                    series = response.value
-                case .failure:
-                    print(response.error?.localizedDescription ?? "")
+                guard let _ = response.data else {
+                    self.seriesDetailsCallBack?(nil, false, "")
+                    return}
+                do {
+                    let series = response.value
+                    self.seriesDetailsCallBack?(series, true,"Success!")
                 }
             }
-        return  series ?? nil
+        
     }
     
-    func searchMovie(query: String) -> SeriesSearch? {
-            var seriesSearchResult: SeriesSearch? = nil
-            let url:String = "\(baseURL)/search/movie?query=\(query)&api_key=\(apiKey)"
-            let headers:HTTPHeaders = ["Content-Type" : "application/json","Accept" : "application/json"]
-            AF.request(url,headers: headers)
-                .responseDecodable(of: SeriesSearch.self) { response in
-                    switch response.result {
-                    case .success:
-                        seriesSearchResult = response.value
-                        print(seriesSearchResult?.results[0].name)
-                    case .failure:
-                        print(response.error?.localizedDescription)
+    func searchSeries(query: String) {
+        let url:String = "\(baseURL)/search/tv?query=\(query)&api_key=\(apiKey)"
+        AF.request(url,headers: headers)
+            .responseDecodable(of: SeriesSearch.self) { response in
+                guard let _ = response.data else {
+                    self.seriesSearchCallBack?(nil, false, "")
+                    return}
+                do {
+                    let seriesSearch = response.value
+                    self.seriesSearchCallBack?(seriesSearch, true,"Success!")
+                }
+            }
+    }
+    
+    func getSeriesDb(seriesId:Int) {
+        let db = Firestore.firestore()
+        db.collection("series")
+            .whereField("id", isEqualTo: seriesId)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print(error)
+                } else if let snapshot = snapshot {
+                    let _ = snapshot.documents.compactMap {
+                        let seriesResult =  try? $0.data(as: Series.self)
+                        self.seriesDetailsCallBack?(seriesResult, true,"Success!")
                     }
                 }
-            return  seriesSearchResult ?? nil
-        }
+            }
+    }
+    
+    func setSeriesDb(series:Series) {
+        let db = Firestore.firestore()
+        db.collection("series")
+            .whereField("id", isEqualTo: series.seriesId)
+            .getDocuments() { (snapshot, error) in
+                if snapshot?.count != 0  {
+                    print("Already exists!")
+                } else {
+                    do {
+                        try db.collection("series").document(series.uid!).setData(from: series)
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+    }
     
 }

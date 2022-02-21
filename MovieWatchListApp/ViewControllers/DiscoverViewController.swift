@@ -21,7 +21,7 @@ class DiscoverViewController: UIViewController {
         //               }
         
         //        movie = MovieService.shared.getMovie(id: 27205)
-        MovieService.shared.setMovieDb(movie: mockMovie)
+        //MovieService.shared.setMovieDb(movie: mockMovie)
         
 //        MovieService.shared.getMovieDb(movieId: mockMovie.movieId)
 //        MovieService.shared.completionHandlerDetails {[weak self]
