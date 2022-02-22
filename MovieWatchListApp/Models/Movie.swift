@@ -52,7 +52,7 @@ struct MovieShort: Identifiable,Codable {
 }
 
 struct Movies {
-    let category: String
+    var category: String
     var isExpanded: Bool
     var movies: [Movie]
 }

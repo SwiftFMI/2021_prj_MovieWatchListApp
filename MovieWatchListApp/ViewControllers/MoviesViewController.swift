@@ -14,8 +14,9 @@ func addBackground() {
 class MoviesViewController : UIViewController, DataEnteredDelegate, UpdateMovieTableData {
 
     @IBOutlet weak var moviesTableView: UITableView!
+    @IBOutlet weak var filterButton: UIBarButtonItem!
     var mockMovies = MockModel()
-    var filter = MovieSearchFilter(title: nil, genre: nil)
+    var filter = MovieSearchFilter(title: nil, genre: nil, isApplied: false)
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,8 +40,23 @@ class MoviesViewController : UIViewController, DataEnteredDelegate, UpdateMovieT
     }
     
     func updateFilter(searchFilter: MovieSearchFilter) {
-        filter.title = searchFilter.title
-        filter.genre = searchFilter.genre
+        filter.isApplied = true
+        var filteredMovies = [Movies](repeating: Movies(category: "", isExpanded: true, movies: []), count: mockMovies.listOfMovies.count)
+        var index = 0
+        mockMovies.listOfMovies.forEach { movies in
+            filteredMovies[index].category = movies.category
+            filteredMovies[index].isExpanded = movies.isExpanded
+            filteredMovies[index].movies =  movies.movies.filter { m in
+                (searchFilter.title == nil || m.title.contains(searchFilter.title ?? ""))
+                    && ( searchFilter.genre == nil || ((m.genres?.contains(where: { g in
+                    g.name == searchFilter.genre ?? ""
+                })) != nil))
+            }
+            index = index + 1
+        }
+        mockMovies.listOfMovies = filteredMovies
+        filterButton.image = UIImage(systemName: "xmark")
+        moviesTableView.reloadData()
     }
     func updateCategory(section: Int, row: Int, newCategory: String) {
         mockMovies.switchCategory(section: section, row: row, newCategory: newCategory)
@@ -51,7 +67,18 @@ class MoviesViewController : UIViewController, DataEnteredDelegate, UpdateMovieT
         moviesTableView.reloadData()
     }
     @IBAction func searchClicked(_ sender: Any) {
-        performSegue(withIdentifier: "openSearchBox", sender: nil)
+        if filter.isApplied == false {
+            performSegue(withIdentifier: "openSearchBox", sender: nil)
+        }
+        else {
+            filter.isApplied = false
+            filter.genre = nil
+            filter.title = nil
+            filterButton.image = UIImage(systemName: "magnifyingglass")
+//            mockMovies.listOfMovies = getAllMoviesFrimDB();
+//            moviesTableView.reloadData()
+        }
+        
     }
 }
 

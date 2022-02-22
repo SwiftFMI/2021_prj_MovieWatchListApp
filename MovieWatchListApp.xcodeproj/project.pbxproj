@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		841DD3E427C422C300CC5602 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 841DD3E327C422C300CC5602 /* Secrets.xcconfig */; };
 		841DD3E927C44DEB00CC5602 /* SeriesGenres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD3E727C44DEB00CC5602 /* SeriesGenres.swift */; };
 		841DD3EA27C44DEB00CC5602 /* MovieGenres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD3E827C44DEB00CC5602 /* MovieGenres.swift */; };
 		841DD3ED27C44E2700CC5602 /* movieGenres.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DD3EB27C44E2700CC5602 /* movieGenres.json */; };
@@ -38,6 +37,8 @@
 		F555562B27A880F600DB015E /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562A27A880F600DB015E /* MoviesViewController.swift */; };
 		F555562D27A8829700DB015E /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562C27A8829700DB015E /* AccountViewController.swift */; };
 		F555562F27A882B000DB015E /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562E27A882B000DB015E /* DiscoverViewController.swift */; };
+		F5564E4A27C4D2A700D19F38 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F5564E4927C4D2A700D19F38 /* Secrets.xcconfig */; };
+		F5564E4E27C4E62400D19F38 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5564E4D27C4E62400D19F38 /* SearchViewCell.swift */; };
 		F567D09E27B7F82A002BF1C6 /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */; };
 		F5CDE88927BC31DF00767CBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5CDE88827BC31DF00767CBB /* Alamofire */; };
 		F5CDE88D27BC4ECA00767CBB /* SearchModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */; };
@@ -52,7 +53,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		841DD3E327C422C300CC5602 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Desktop/Secrets.xcconfig; sourceTree = "<group>"; };
 		841DD3E727C44DEB00CC5602 /* SeriesGenres.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesGenres.swift; sourceTree = "<group>"; };
 		841DD3E827C44DEB00CC5602 /* MovieGenres.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieGenres.swift; sourceTree = "<group>"; };
 		841DD3EB27C44E2700CC5602 /* movieGenres.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = movieGenres.json; sourceTree = "<group>"; };
@@ -78,6 +78,8 @@
 		F555562A27A880F600DB015E /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		F555562C27A8829700DB015E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		F555562E27A882B000DB015E /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
+		F5564E4927C4D2A700D19F38 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
+		F5564E4D27C4E62400D19F38 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
 		F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModalViewController.swift; sourceTree = "<group>"; };
 		F5DCE1D527A84D0100E0592C /* MovieWatchListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieWatchListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,7 +183,6 @@
 		F5DCE1CC27A84D0100E0592C = {
 			isa = PBXGroup;
 			children = (
-				841DD3E327C422C300CC5602 /* Secrets.xcconfig */,
 				F5DCE1D727A84D0100E0592C /* MovieWatchListApp */,
 				F5DCE1D627A84D0100E0592C /* Products */,
 				84B6C11D27BAF1F1006A1DD3 /* Frameworks */,
@@ -199,6 +200,7 @@
 		F5DCE1D727A84D0100E0592C /* MovieWatchListApp */ = {
 			isa = PBXGroup;
 			children = (
+				F5564E4927C4D2A700D19F38 /* Secrets.xcconfig */,
 				849A8B8F27BC7DB8003CEDF4 /* Services */,
 				845557BD27B52B42005E253B /* Helpers */,
 				F5281A5127B42593003959EC /* ViewControllers */,
@@ -221,6 +223,7 @@
 				F54B038527A98D7E00D9BD7D /* MoviesViewCell.swift */,
 				F5F71D7A27B2C452004A9E6F /* SettingsViewCell.swift */,
 				F54242E827C1654B00007B32 /* SeriesViewCell.swift */,
+				F5564E4D27C4E62400D19F38 /* SearchViewCell.swift */,
 			);
 			path = ViewCellsModels;
 			sourceTree = "<group>";
@@ -294,9 +297,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5564E4A27C4D2A700D19F38 /* Secrets.xcconfig in Resources */,
 				841DD3ED27C44E2700CC5602 /* movieGenres.json in Resources */,
 				F5DCE1E527A84D0200E0592C /* LaunchScreen.storyboard in Resources */,
-				841DD3E427C422C300CC5602 /* Secrets.xcconfig in Resources */,
 				841DD3EE27C44E2700CC5602 /* seriesGenres.json in Resources */,
 				843ECA9F27A856E900F6BE55 /* GoogleService-Info.plist in Resources */,
 				F5DCE1E227A84D0200E0592C /* Assets.xcassets in Resources */,
@@ -317,6 +320,7 @@
 				F543E84A27C132B50075F21C /* PickerModel.swift in Sources */,
 				F5DCE1DD27A84D0100E0592C /* SeriesViewController.swift in Sources */,
 				F5F71D7D27B2C570004A9E6F /* SettingsModelData.swift in Sources */,
+				F5564E4E27C4E62400D19F38 /* SearchViewCell.swift in Sources */,
 				F52793BD27BD5E1C0053FF20 /* Filters.swift in Sources */,
 				845557BF27B52B64005E253B /* Utilities.swift in Sources */,
 				841DD3E927C44DEB00CC5602 /* SeriesGenres.swift in Sources */,
@@ -367,7 +371,7 @@
 /* Begin XCBuildConfiguration section */
 		F5DCE1E727A84D0200E0592C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 841DD3E327C422C300CC5602 /* Secrets.xcconfig */;
+			baseConfigurationReference = F5564E4927C4D2A700D19F38 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -429,7 +433,7 @@
 		};
 		F5DCE1E827A84D0200E0592C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 841DD3E327C422C300CC5602 /* Secrets.xcconfig */;
+			baseConfigurationReference = F5564E4927C4D2A700D19F38 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
