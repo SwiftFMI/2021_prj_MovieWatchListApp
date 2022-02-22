@@ -11,12 +11,12 @@ func addBackground() {
     self.sendSubviewToBack(backgroundImageView)
 }}
 
-class MoviesViewController : UIViewController, DataEnteredDelegate, UpdateMovieTableData {
+class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateMovieTableData {
 
     @IBOutlet weak var moviesTableView: UITableView!
     @IBOutlet weak var filterButton: UIBarButtonItem!
     var mockMovies = MockModel()
-    var filter = MovieSearchFilter(title: nil, genre: nil, isApplied: false)
+    var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +39,7 @@ class MoviesViewController : UIViewController, DataEnteredDelegate, UpdateMovieT
             }
     }
     
-    func updateFilter(searchFilter: MovieSearchFilter) {
+    func updateFilter(searchFilter: SearchFilter) {
         filter.isApplied = true
         var filteredMovies = [Movies](repeating: Movies(category: "", isExpanded: true, movies: []), count: mockMovies.listOfMovies.count)
         var index = 0

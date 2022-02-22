@@ -1,6 +1,6 @@
 import Foundation
 
-struct MovieSearchFilter {
+struct SearchFilter {
     var title : String?
     var genre: String?
     var isApplied: Bool

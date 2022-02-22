@@ -1,12 +1,12 @@
 import UIKit
 
-protocol DataEnteredDelegate {
-    func updateFilter(searchFilter: MovieSearchFilter)
+protocol SearchFilterDelegate {
+    func updateFilter(searchFilter: SearchFilter)
 }
 
 class SearchModalViewController : UIViewController {
     
-    var delegate: DataEnteredDelegate? = nil
+    var delegate: SearchFilterDelegate? = nil
     var pickerData: [String] = [String]()
     
     @IBOutlet weak var modalViewContainer: UIView!
@@ -29,7 +29,7 @@ class SearchModalViewController : UIViewController {
     @IBAction func ApplyFilters(_ sender: Any) {
         let genreFromPicker = pickerData[genrePicker.selectedRow(inComponent: 0)] == "All" ? nil : pickerData[genrePicker.selectedRow(inComponent: 0)]
         let titleFromField = titleSearchField.text == "" ? nil : titleSearchField.text
-        let filter = MovieSearchFilter(title: titleFromField, genre: genreFromPicker, isApplied: true)
+        let filter = SearchFilter(title: titleFromField, genre: genreFromPicker, isApplied: true)
         delegate?.updateFilter(searchFilter: filter)
         dismiss(animated: true, completion: nil)
     }

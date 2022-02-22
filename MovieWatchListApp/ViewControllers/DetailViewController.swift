@@ -8,6 +8,11 @@ protocol UpdateMovieTableData {
     func updateRaiting(section: Int, row: Int, newRaiting: String)
 }
 
+protocol AddToDB {
+    func addToDB(row: Int)
+}
+
+
 class MovieDetailViewController: UIViewController, UpdateDelegate {
 
     @IBOutlet weak var navigationBar: UINavigationItem!
@@ -23,6 +28,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
     @IBOutlet weak var detailsViewContainer: UIView!
     var details: Details!
     var delegate: UpdateMovieTableData? = nil
+    var addDelegate: AddToDB? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryButton.layer.cornerRadius = 25
@@ -39,26 +45,37 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
             length.append(" minutes")
             movieLength.text = length
             var raiting = details.raiting == nil ? "-" : details.raiting!.description
-            raiting.append("/10")
+            raiting.append("/10⭐️")
             movieRaiting.text = raiting
             movieSummary.text = details.summary
-            categoryButton.setTitle(details.category, for: .normal)
-            var myRaiting = details.myRaiting == nil ? "-" : details.myRaiting!.description
-            myRaiting.append("/10")
-            myRaitingButton.setTitle(myRaiting, for: .normal)
+            categoryButton.setTitle(details.category ?? "Add to List", for: .normal)
+            if details.category == nil {
+                myRaitingButton.isHidden = true
+            }
+            else{
+                var myRaiting = details.myRaiting == nil ? "-" : details.myRaiting!.description
+                myRaiting.append("/10⭐️")
+                myRaitingButton.setTitle(myRaiting, for: .normal)
+            }
         }
     }
     
     func update(entity: PickerReturnModel) {
         if entity.btnToUpdate == "category" {
-            categoryButton.setTitle(entity.selectedItem, for: .normal)
-            delegate?.updateCategory(section: details.section, row: details.row, newCategory: entity.selectedItem)
+            if categoryButton.titleLabel?.text == "Add to List" {
+                addDelegate?.addToDB(row: details.row)
+            }
+            else{
+                categoryButton.setTitle(entity.selectedItem, for: .normal)
+                delegate?.updateCategory(section: details.section!, row: details.row, newCategory: entity.selectedItem)
+            }
+
         }
         else {
             var title = entity.selectedItem
-            title.append("/10")
+            title.append("/10⭐️")
             myRaitingButton.setTitle(title, for: .normal)
-            delegate?.updateRaiting(section: details.section, row: details.row, newRaiting: entity.selectedItem)
+            delegate?.updateRaiting(section: details.section!, row: details.row, newRaiting: entity.selectedItem)
         }
     }
     
@@ -76,7 +93,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
         
         let data = ["Watched", "Watching", "Plan to watch"]
         let index = data.firstIndex(of: (sender.titleLabel?.text)!)
-        let pickerData = PickerModel(btnToUpdate: "category", selected: index!, pickerData: data)
+        let pickerData = PickerModel(btnToUpdate: "category", selected: index ?? 0, btnText: sender.titleLabel?.text == "Add to List" ? "➕ Add" : "💾 Update", pickerData: data)
         
         performSegue(withIdentifier: "openPicker", sender: pickerData)
     }
@@ -85,7 +102,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
         let separator = sender.titleLabel!.text!.firstIndex(of: "/")!
         let mySubstring = sender.titleLabel?.text?.prefix(upTo: separator)
         let index = (data.firstIndex(of: mySubstring!.description) ?? 0)
-        let pickerData = PickerModel(btnToUpdate: "raiting", selected: index, pickerData: data)
+        let pickerData = PickerModel(btnToUpdate: "raiting", selected: index, btnText: "💾 Update", pickerData: data)
         
         performSegue(withIdentifier: "openPicker", sender: pickerData)
     }
@@ -151,7 +168,7 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
     @IBAction func CategoryButtonClicked(_ sender: UIButton) {
         let data = ["Watched", "Watching", "Plan to watch"]
         let index = data.firstIndex(of: (sender.titleLabel?.text)!)
-        let pickerData = PickerModel(btnToUpdate: "category", selected: index!, pickerData: data)
+        let pickerData = PickerModel(btnToUpdate: "category", selected: index ?? 0, btnText: sender.titleLabel?.text == "Add to List" ? "➕ Add" : "💾 Update", pickerData: data)
         
         performSegue(withIdentifier: "openPicker", sender: pickerData)
     }
@@ -160,7 +177,7 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
         let separator = sender.titleLabel!.text!.firstIndex(of: "/")!
         let mySubstring = sender.titleLabel?.text?.prefix(upTo: separator)
         let index = (data.firstIndex(of: mySubstring!.description) ?? 0)
-        let pickerData = PickerModel(btnToUpdate: "raiting", selected: index, pickerData: data)
+        let pickerData = PickerModel(btnToUpdate: "raiting", selected: index, btnText: "💾 Update", pickerData: data)
         
         performSegue(withIdentifier: "openPicker", sender: pickerData)
     }
@@ -183,12 +200,14 @@ class PickerModalViewController : UIViewController {
         updateButton.layer.cornerRadius = 25
         if let pickerData = pickerData {
             picker.selectRow(pickerData.selected, inComponent: 0, animated: false)
+            updateButton.setTitle(pickerData.btnText, for: .normal)
         }
     }
     @IBAction func dismissPickerModal(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    @IBAction func updateClicked(_ sender: Any) {
+    @IBAction func updateClicked(_ sender: UIButton) {
+        
         let result = PickerReturnModel(btnToUpdate: pickerData.btnToUpdate, selectedItem: pickerData.pickerData[picker.selectedRow(inComponent: 0)])
         delegate?.update(entity: result)
         dismiss(animated: true, completion: nil)

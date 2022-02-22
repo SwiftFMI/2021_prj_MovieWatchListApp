@@ -9,7 +9,7 @@ struct Details {
     let releaseDate : String
     let genre: [String]
     let length: Int
-    let category: String
-    let section: Int
+    let category: String?
+    let section: Int?
     let row: Int
 }
