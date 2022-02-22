@@ -38,6 +38,8 @@ struct SeriesShort: Codable {
     var season: Int
     var episode: Int
     var category: Category?
+    var genresIDs: [Int]?
+    var nextAirDate: String
 }
 
 struct NextEpisode: Codable {

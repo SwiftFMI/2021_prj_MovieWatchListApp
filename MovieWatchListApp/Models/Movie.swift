@@ -40,6 +40,7 @@ struct MovieShort: Identifiable,Codable {
     var myRating: Double
     var posterPath: String?
     var category: Category?
+    var genresIDs: [Int]?
     
     //  enum CodingKeys: String, CodingKey {
     //        case movieId

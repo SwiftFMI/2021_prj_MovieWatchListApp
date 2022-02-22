@@ -45,6 +45,7 @@ class Utilities {
         dateFormatter.dateFormat = "yyyy-mm-dd"
         return dateFormatter
     }()
+    
     static func readLocalJSONFile(fileName file: String) -> Data? {
         do {
             if let filePath = Bundle.main.path(forResource: file, ofType: "json") {
@@ -66,7 +67,10 @@ class Utilities {
         }
         return [Genre]()
     }
-
+    static func getGenreIdFromStringMovie(name: String) -> Int{
+        var filtered = MovieGenres.movieGenres.first(where: {$0.name == name})
+        return filtered?.id ?? 0
+    }
 }
 
 extension UIImageView {
