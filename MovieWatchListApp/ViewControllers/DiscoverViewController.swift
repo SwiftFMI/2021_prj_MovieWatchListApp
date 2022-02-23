@@ -69,9 +69,12 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
         searchButton.layer.cornerRadius = searchButton.frame.height/2
         searchTable.tableFooterView = UIView(frame: .zero)
         
-        let mockMovie = Movie(uid:UUID().uuidString ,movieId:219537,title: "CCCaptain MMarvel", posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", summary:"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.", language: "en",genresIDs:[28,12,878],rating: 6.9, releaseDate:"2019-03-06")
+        let mockMovie = Movie(uid:UUID().uuidString ,movieId:219537,title: "Captain Marvel", posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", summary:"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.", language: "en",genresIDs:[28,12,878],rating: 6.9, releaseDate:"2019-03-06")
         
-       UserService.shared.addMovie(movie: mockMovie,category: "Watched")
+//     UserService.shared.addMovie(movie: mockMovie,category: Category.planedToWatched.rawValue)
+//        
+        
+        
         
         UserService.shared.getAllMovies()
         UserService.shared.completionHandlerMovies { [weak self] (movies,status,message) in
@@ -79,10 +82,11 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
                 guard let self = self else {return}
                 guard let _movies = movies else {return}
                 self.movies = _movies
-                print(movies?.count)
+                if let movie = movies?.last {
+                    UserService.shared.deleteMovie(movie:movie)
+                }
             }
         }
-        
         
         //        MovieService.shared.getMovie(id: 27205)
         //        MovieService.shared.completionHandlerDetails { [weak self] (movie,status,message) in

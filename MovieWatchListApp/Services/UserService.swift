@@ -4,6 +4,7 @@ import Firebase
 
 class UserService {
     var db = Firestore.firestore()
+    let encoder = JSONEncoder()
     private init() {}
     static let shared = UserService()
     
@@ -26,12 +27,10 @@ class UserService {
         let movieToAdd = MovieShort(movieId: movie.movieId,
                                     title: movie.title,
                                     posterPath: movie.posterPath,
-                                    myRating: 0,category: category)
+                                    myRating: 0,category: category,
+                                    genresIDs: movie.genresIDs)
         
-        
-        let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        
         let data = try! encoder.encode(movieToAdd)
         let serialized: String? = String(data: data,encoding: .utf8)
         
@@ -51,9 +50,8 @@ class UserService {
                                       genresIDs: series.genresIDs,
                                       nextAirDate: series.nextEpisode?.airDate ?? "")
         
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        
+       
+        encoder.outputFormatting = . prettyPrinted
         let data = try! encoder.encode(seriesToAdd)
         let serialized: String? = String(data: data,encoding: .utf8)
         
@@ -63,25 +61,25 @@ class UserService {
         }
     }
     
-    func deleteMovie(movie: Movie) {
-        let movieToDelete = MovieShort(movieId: movie.movieId,
-                                       title: movie.title,
-                                       posterPath: movie.posterPath,
-                                       myRating: 0,
-                                       genresIDs: movie.genresIDs)
+    func deleteMovie(movie: MovieShort) {
         
+        encoder.outputFormatting = .prettyPrinted
+        let data = try! encoder.encode(movie)
+        let serialized: String? = String(data: data,encoding: .utf8)
         
         if let user = Auth.auth().currentUser {
-            db.collection("users").document(user.uid).updateData(["Movies": FieldValue.arrayRemove([movieToDelete])])
+            db.collection("users").document(user.uid).updateData(["Movies": FieldValue.arrayRemove([serialized])])
         }
     }
-    func deleteSeries(series: Series) {
-        let seriesToDelete = SeriesShort(seriesId: series.seriesId, name: series.name, myRating: 0, posterPath: series.posterPath, season: series.seasons, episode: series.nextEpisode?.episodeNumber ?? 0, category: "", genresIDs: series.genresIDs, nextAirDate: series.nextEpisode?.airDate ?? "")
+    
+    func deleteSeries(series: SeriesShort) {
         
-        
+        encoder.outputFormatting = .prettyPrinted
+        let data = try! encoder.encode(series)
+        let serialized: String? = String(data: data,encoding: .utf8)
         
         if let user = Auth.auth().currentUser {
-            db.collection("users").document(user.uid).updateData(["watchedSeries": FieldValue.arrayRemove([seriesToDelete])]);
+            db.collection("users").document(user.uid).updateData(["Series": FieldValue.arrayRemove([serialized])])
         }
     }
     
