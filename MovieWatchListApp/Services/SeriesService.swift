@@ -10,7 +10,7 @@ class SeriesService {
     var apiKey = Utilities.getApiKey()
     
     typealias seriesSearchCallBack = (_ seriesSearch:SeriesSearch?, _ status: Bool, _ message:String) -> Void
-    typealias seriesDetailsCallBack = (_ series:Series?, _ status: Bool, _ message:String) -> Void
+    typealias seriesDetailsCallBack = (_ series:Serie?, _ status: Bool, _ message:String) -> Void
     
     var seriesSearchCallBack: seriesSearchCallBack?
     var seriesDetailsCallBack: seriesDetailsCallBack?
@@ -31,7 +31,7 @@ class SeriesService {
         let url:String = "\(baseURL)/tv/\(id)?api_key=\(apiKey)"
         
         AF.request(url,headers: headers)
-            .responseDecodable(of: Series.self) { response in
+            .responseDecodable(of: Serie.self) { response in
                 guard let _ = response.data else {
                     self.seriesDetailsCallBack?(nil, false, "")
                     return}
@@ -66,14 +66,14 @@ class SeriesService {
                     print(error)
                 } else if let snapshot = snapshot {
                     let _ = snapshot.documents.compactMap {
-                        let seriesResult =  try? $0.data(as: Series.self)
+                        let seriesResult =  try? $0.data(as: Serie.self)
                         self.seriesDetailsCallBack?(seriesResult, true,"Success!")
                     }
                 }
             }
     }
     
-    func setSeriesDb(series:Series) {
+    func setSeriesDb(series:Serie) {
         let db = Firestore.firestore()
         db.collection("series")
             .whereField("id", isEqualTo: series.seriesId)

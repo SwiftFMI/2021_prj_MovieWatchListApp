@@ -12,8 +12,9 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
     @IBOutlet weak var searchTable: UITableView!
     @IBAction func unwindToDiscover(segue: UIStoryboardSegue) {}
     @IBAction func searchButtonClicked(_ sender: UIButton) {
+        let isMovie = movieOrSeriesPickerData[movieOrSeries.selectedRow(inComponent: 0)] == "Movies"
         if filter.isApplied == false {
-            performSegue(withIdentifier: "openSearchBox", sender: nil)
+            performSegue(withIdentifier: "openSearchBox", sender: isMovie)
         }
         else {
             filter.isApplied = false
@@ -38,8 +39,10 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
                         }
         }
             if segue.identifier == "openSearchBox" {
-                let searchViewController = segue.destination as! SearchModalViewController
-                searchViewController.delegate = self
+                if let next = segue.destination as! SearchModalViewController? {
+                    next.isMovie = sender as? Bool
+                    next.delegate = self
+                        }
             }
     }
     

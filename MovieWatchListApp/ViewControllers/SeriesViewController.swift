@@ -2,7 +2,7 @@ import UIKit
 
 
 class SeriesController : UIViewController {
-    var mockMovies = MockModel()
+    var series = TableSeriesModel()
     
     @IBOutlet weak var seriesTableView: UITableView!
     override func viewDidLoad() {
@@ -23,7 +23,7 @@ class SeriesController : UIViewController {
 
 extension SeriesController : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return mockMovies.listOfMovies.count
+        return series.listOfSeries.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -39,7 +39,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         header.addSubview(expandCollapseButton)
         
         let category = UILabel(frame: CGRect(x: 10, y: 10, width: 250, height: 30))
-        category.text = mockMovies.listOfMovies[section].category
+        category.text = series.listOfSeries[section].category
         category.textColor = .white
         category.font = .systemFont(ofSize: 22, weight: .bold)
         header.addSubview(category)
@@ -52,13 +52,13 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         let section = button.tag
         
         var indexPaths = [IndexPath]()
-        for movie in mockMovies.listOfMovies[section].movies.indices {
+        for movie in series.listOfSeries[section].series.indices {
             let indexPath = IndexPath(row: movie, section: section)
             indexPaths.append(indexPath)
         }
         
-        let isExpanded = mockMovies.listOfMovies[section].isExpanded
-        mockMovies.listOfMovies[section].isExpanded = !isExpanded
+        let isExpanded = series.listOfSeries[section].isExpanded
+        series.listOfSeries[section].isExpanded = !isExpanded
         
         if isExpanded {
             seriesTableView.deleteRows(at: indexPaths, with: .fade)
@@ -77,26 +77,27 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !mockMovies.listOfMovies[section].isExpanded
+        if !series.listOfSeries[section].isExpanded
         {
             return 0
         }
-        return mockMovies.listOfMovies[section].movies.count
+        return series.listOfSeries[section].series.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "serieCell", for: indexPath) as! SerieTableViewCell
-        let moviesForCategory = mockMovies.listOfMovies[indexPath.section].movies
-        cell.serieTitle.text = moviesForCategory[indexPath.row].title
-        var raiting = moviesForCategory[indexPath.row].myRaiting?.description
-        raiting?.append("/10⭐️")
-        cell.serieRaiting.text = raiting
+        let moviesForCategory = series.listOfSeries[indexPath.section].series
+        cell.serieTitle.text = moviesForCategory[indexPath.row].name
+        var rating = moviesForCategory[indexPath.row].myRating.description
+        rating.append("/10⭐️")
+        cell.serieRaiting.text = rating
 //        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mockMovie = mockMovies.listOfMovies[indexPath.section].movies[indexPath.row]
+        let serie = series.listOfSeries[indexPath.section].series[indexPath.row]
+        //GET SERIES FROM API BY ID
 //        let details = Details(title: mockMovie.title, image: "", myRaiting: mockMovie.myRaiting, raiting: mockMovie.rating, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132, category: mockMovies.listOfMovies[indexPath.section].category, section: indexPath.section, row: indexPath.row)
 
         self.performSegue(withIdentifier: "openSerieDetails", sender: nil)
@@ -106,7 +107,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         
     }
     private func handleRemove(section: Int, row: Int) {
-        mockMovies.remove(section: section, row: row)
+        series.remove(section: section, row: row)
         
         var indexPaths = [IndexPath]()
         indexPaths.append(IndexPath(row: row, section: section))

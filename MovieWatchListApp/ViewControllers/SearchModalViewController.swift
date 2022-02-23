@@ -7,6 +7,8 @@ protocol SearchFilterDelegate {
 class SearchModalViewController : UIViewController {
     
     var delegate: SearchFilterDelegate? = nil
+    var isMovie: Bool!
+    var genres: [Genre] = []
     var pickerData: [String] = [String]()
     
     @IBOutlet weak var modalViewContainer: UIView!
@@ -17,7 +19,19 @@ class SearchModalViewController : UIViewController {
         super.viewDidLoad()
         modalViewContainer.layer.cornerRadius = 30
         applySearchButton.layer.cornerRadius = applySearchButton.frame.height/2
-        pickerData = ["All", "Action", "Romance", "Triller", "Horror", "Comedy", "Cartoon"]
+        if isMovie {
+            genres = Utilities.readGenres(fileName: "movieGenres")
+            
+        }
+        else{
+            genres = Utilities.readGenres(fileName: "seriesGenres")
+        }
+        pickerData.append("All")
+        genres.forEach { genre in
+            if genre.id != 0{
+                pickerData.append(genre.name)
+            }
+        }
     }
 
     @IBAction func closeModal(_ sender: Any) {
@@ -27,9 +41,10 @@ class SearchModalViewController : UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func ApplyFilters(_ sender: Any) {
-        let genreFromPicker = pickerData[genrePicker.selectedRow(inComponent: 0)] == "All" ? nil : pickerData[genrePicker.selectedRow(inComponent: 0)]
+        let genreFromPicker = pickerData[genrePicker.selectedRow(inComponent: 0)]
+        let genreId = Utilities.getGenreIdFromStringMovie(name: genreFromPicker)
         let titleFromField = titleSearchField.text == "" ? nil : titleSearchField.text
-        let filter = SearchFilter(title: titleFromField, genre: genreFromPicker, isApplied: true)
+        let filter = SearchFilter(title: titleFromField, genre: genreId == 0 ? nil : genreId, isApplied: true)
         delegate?.updateFilter(searchFilter: filter)
         dismiss(animated: true, completion: nil)
     }

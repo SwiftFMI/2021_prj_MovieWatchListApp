@@ -2,6 +2,6 @@ import Foundation
 
 struct SearchFilter {
     var title : String?
-    var genre: String?
+    var genre: Int?
     var isApplied: Bool
 }
