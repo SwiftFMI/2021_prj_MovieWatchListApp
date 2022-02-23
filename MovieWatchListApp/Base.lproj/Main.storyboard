@@ -371,6 +371,7 @@
                         <outlet property="searchButton" destination="9Ew-2o-BrI" id="6IJ-WM-lAh"/>
                         <outlet property="seriesTableView" destination="bQR-bn-oKF" id="0OD-Iz-Vru"/>
                         <segue destination="Ffm-Vc-edQ" kind="show" identifier="openSeriesDetails" id="Cya-AI-Uqf"/>
+                        <segue destination="PLJ-qD-xaj" kind="presentation" identifier="openSearchBox" modalPresentationStyle="overFullScreen" id="FLH-hP-vds"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5C2-Nr-Eb3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -446,7 +447,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vh3-WC-XEa">
-                                                        <rect key="frame" x="71" y="135" width="41" height="21"/>
+                                                        <rect key="frame" x="71" y="135" width="89" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -630,7 +631,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FhA-O7-gWf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4338" y="483"/>
+            <point key="canvasLocation" x="4337.6923076923076" y="482.70142180094786"/>
         </scene>
         <!--Account-->
         <scene sceneID="ZS3-rU-IYy">
@@ -1910,10 +1911,10 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="zgR-JV-qT6"/>
-        <segue reference="tsO-3l-cXY"/>
+        <segue reference="pjB-1J-Nox"/>
         <segue reference="jaz-o4-ohi"/>
-        <segue reference="qtG-0a-GJs"/>
-        <segue reference="XjB-xQ-Med"/>
+        <segue reference="FLH-hP-vds"/>
+        <segue reference="Cya-AI-Uqf"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="about" width="512" height="512"/>
@@ -1922,8 +1923,8 @@
         <image name="key" width="512" height="512"/>
         <image name="logo" width="200" height="200"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="person" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person" width="128" height="128"/>
         <image name="recordingtape" catalog="system" width="128" height="60"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="user" width="512" height="512"/>

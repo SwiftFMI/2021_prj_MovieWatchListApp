@@ -16,6 +16,7 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
     @IBOutlet weak var moviesTableView: UITableView!
     @IBOutlet weak var filterButton: UIBarButtonItem!
     var movies = TableMoviesModel()
+    var copyMovies = TableMoviesModel()
     var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +65,7 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
     
     func updateFilter(searchFilter: SearchFilter) {
         filter.isApplied = true
+        copyMovies.listOfMovies = movies.listOfMovies
         var filteredMovies = [Movies](repeating: Movies(category: "", isExpanded: true, movies: []), count: movies.listOfMovies.count)
         var index = 0
         movies.listOfMovies.forEach { movies in
@@ -71,7 +73,7 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
             filteredMovies[index].isExpanded = movies.isExpanded
             filteredMovies[index].movies =  movies.movies.filter { m in
                 (searchFilter.title == nil || m.title.contains(searchFilter.title ?? ""))
-                    && ( searchFilter.genre == nil || ((m.genresIDs?.contains(searchFilter.genre!)) != nil))
+                    && ( searchFilter.genre == nil || (m.genresIDs!.contains(searchFilter.genre ?? -1)))
             }
             index = index + 1
         }
@@ -97,8 +99,8 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
             filter.genre = nil
             filter.title = nil
             filterButton.image = UIImage(systemName: "magnifyingglass")
-//            mockMovies.listOfMovies = getAllMoviesFrimDB();
-//            moviesTableView.reloadData()
+            movies.listOfMovies = copyMovies.listOfMovies
+            moviesTableView.reloadData()
         }
         
     }

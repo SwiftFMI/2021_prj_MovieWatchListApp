@@ -53,7 +53,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
                 myRaitingButton.isHidden = true
             }
             else{
-                var myRaiting = details.myRaiting == nil ? "-" : details.myRaiting!.description
+                var myRaiting = details.myRaiting == 0 ? "-" : details.myRaiting!.description
                 myRaiting.append("/10⭐️")
                 myRaitingButton.setTitle(myRaiting, for: .normal)
             }

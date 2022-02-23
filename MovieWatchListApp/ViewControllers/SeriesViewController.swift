@@ -4,6 +4,7 @@ import UIKit
 class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData {
 
     var series = TableSeriesModel()
+    var copySeries = TableSeriesModel()
     var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     
     @IBOutlet weak var seriesTableView: UITableView!
@@ -52,6 +53,7 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
     }
     func updateFilter(searchFilter: SearchFilter) {
         filter.isApplied = true
+        copySeries.listOfSeries = series.listOfSeries
         var filteredSeries = [SeriesGroup](repeating: SeriesGroup(category: "", isExpanded: true, series: []), count: series.listOfSeries.count)
         var index = 0
         series.listOfSeries.forEach { series in
@@ -59,7 +61,7 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
             filteredSeries[index].isExpanded = series.isExpanded
             filteredSeries[index].series =  series.series.filter { s in
                 (searchFilter.title == nil || s.name.contains(searchFilter.title ?? ""))
-                    && ( searchFilter.genre == nil || ((s.genresIDs?.contains(searchFilter.genre!)) != nil))
+                    && ( searchFilter.genre == nil || (s.genresIDs!.contains(searchFilter.genre ?? -1)))
             }
             index = index + 1
         }
@@ -86,8 +88,8 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
             filter.genre = nil
             filter.title = nil
             searchButton.image = UIImage(systemName: "magnifyingglass")
-//            series.listOfMovies = getAllSeriesFromDB();
-//            seriesTableView.reloadData()
+            series.listOfSeries = copySeries.listOfSeries
+            seriesTableView.reloadData()
         }
     }
 }

@@ -47,7 +47,7 @@ class SearchModalViewController : UIViewController {
             genreId = Utilities.getGenreIdFromStringMovie(name: genreFromPicker)
         }
         else{
-//            genreId = Utilities.getfor series
+            genreId = Utilities.getGenreIdFromStringSeries(name: genreFromPicker)
         }
         
         let titleFromField = titleSearchField.text == "" ? nil : titleSearchField.text
