@@ -10,7 +10,7 @@ struct Series: Codable,Poster {
     var language: String
     var genresIDs: [Int]?
     var genres: [Genre]?
-    var seasons: Int
+    var seasons: Int?
     var rating: Double
     var releaseDate: String?
     var nextEpisode: NextEpisode?
@@ -23,7 +23,7 @@ struct Series: Codable,Poster {
         case language = "original_language"
         case genresIDs = "genre_ids"
         case genres
-        case seasons = "number_of_episodes"
+        case seasons = "number_of_seasons"
         case rating = "vote_average"
         case releaseDate = "first_air_date"
         case nextEpisode = "next_episode_to_air"

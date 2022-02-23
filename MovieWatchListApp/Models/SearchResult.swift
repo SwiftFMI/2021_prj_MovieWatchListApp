@@ -9,10 +9,12 @@ protocol SearchResult: Codable {
 struct MovieSearch: SearchResult {
     var page: Int
     var results: [Movie]
-    var totalPages, totalResults: Int
+    var totalPages: Int
+    var totalResults: Int
 
     enum CodingKeys: String, CodingKey {
-        case page, results
+        case page = "page"
+        case results = "results"
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
@@ -21,10 +23,12 @@ struct MovieSearch: SearchResult {
 struct SeriesSearch: SearchResult {
     var page: Int
     var results: [Series]
-    var totalPages, totalResults: Int
+    var totalPages: Int
+    var totalResults: Int
 
     enum CodingKeys: String, CodingKey {
-        case page, results
+        case page = "page"
+        case results = "results"
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }

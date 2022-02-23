@@ -108,13 +108,13 @@ class SeriesService {
     }
 
     func popularSeries(page: Int = 1) {
-        let url:String = "\(baseURL)/tv/popular?api_key=\(apiKey)&page=\(page)"
+        let url:String = "\(baseURL)/tv/popular?api_key=\(apiKey)&page=\(page)&sort_by=popularity.desc"
         
         AF.request(url,headers: headers)
             .responseDecodable(of: SeriesSearch.self) { response in
                 
                 guard let _ = response.data else {
-                    self.seriesSearchCallBack?(nil, false, "")
+                    self.seriesSearchCallBack?(nil, false, response.error?.localizedDescription ?? "")
                     return}
                 do {
                     let seriesSearch = response.value

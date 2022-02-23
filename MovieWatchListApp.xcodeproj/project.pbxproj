@@ -26,6 +26,7 @@
 		84E392F827BC3F80006BDDB0 /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E392F727BC3F80006BDDB0 /* Genre.swift */; };
 		84E392FA27BC402B006BDDB0 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E392F927BC402B006BDDB0 /* MovieService.swift */; };
 		84E3930027BC5EDF006BDDB0 /* Poster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E392FF27BC5EDF006BDDB0 /* Poster.swift */; };
+		84F7FA6027C6CC25008F2550 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 84F7FA5F27C6CC25008F2550 /* Secrets.xcconfig */; };
 		F517D16A27ADA69500C4BD80 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517D16927ADA69500C4BD80 /* DetailViewController.swift */; };
 		F517D16C27ADA8C600C4BD80 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F517D16B27ADA8C600C4BD80 /* DetailsViewModel.swift */; };
 		F52793BD27BD5E1C0053FF20 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52793BC27BD5E1C0053FF20 /* Filters.swift */; };
@@ -39,7 +40,6 @@
 		F555562D27A8829700DB015E /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562C27A8829700DB015E /* AccountViewController.swift */; };
 		F555562F27A882B000DB015E /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562E27A882B000DB015E /* DiscoverViewController.swift */; };
 		F5564E4E27C4E62400D19F38 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5564E4D27C4E62400D19F38 /* SearchViewCell.swift */; };
-		F556501427C6C17C0018098B /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F556501327C6C17C0018098B /* Secrets.xcconfig */; };
 		F567D09E27B7F82A002BF1C6 /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */; };
 		F5CDE88927BC31DF00767CBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5CDE88827BC31DF00767CBB /* Alamofire */; };
 		F5CDE88D27BC4ECA00767CBB /* SearchModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */; };
@@ -68,6 +68,7 @@
 		84E392F727BC3F80006BDDB0 /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		84E392F927BC402B006BDDB0 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MovieService.swift; path = MovieWatchListApp/Services/MovieService.swift; sourceTree = SOURCE_ROOT; };
 		84E392FF27BC5EDF006BDDB0 /* Poster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poster.swift; sourceTree = "<group>"; };
+		84F7FA5F27C6CC25008F2550 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Desktop/Secrets.xcconfig; sourceTree = "<group>"; };
 		F517D16927ADA69500C4BD80 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F517D16B27ADA8C600C4BD80 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		F52793BC27BD5E1C0053FF20 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		F555562C27A8829700DB015E /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		F555562E27A882B000DB015E /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		F5564E4D27C4E62400D19F38 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
-		F556501327C6C17C0018098B /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
 		F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
 		F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModalViewController.swift; sourceTree = "<group>"; };
 		F5DCE1D527A84D0100E0592C /* MovieWatchListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieWatchListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +186,7 @@
 		F5DCE1CC27A84D0100E0592C = {
 			isa = PBXGroup;
 			children = (
+				84F7FA5F27C6CC25008F2550 /* Secrets.xcconfig */,
 				F5DCE1D727A84D0100E0592C /* MovieWatchListApp */,
 				F5DCE1D627A84D0100E0592C /* Products */,
 				84B6C11D27BAF1F1006A1DD3 /* Frameworks */,
@@ -203,7 +204,6 @@
 		F5DCE1D727A84D0100E0592C /* MovieWatchListApp */ = {
 			isa = PBXGroup;
 			children = (
-				F556501327C6C17C0018098B /* Secrets.xcconfig */,
 				849A8B8F27BC7DB8003CEDF4 /* Services */,
 				845557BD27B52B42005E253B /* Helpers */,
 				F5281A5127B42593003959EC /* ViewControllers */,
@@ -300,7 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F556501427C6C17C0018098B /* Secrets.xcconfig in Resources */,
+				84F7FA6027C6CC25008F2550 /* Secrets.xcconfig in Resources */,
 				841DD3ED27C44E2700CC5602 /* movieGenres.json in Resources */,
 				F5DCE1E527A84D0200E0592C /* LaunchScreen.storyboard in Resources */,
 				841DD3EE27C44E2700CC5602 /* seriesGenres.json in Resources */,
@@ -375,7 +375,7 @@
 /* Begin XCBuildConfiguration section */
 		F5DCE1E727A84D0200E0592C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F556501327C6C17C0018098B /* Secrets.xcconfig */;
+			baseConfigurationReference = 84F7FA5F27C6CC25008F2550 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -437,7 +437,7 @@
 		};
 		F5DCE1E827A84D0200E0592C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F556501327C6C17C0018098B /* Secrets.xcconfig */;
+			baseConfigurationReference = 84F7FA5F27C6CC25008F2550 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

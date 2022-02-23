@@ -43,7 +43,7 @@ class UserService {
         let seriesToAdd = SeriesShort(seriesId: series.seriesId,
                                       name: series.name, myRating: 0,
                                       posterPath: series.posterPath,
-                                      season: series.seasons,
+                                      season: series.seasons ?? 0,
                                       episode: series.nextEpisode?.episodeNumber ?? 0,
                                       category: category,
                                       genresIDs: series.genresIDs,
