@@ -89,7 +89,7 @@ class UserService {
         var series: [SeriesShort] = []
         var rawSeries: [String] = []
         if let user = Auth.auth().currentUser {
-            let seriesRef = Firestore.firestore().collection("users")
+            Firestore.firestore().collection("users")
                 .document(user.uid).getDocument{ (document,error) in
                     if let err = error {
                         print(err.localizedDescription)
@@ -115,7 +115,7 @@ class UserService {
         var movies: [MovieShort] = []
         var rawMovies: [String] = []
         if let user = Auth.auth().currentUser {
-            let moviesRef = Firestore.firestore().collection("users")
+            Firestore.firestore().collection("users")
                 .document(user.uid).getDocument{ (document,error) in
                     if let err = error {
                         print(err.localizedDescription)

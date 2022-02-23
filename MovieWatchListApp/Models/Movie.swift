@@ -2,7 +2,7 @@ import Foundation
 import FirebaseFirestoreSwift
 import UIKit
 
-struct Movie: Codable,Media {
+struct Movie: Codable,Poster {
     @DocumentID var uid: String? = UUID().uuidString
     var movieId: Int
     var title: String
@@ -33,7 +33,7 @@ struct Movie: Codable,Media {
 }
 
 
-struct MovieShort:Codable {
+struct MovieShort:Codable,Poster {
     var movieId: Int
     var title: String
     var posterPath: String?
@@ -51,14 +51,15 @@ struct Movies {
 struct TableMoviesModel {
     var listOfMovies = [
         Movies(category: "Watching", isExpanded: true, movies:
-                [MovieShort(id:UUID().uuidString ,movieId:299537,title: "Captain Marvel", myRating: 4, posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", category: Category.watching, genresIDs:[28,12,878]),
+                [MovieShort(movieId:299537,title: "Captain Marvel",
+                            posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",myRating: 4, category: Category.watching.rawValue, genresIDs:[28,12,878]),
                  
-                 MovieShort(id:UUID().uuidString ,movieId:258670,title: "Marvel Renaissance", myRating: 7,posterPath:"/jRLAVahAT8wOJtp1c1NDeMDRXAo.jpg", category: Category.watching,genresIDs:[28,12,878]),
+                 MovieShort(movieId:258670,title: "Marvel Renaissance", posterPath:"/jRLAVahAT8wOJtp1c1NDeMDRXAo.jpg", myRating: 7,category: Category.watching.rawValue,genresIDs:[28,12,878]),
                  
-                 MovieShort(id:NSUUID().uuidString,movieId:622230,title: "LEGO Marvel Spider-Man: Vexed by Venom", myRating: 10,
-                            posterPath:"/gTo2r8nNU3ZYAS6DqdeSp1VEqkq.jpg", category: Category.watching, genresIDs:[99,10770])]),
+                 MovieShort(movieId:622230,title: "LEGO Marvel Spider-Man: Vexed by Venom",
+                            posterPath:"/gTo2r8nNU3ZYAS6DqdeSp1VEqkq.jpg",myRating: 10, category: Category.watching.rawValue, genresIDs:[99,10770])]),
         
-        Movies(category: "Watched", isExpanded: true, movies: [MovieShort(id:UUID().uuidString ,movieId:299537,title: "Captain Marvel", myRating: 7, posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", category: Category.watched, genresIDs:[28,12,878])])]
+        Movies(category: "Watched", isExpanded: true, movies: [MovieShort(movieId:299537,title: "Captain Marvel",  posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",myRating: 7, category: Category.watched.rawValue, genresIDs:[28,12,878])])]
     
     mutating func remove(section: Int, row: Int) {
         listOfMovies[section].movies.remove(at: row)
