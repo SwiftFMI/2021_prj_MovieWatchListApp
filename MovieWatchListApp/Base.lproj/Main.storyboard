@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="F6h-S1-uCI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="m5X-bw-jZZ">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -283,13 +283,14 @@
                         <outlet property="searchTable" destination="pid-K9-zFc" id="iHJ-70-MWj"/>
                         <segue destination="PLJ-qD-xaj" kind="presentation" identifier="openSearchBox" modalPresentationStyle="overFullScreen" id="qtG-0a-GJs"/>
                         <segue destination="TwG-vY-6VA" kind="show" identifier="openMovieDetails" id="jaz-o4-ohi"/>
+                        <segue destination="Ffm-Vc-edQ" kind="show" identifier="openSeriesDetails" id="XjB-xQ-Med"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NuF-W3-M6l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="630.76923076923072" y="555.92417061611377"/>
         </scene>
-        <!--Series Controller-->
+        <!--Series-->
         <scene sceneID="tJc-3d-Wn6">
             <objects>
                 <viewController id="aV7-j8-fvz" customClass="SeriesController" customModule="MovieWatchListApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -359,7 +360,7 @@
                             <constraint firstItem="bQR-bn-oKF" firstAttribute="top" secondItem="o38-wA-YMG" secondAttribute="top" id="Va8-ow-fph"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="jdN-Jc-8g0">
+                    <navigationItem key="navigationItem" title="Series" id="jdN-Jc-8g0">
                         <barButtonItem key="rightBarButtonItem" image="magnifyingglass" catalog="system" id="9Ew-2o-BrI">
                             <connections>
                                 <action selector="searchButtonClicked:" destination="aV7-j8-fvz" id="buc-pQ-ygC"/>
@@ -369,7 +370,7 @@
                     <connections>
                         <outlet property="searchButton" destination="9Ew-2o-BrI" id="6IJ-WM-lAh"/>
                         <outlet property="seriesTableView" destination="bQR-bn-oKF" id="0OD-Iz-Vru"/>
-                        <segue destination="Ffm-Vc-edQ" kind="show" identifier="openSerieDetails" id="Cya-AI-Uqf"/>
+                        <segue destination="Ffm-Vc-edQ" kind="show" identifier="openSeriesDetails" id="Cya-AI-Uqf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5C2-Nr-Eb3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1404,7 +1405,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Cl-qB-uU2">
-                                                        <rect key="frame" x="71" y="135" width="41" height="21"/>
+                                                        <rect key="frame" x="71" y="135" width="111" height="21"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -1557,7 +1558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQ7-Hz-X6V" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3935" y="-639"/>
+            <point key="canvasLocation" x="3933.8461538461538" y="-639.09952606635068"/>
         </scene>
         <!--Picker Modal View Controller-->
         <scene sceneID="jXP-6f-pr3">
@@ -1912,6 +1913,7 @@
         <segue reference="tsO-3l-cXY"/>
         <segue reference="jaz-o4-ohi"/>
         <segue reference="qtG-0a-GJs"/>
+        <segue reference="XjB-xQ-Med"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="about" width="512" height="512"/>

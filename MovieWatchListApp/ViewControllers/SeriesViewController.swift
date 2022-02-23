@@ -10,13 +10,35 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
     @IBOutlet weak var searchButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.view.addBackground()
         seriesTableView.tableFooterView = UIView(frame: .zero)
+        UserService.shared.getAllSeries()
+        UserService.shared.completionHandlerSeries { [weak self] seriesResult, status, message in
+            if status {
+                guard let self = self else {return}
+                guard let _series = seriesResult else {return}
+                _series.forEach { serie in
+                    switch serie.category {
+                    case "Watched":
+                        self.series.listOfSeries[1].series.append(serie)
+                        break
+                    case "Watching":
+                        self.series.listOfSeries[0].series.append(serie)
+                        break
+                    case "Plan to watch":
+                        self.series.listOfSeries[2].series.append(serie)
+                        break
+                    default:
+                        break
+                    }
+                }
+                self.seriesTableView.reloadData()
+            }
+        }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             super.prepare(for: segue, sender: sender)
-            if segue.identifier == "openSerieDetails" {
+            if segue.identifier == "openSeriesDetails" {
                     if let next = segue.destination as! SerieDetailViewController? {
                         next.details = sender as? Details
                             }
@@ -137,11 +159,11 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "serieCell", for: indexPath) as! SerieTableViewCell
         let series = series.listOfSeries[indexPath.section].series[indexPath.row]
         cell.serieTitle.text = series.name
-        var rating = series.myRating.description
+        var rating = series.myRating == 0 ? "-" : series.myRating.description
         rating.append("/10⭐️")
         cell.serieRaiting.text = rating
         cell.serieNextEpisode.text = series.nextAirDate
-//        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
+        cell.serieImage.load(url: series.posterURL)
         return cell
     }
     
@@ -154,11 +176,11 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
                                    guard let self = self else {return}
                                    guard let _series = series else {return}
                                 let serieFromTable = self.series.listOfSeries[indexPath.section].series[indexPath.row]
-                                var details = Details(title: _series.name, image: _series.posterPath ?? "", myRaiting: serieFromTable.myRating, raiting: _series.rating, summary: _series.summary, releaseDate: _series.releaseDate ?? "", genre: [], duration: 0, category: serieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                var details = Details(title: _series.name, image: _series.posterURL, myRaiting: serieFromTable.myRating, raiting: _series.rating, summary: _series.summary, releaseDate: _series.releaseDate ?? "", genre: [], duration: 0, category: serieFromTable.category, section: indexPath.section, row: indexPath.row)
                                 _series.genres?.forEach({ genre in
                                     details.genre.append(genre.name)
                                 })
-                                self.performSegue(withIdentifier: "openSerieDetails", sender: details)
+                                self.performSegue(withIdentifier: "openSeriesDetails", sender: details)
                                }
         }
     }

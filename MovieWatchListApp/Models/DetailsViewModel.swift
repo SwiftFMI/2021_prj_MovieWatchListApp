@@ -2,7 +2,7 @@ import UIKit
 
 struct Details {
     let title: String
-    let image: String
+    let image: URL
     let myRaiting: Int?
     let raiting: Double?
     let summary: String

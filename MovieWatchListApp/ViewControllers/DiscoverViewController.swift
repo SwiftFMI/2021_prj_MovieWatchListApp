@@ -34,9 +34,10 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
                 next.addDelegate = self
             }
         }
-        if segue.identifier == "openSerieDetails" {
+        if segue.identifier == "openSeriesDetails" {
             if let next = segue.destination as! SerieDetailViewController? {
                 next.details = sender as? Details
+                next.addDelegate = self
             }
         }
         if segue.identifier == "openSearchBox" {
@@ -47,13 +48,20 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
         }
     }
     
-    func addToDB(row: Int) {
-//        let movieToAdd = movieSearch?.results[row]
+    func addToDB(row: Int, category: String) {
+        if isMovie {
+            let movieToAdd = movieSearch?.results[row]
+            UserService.shared.addMovie(movie: movieToAdd!, category: category)
+        }
+        else{
+            let seriesToAdd = serieSearch?.results[row]
+            UserService.shared.addSerie(series: seriesToAdd!, category: category)
+        }
+
         
         //        let alert = UIAlertController(title: "Success", message: "You've added the movie to your list", preferredStyle: UIAlertController.Style.alert)
         //        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         //        self.present(alert, animated: true, completion: nil)
-        //add to db
     }
     
     func updateFilter(searchFilter: SearchFilter) {
@@ -199,7 +207,7 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
                                    if status {
                                        guard let self = self else {return}
                                        guard let _movie = movie else {return}
-                                        var details = Details(title: _movie.title, image: _movie.posterPath ?? "", myRaiting: 0, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: _movie.duration, category: nil, section: 0, row: indexPath.row)
+                                    var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: 0, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: _movie.duration, category: nil, section: 0, row: indexPath.row)
                                         _movie.genres?.forEach({ genre in
                                             details.genre.append(genre.name)
                                         })
@@ -214,11 +222,11 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
                                    if status {
                                        guard let self = self else {return}
                                        guard let _serie = serie else {return}
-                                    var details = Details(title: _serie.name, image: _serie.posterPath ?? "", myRaiting: 0, raiting: _serie.rating, summary: _serie.summary, releaseDate: _serie.releaseDate ?? "", genre: [], duration: 0, category: nil, section: 0, row: indexPath.row)
+                                    var details = Details(title: _serie.name, image: _serie.posterURL, myRaiting: 0, raiting: _serie.rating, summary: _serie.summary, releaseDate: _serie.releaseDate ?? "", genre: [], duration: 0, category: nil, section: 0, row: indexPath.row)
                                     _serie.genres?.forEach({ genre in
                                             details.genre.append(genre.name)
                                         })
-                                        self.performSegue(withIdentifier: "openSerieDetails", sender: details)
+                                        self.performSegue(withIdentifier: "openSeriesDetails", sender: details)
                                    }
                                 }
         }

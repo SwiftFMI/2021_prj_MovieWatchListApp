@@ -19,10 +19,31 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
     var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.addBackground()
         moviesTableView.tableFooterView = UIView(frame: .zero)
-        
+        UserService.shared.getAllMovies()
+        UserService.shared.completionHandlerMovies { [weak self] moviesResult, status, message in
+            if status {
+                guard let self = self else {return}
+                guard let _movies = moviesResult else {return}
+                _movies.forEach { movie in
+                    switch movie.category {
+                    case "Watched":
+                        self.movies.listOfMovies[1].movies.append(movie)
+                        break
+                    case "Watching":
+                        self.movies.listOfMovies[0].movies.append(movie)
+                        break
+                    case "Plan to watch":
+                        self.movies.listOfMovies[2].movies.append(movie)
+                        break
+                    default:
+                        break
+                    }
+                }
+                self.moviesTableView.reloadData()
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -151,10 +172,10 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MoviewTableViewCell
         let moviesForCategory = movies.listOfMovies[indexPath.section].movies
         cell.movieTitle.text = moviesForCategory[indexPath.row].title
-        var rating = moviesForCategory[indexPath.row].myRating.description
+        var rating = moviesForCategory[indexPath.row].myRating == 0 ? "-" : moviesForCategory[indexPath.row].myRating.description
         rating.append("/10⭐️")
         cell.movieRaiting.text = rating
-//        cell.movieImage.load(url: moviesForCategory[indexPath.row])
+        cell.movieImage.load(url: moviesForCategory[indexPath.row].posterURL)
         return cell
     }
     
@@ -167,7 +188,7 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
                                    guard let self = self else {return}
                                    guard let _movie = movie else {return}
                                 let movieFromTable = self.movies.listOfMovies[indexPath.section].movies[indexPath.row]
-                                var details = Details(title: _movie.title, image: _movie.posterPath ?? "", myRaiting: movieFromTable.myRating, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: _movie.duration, category: movieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: movieFromTable.myRating, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: _movie.duration, category: movieFromTable.category, section: indexPath.section, row: indexPath.row)
                                 _movie.genres?.forEach({ genre in
                                     details.genre.append(genre.name)
                                 })

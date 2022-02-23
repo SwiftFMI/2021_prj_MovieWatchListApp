@@ -68,16 +68,17 @@ struct SeriesGroup {
 }
 
 struct TableSeriesModel {
-    var listOfSeries = [
-        SeriesGroup(category: "Watching", isExpanded: true, series:
-                [SeriesShort(seriesId:299537,name: "Captain Marvel", myRating: 4, posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", season: 3, episode: 4, category: Category.watching.rawValue, genresIDs:[28,12,878], nextAirDate: "Next episode after 3 days"),
-                 
-                 SeriesShort(seriesId:258670,name: "Marvel Renaissance", myRating: 7,posterPath:"/jRLAVahAT8wOJtp1c1NDeMDRXAo.jpg", season: 8, episode: 2, category: Category.watching.rawValue,genresIDs:[28,12,878], nextAirDate: "Next episode after 3 days"),
-                 
-                 SeriesShort(seriesId:622230,name: "LEGO Marvel Spider-Man: Vexed by Venom", myRating: 10,
-                             posterPath:"/gTo2r8nNU3ZYAS6DqdeSp1VEqkq.jpg", season: 1, episode: 23, category: Category.watching.rawValue, genresIDs:[99,10770], nextAirDate: "Next episode after 3 days")]),
-        
-        SeriesGroup(category: "Watched", isExpanded: true, series: [SeriesShort(seriesId:299537,name: "Captain Marvel", myRating: 7, posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", season: 5, episode: 17, category: Category.watched.rawValue, genresIDs:[28,12,878], nextAirDate: "Next episode after 3 days")])]
+//    var listOfSeries = [
+//        SeriesGroup(category: "Watching", isExpanded: true, series:
+//                [SeriesShort(seriesId:299537,name: "Captain Marvel", myRating: 4, posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", season: 3, episode: 4, category: Category.watching.rawValue, genresIDs:[28,12,878], nextAirDate: "Next episode after 3 days"),
+//
+//                 SeriesShort(seriesId:258670,name: "Marvel Renaissance", myRating: 7,posterPath:"/jRLAVahAT8wOJtp1c1NDeMDRXAo.jpg", season: 8, episode: 2, category: Category.watching.rawValue,genresIDs:[28,12,878], nextAirDate: "Next episode after 3 days"),
+//
+//                 SeriesShort(seriesId:622230,name: "LEGO Marvel Spider-Man: Vexed by Venom", myRating: 10,
+//                             posterPath:"/gTo2r8nNU3ZYAS6DqdeSp1VEqkq.jpg", season: 1, episode: 23, category: Category.watching.rawValue, genresIDs:[99,10770], nextAirDate: "Next episode after 3 days")]),
+//
+//        SeriesGroup(category: "Watched", isExpanded: true, series: [SeriesShort(seriesId:299537,name: "Captain Marvel", myRating: 7, posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", season: 5, episode: 17, category: Category.watched.rawValue, genresIDs:[28,12,878], nextAirDate: "Next episode after 3 days")])]
+    var listOfSeries = [SeriesGroup(category: "Watching", isExpanded: true, series: []), SeriesGroup(category: "Watched", isExpanded: true, series: []), SeriesGroup(category: "Plan to watch", isExpanded: true, series: [])]
     
     mutating func remove(section: Int, row: Int) {
         listOfSeries[section].series.remove(at: row)

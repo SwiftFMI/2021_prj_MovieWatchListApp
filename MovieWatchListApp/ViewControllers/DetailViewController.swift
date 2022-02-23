@@ -9,7 +9,7 @@ protocol UpdateTableData {
 }
 
 protocol AddToDB {
-    func addToDB(row: Int)
+    func addToDB(row: Int, category: String)
 }
 
 
@@ -57,13 +57,14 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
                 myRaiting.append("/10⭐️")
                 myRaitingButton.setTitle(myRaiting, for: .normal)
             }
+            movieImage.load(url: details.image)
         }
     }
     
     func update(entity: PickerReturnModel) {
         if entity.btnToUpdate == "category" {
             if categoryButton.titleLabel?.text == "Add to List" {
-                addDelegate?.addToDB(row: details.row)
+                addDelegate?.addToDB(row: details.row, category: entity.selectedItem)
             }
             else{
                 categoryButton.setTitle(entity.selectedItem, for: .normal)
@@ -142,17 +143,32 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
             serieTitle.text = details.title
             serieGenres.text = details.genre.joined(separator: ", ")
             serieReleaseDate.text = details.releaseDate
-            serieLength.text = details.duration?.description
-            serieRaiting.text = details.raiting?.description
+            var duration = details.duration?.description ?? ""
+            duration.append(" minutes")
+            serieLength.text = duration
+            var raiting = details.raiting == nil ? "-" : details.raiting!.description
+            raiting.append("/10⭐️")
+            serieRaiting.text = raiting
             serieSummary.text = details.summary
-//            serieImage.load(url: )
+            serieImage.load(url: details.image)
+            categoryButton.setTitle(details.category ?? "Add to List", for: .normal)
+            if details.category == nil {
+                myRaitingButton.isHidden = true
+                seasonButton.isHidden = true
+                episodeButton.isHidden = true
+            }
+            else{
+                var myRaiting = details.myRaiting == 0 ? "-" : details.myRaiting!.description
+                myRaiting.append("/10⭐️")
+                myRaitingButton.setTitle(myRaiting, for: .normal)
+            }
         }
     }
     
     func update(entity: PickerReturnModel) {
         if entity.btnToUpdate == "category" {
             if categoryButton.titleLabel?.text == "Add to List" {
-                addDelegate?.addToDB(row: details.row)
+                addDelegate?.addToDB(row: details.row, category: entity.selectedItem)
             }
             else{
                 categoryButton.setTitle(entity.selectedItem, for: .normal)
