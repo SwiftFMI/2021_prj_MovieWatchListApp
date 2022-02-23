@@ -256,7 +256,7 @@
                                 </connections>
                             </tableView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mG3-c2-CUM">
-                                <rect key="frame" x="0.0" y="121" width="316" height="50"/>
+                                <rect key="frame" x="0.0" y="98" width="316" height="85"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Mip-Ie-Ets" id="efJ-qx-0s4"/>

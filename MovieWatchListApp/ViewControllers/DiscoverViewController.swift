@@ -13,8 +13,9 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
     @IBOutlet weak var searchTable: UITableView!
     @IBAction func unwindToDiscover(segue: UIStoryboardSegue) {}
     @IBAction func searchButtonClicked(_ sender: UIButton) {
+        let isMovie = movieOrSeriesPickerData[movieOrSeries.selectedRow(inComponent: 0)] == "Movies"
         if filter.isApplied == false {
-            performSegue(withIdentifier: "openSearchBox", sender: nil)
+            performSegue(withIdentifier: "openSearchBox", sender: isMovie)
         }
         else {
             filter.isApplied = false

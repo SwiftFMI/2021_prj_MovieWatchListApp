@@ -20,7 +20,7 @@ struct MovieSearch: SearchResult {
 
 struct SeriesSearch: SearchResult {
     var page: Int
-    var results: [Series]
+    var results: [Serie]
     var totalPages, totalResults: Int
 
     enum CodingKeys: String, CodingKey {

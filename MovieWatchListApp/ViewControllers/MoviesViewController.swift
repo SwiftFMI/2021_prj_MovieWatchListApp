@@ -15,7 +15,7 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateMovie
 
     @IBOutlet weak var moviesTableView: UITableView!
     @IBOutlet weak var filterButton: UIBarButtonItem!
-    var mockMovies = MockModel()
+    var movies = TableMoviesModel()
     var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,41 +34,41 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateMovie
                             }
             }
             if segue.identifier == "openSearchBox" {
-                let searchViewController = segue.destination as! SearchModalViewController
-                searchViewController.delegate = self
+                if let next = segue.destination as! SearchModalViewController? {
+                    next.isMovie = sender as? Bool
+                    next.delegate = self
+                        }
             }
     }
     
     func updateFilter(searchFilter: SearchFilter) {
         filter.isApplied = true
-        var filteredMovies = [Movies](repeating: Movies(category: "", isExpanded: true, movies: []), count: mockMovies.listOfMovies.count)
+        var filteredMovies = [Movies](repeating: Movies(category: "", isExpanded: true, movies: []), count: movies.listOfMovies.count)
         var index = 0
-        mockMovies.listOfMovies.forEach { movies in
+        movies.listOfMovies.forEach { movies in
             filteredMovies[index].category = movies.category
             filteredMovies[index].isExpanded = movies.isExpanded
             filteredMovies[index].movies =  movies.movies.filter { m in
                 (searchFilter.title == nil || m.title.contains(searchFilter.title ?? ""))
-                    && ( searchFilter.genre == nil || ((m.genres?.contains(where: { g in
-                    g.name == searchFilter.genre ?? ""
-                })) != nil))
+                    && ( searchFilter.genre == nil || ((m.genresIDs?.contains(searchFilter.genre!)) != nil))
             }
             index = index + 1
         }
-        mockMovies.listOfMovies = filteredMovies
+        movies.listOfMovies = filteredMovies
         filterButton.image = UIImage(systemName: "xmark")
         moviesTableView.reloadData()
     }
     func updateCategory(section: Int, row: Int, newCategory: String) {
-        mockMovies.switchCategory(section: section, row: row, newCategory: newCategory)
+        movies.switchCategory(section: section, row: row, newCategory: newCategory)
         moviesTableView.reloadData()
     }
     func updateRaiting(section: Int, row: Int, newRaiting: String) {
-        mockMovies.updateRaiting(section: section, row: row, newRaiting: newRaiting)
+        movies.updateRaiting(section: section, row: row, newRaiting: newRaiting)
         moviesTableView.reloadData()
     }
     @IBAction func searchClicked(_ sender: Any) {
         if filter.isApplied == false {
-            performSegue(withIdentifier: "openSearchBox", sender: nil)
+            performSegue(withIdentifier: "openSearchBox", sender: true)
         }
         else {
             filter.isApplied = false
@@ -85,7 +85,7 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateMovie
 extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return mockMovies.listOfMovies.count
+        return movies.listOfMovies.count
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -101,7 +101,7 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         header.addSubview(expandCollapseButton)
         
         let category = UILabel(frame: CGRect(x: 10, y: 10, width: 250, height: 30))
-        category.text = mockMovies.listOfMovies[section].category
+        category.text = movies.listOfMovies[section].category
         category.textColor = .white
         category.font = .systemFont(ofSize: 22, weight: .bold)
         header.addSubview(category)
@@ -114,13 +114,13 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         let section = button.tag
         
         var indexPaths = [IndexPath]()
-        for movie in mockMovies.listOfMovies[section].movies.indices {
+        for movie in movies.listOfMovies[section].movies.indices {
             let indexPath = IndexPath(row: movie, section: section)
             indexPaths.append(indexPath)
         }
         
-        let isExpanded = mockMovies.listOfMovies[section].isExpanded
-        mockMovies.listOfMovies[section].isExpanded = !isExpanded
+        let isExpanded = movies.listOfMovies[section].isExpanded
+        movies.listOfMovies[section].isExpanded = !isExpanded
         
         if isExpanded {
             moviesTableView.deleteRows(at: indexPaths, with: .fade)
@@ -139,36 +139,37 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !mockMovies.listOfMovies[section].isExpanded
+        if !movies.listOfMovies[section].isExpanded
         {
             return 0
         }
-        return mockMovies.listOfMovies[section].movies.count
+        return movies.listOfMovies[section].movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MoviewTableViewCell
-        let moviesForCategory = mockMovies.listOfMovies[indexPath.section].movies
+        let moviesForCategory = movies.listOfMovies[indexPath.section].movies
         cell.movieTitle.text = moviesForCategory[indexPath.row].title
-        var raiting = moviesForCategory[indexPath.row].myRaiting?.description
-        raiting?.append("/10⭐️")
-        cell.movieRaiting.text = raiting
+        var rating = moviesForCategory[indexPath.row].myRating.description
+        rating.append("/10⭐️")
+        cell.movieRaiting.text = rating
 //        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mockMovie = mockMovies.listOfMovies[indexPath.section].movies[indexPath.row]
-        let details = Details(title: mockMovie.title, image: "", myRaiting: mockMovie.myRaiting, raiting: mockMovie.rating, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132, category: mockMovies.listOfMovies[indexPath.section].category, section: indexPath.section, row: indexPath.row)
+        let movieId = movies.listOfMovies[indexPath.section].movies[indexPath.row].movieId
+        //GET MOVIE FROM API BY ID
+//        let details = Details(title: movie.title, image: "", myRaiting: movie.myRaiting, raiting: movie.rating, summary: movie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132, category: mockMovies.listOfMovies[indexPath.section].category, section: indexPath.section, row: indexPath.row)
 
-        self.performSegue(withIdentifier: "openMovieDetails", sender: details)
+        //self.performSegue(withIdentifier: "openMovieDetails", sender: details)
     }
     
     private func handleCompletition() {
 
     }
     private func handleRemove(section: Int, row: Int) {
-        mockMovies.remove(section: section, row: row)
+        movies.remove(section: section, row: row)
         
         var indexPaths = [IndexPath]()
         indexPaths.append(IndexPath(row: row, section: section))
