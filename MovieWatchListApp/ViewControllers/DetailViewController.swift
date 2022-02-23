@@ -3,8 +3,8 @@ import UIKit
 protocol UpdateDelegate {
     func update(entity: PickerReturnModel)
 }
-protocol UpdateMovieTableData {
-    func updateCategory(section: Int, row: Int, newCategory: String)
+protocol UpdateTableData {
+    func updateCategory(section: Int, row: Int, newCategory: String) -> (Int, Int)
     func updateRaiting(section: Int, row: Int, newRaiting: String)
 }
 
@@ -27,7 +27,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
     @IBOutlet weak var movieSummary: UILabel!
     @IBOutlet weak var detailsViewContainer: UIView!
     var details: Details!
-    var delegate: UpdateMovieTableData? = nil
+    var delegate: UpdateTableData? = nil
     var addDelegate: AddToDB? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +41,9 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
             movieTitle.text = details.title
             movieGenres.text = details.genre.joined(separator: ", ")
             movieReleaseDate.text = details.releaseDate
-            var length = details.length.description
-            length.append(" minutes")
-            movieLength.text = length
+            var duration = details.duration?.description ?? ""
+            duration.append(" minutes")
+            movieLength.text = duration
             var raiting = details.raiting == nil ? "-" : details.raiting!.description
             raiting.append("/10⭐️")
             movieRaiting.text = raiting
@@ -67,7 +67,9 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
             }
             else{
                 categoryButton.setTitle(entity.selectedItem, for: .normal)
-                delegate?.updateCategory(section: details.section!, row: details.row, newCategory: entity.selectedItem)
+                let result = delegate?.updateCategory(section: details.section!, row: details.row, newCategory: entity.selectedItem)
+                details.section = result?.0
+                details.row = result?.1 ?? 0
             }
 
         }
@@ -125,6 +127,8 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
     @IBOutlet weak var serieSummary: UILabel!
     @IBOutlet weak var detailsViewContainer: UIView!
     var details: Details!
+    var delegate: UpdateTableData? = nil
+    var addDelegate: AddToDB? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBackground()
@@ -138,15 +142,24 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
             serieTitle.text = details.title
             serieGenres.text = details.genre.joined(separator: ", ")
             serieReleaseDate.text = details.releaseDate
-            serieLength.text = details.length.description
+            serieLength.text = details.duration?.description
             serieRaiting.text = details.raiting?.description
             serieSummary.text = details.summary
+//            serieImage.load(url: )
         }
     }
     
     func update(entity: PickerReturnModel) {
         if entity.btnToUpdate == "category" {
-            categoryButton.setTitle(entity.selectedItem, for: .normal)
+            if categoryButton.titleLabel?.text == "Add to List" {
+                addDelegate?.addToDB(row: details.row)
+            }
+            else{
+                categoryButton.setTitle(entity.selectedItem, for: .normal)
+                let result = delegate?.updateCategory(section: details.section!, row: details.row, newCategory: entity.selectedItem)
+                details.section = result?.0
+                details.row = result?.1 ?? 0
+            }
         }
         else {
             var title = entity.selectedItem

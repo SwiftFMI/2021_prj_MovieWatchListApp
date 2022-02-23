@@ -1,10 +1,13 @@
 import UIKit
 
 
-class SeriesController : UIViewController {
+class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData {
+
     var series = TableSeriesModel()
+    var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     
     @IBOutlet weak var seriesTableView: UITableView!
+    @IBOutlet weak var searchButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -18,6 +21,52 @@ class SeriesController : UIViewController {
                         next.details = sender as? Details
                             }
             }
+            if segue.identifier == "openSearchBox" {
+                if let next = segue.destination as! SearchModalViewController? {
+                    next.isMovie = sender as? Bool
+                    next.delegate = self
+                    }
+        }
+    }
+    func updateFilter(searchFilter: SearchFilter) {
+        filter.isApplied = true
+        var filteredSeries = [SeriesGroup](repeating: SeriesGroup(category: "", isExpanded: true, series: []), count: series.listOfSeries.count)
+        var index = 0
+        series.listOfSeries.forEach { series in
+            filteredSeries[index].category = series.category
+            filteredSeries[index].isExpanded = series.isExpanded
+            filteredSeries[index].series =  series.series.filter { s in
+                (searchFilter.title == nil || s.name.contains(searchFilter.title ?? ""))
+                    && ( searchFilter.genre == nil || ((s.genresIDs?.contains(searchFilter.genre!)) != nil))
+            }
+            index = index + 1
+        }
+        series.listOfSeries = filteredSeries
+        searchButton.image = UIImage(systemName: "xmark")
+        seriesTableView.reloadData()
+    }
+    func updateCategory(section: Int, row: Int, newCategory: String) -> (Int, Int) {
+        let newSectionAndRow = series.switchCategory(section: section, row: row, newCategory: newCategory)
+        seriesTableView.reloadData()
+        return newSectionAndRow
+    }
+    
+    func updateRaiting(section: Int, row: Int, newRaiting: String) {
+        series.updateRaiting(section: section, row: row, newRaiting: newRaiting)
+        seriesTableView.reloadData()
+    }
+    @IBAction func searchButtonClicked(_ sender: Any) {
+        if filter.isApplied == false {
+            performSegue(withIdentifier: "openSearchBox", sender: false)
+        }
+        else {
+            filter.isApplied = false
+            filter.genre = nil
+            filter.title = nil
+            searchButton.image = UIImage(systemName: "magnifyingglass")
+//            series.listOfMovies = getAllSeriesFromDB();
+//            seriesTableView.reloadData()
+        }
     }
 }
 
@@ -86,21 +135,32 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "serieCell", for: indexPath) as! SerieTableViewCell
-        let moviesForCategory = series.listOfSeries[indexPath.section].series
-        cell.serieTitle.text = moviesForCategory[indexPath.row].name
-        var rating = moviesForCategory[indexPath.row].myRating.description
+        let series = series.listOfSeries[indexPath.section].series[indexPath.row]
+        cell.serieTitle.text = series.name
+        var rating = series.myRating.description
         rating.append("/10⭐️")
         cell.serieRaiting.text = rating
+        cell.serieNextEpisode.text = series.nextAirDate
 //        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let serie = series.listOfSeries[indexPath.section].series[indexPath.row]
-        //GET SERIES FROM API BY ID
-//        let details = Details(title: mockMovie.title, image: "", myRaiting: mockMovie.myRaiting, raiting: mockMovie.rating, summary: mockMovie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132, category: mockMovies.listOfMovies[indexPath.section].category, section: indexPath.section, row: indexPath.row)
-
-        self.performSegue(withIdentifier: "openSerieDetails", sender: nil)
+        let seriesId = series.listOfSeries[indexPath.section].series[indexPath.row].seriesId
+        //GET MOVIE FROM API BY ID
+        SeriesService.shared.getSeries(id: seriesId)
+        SeriesService.shared.completionHandlerDetails { [weak self] (series,status,message) in
+                               if status {
+                                   guard let self = self else {return}
+                                   guard let _series = series else {return}
+                                let serieFromTable = self.series.listOfSeries[indexPath.section].series[indexPath.row]
+                                var details = Details(title: _series.name, image: _series.posterPath ?? "", myRaiting: serieFromTable.myRating, raiting: _series.rating, summary: _series.summary, releaseDate: _series.releaseDate ?? "", genre: [], duration: 0, category: serieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                _series.genres?.forEach({ genre in
+                                    details.genre.append(genre.name)
+                                })
+                                self.performSegue(withIdentifier: "openSerieDetails", sender: details)
+                               }
+        }
     }
     
     private func handleIncrementEpisode() {

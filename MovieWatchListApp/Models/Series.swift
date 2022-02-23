@@ -83,18 +83,23 @@ struct TableSeriesModel {
         listOfSeries[section].series.remove(at: row)
     }
     
-    mutating func switchCategory(section: Int, row: Int, newCategory: String){
+    mutating func switchCategory(section: Int, row: Int, newCategory: String) -> (Int, Int){
+        var newSection = section
+        var newRow = row
         let removed = listOfSeries[section].series.remove(at: row)
-        let newCategoryIndex = listOfSeries.firstIndex { m in
-            m.category == newCategory
+        let newCategoryIndex = listOfSeries.firstIndex { s in
+            s.category == newCategory
         };
         if let categoryIndex = newCategoryIndex {
             listOfSeries[categoryIndex].series.append(removed)
+            newSection = categoryIndex
+            newRow = listOfSeries[categoryIndex].series.count - 1
         }
         else{
             listOfSeries.append(SeriesGroup(category: newCategory, isExpanded: true, series: [removed]))
         }
         
+        return (newSection, newRow)
     }
     mutating func updateRaiting(section: Int, row: Int, newRaiting: String) {
         listOfSeries[section].series[row].myRating = Int.init(newRaiting) ?? 0

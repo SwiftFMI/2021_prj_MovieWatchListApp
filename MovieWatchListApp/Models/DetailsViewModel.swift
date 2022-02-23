@@ -7,9 +7,9 @@ struct Details {
     let raiting: Double?
     let summary: String
     let releaseDate : String
-    let genre: [String]
-    let length: Int
+    var genre: [String]
+    var duration: Double?
     let category: String?
-    let section: Int?
-    let row: Int
+    var section: Int?
+    var row: Int
 }

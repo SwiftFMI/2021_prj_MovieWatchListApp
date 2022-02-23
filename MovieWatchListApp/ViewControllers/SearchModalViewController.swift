@@ -42,7 +42,14 @@ class SearchModalViewController : UIViewController {
     }
     @IBAction func ApplyFilters(_ sender: Any) {
         let genreFromPicker = pickerData[genrePicker.selectedRow(inComponent: 0)]
-        let genreId = Utilities.getGenreIdFromStringMovie(name: genreFromPicker)
+        var genreId = 0
+        if isMovie {
+            genreId = Utilities.getGenreIdFromStringMovie(name: genreFromPicker)
+        }
+        else{
+//            genreId = Utilities.getfor series
+        }
+        
         let titleFromField = titleSearchField.text == "" ? nil : titleSearchField.text
         let filter = SearchFilter(title: titleFromField, genre: genreId == 0 ? nil : genreId, isApplied: true)
         delegate?.updateFilter(searchFilter: filter)

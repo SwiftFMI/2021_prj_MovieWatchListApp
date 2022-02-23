@@ -26,7 +26,7 @@ class UserService {
     func addMovie(movie: Movie,category: String) {
         let movieToAdd = MovieShort(movieId: movie.movieId,
                                     title: movie.title,
-                                    myRating: 0, posterPath: movie.posterPath,category: Category.init(rawValue: category),
+                                    posterPath: movie.posterPath, myRating: 0, category: category,
                                     genresIDs: movie.genresIDs)
         
         encoder.outputFormatting = .prettyPrinted

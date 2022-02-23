@@ -5,8 +5,8 @@ struct Genre: Codable {
     var name: String
 }
 
-enum Category:String,Codable {
+enum Category: String,Codable {
     case watched = "Watched"
     case watching = "Watching"
-    case planedToWatched = "Planed to Watch"
+    case planedToWatched = "Plan to watch"
 }

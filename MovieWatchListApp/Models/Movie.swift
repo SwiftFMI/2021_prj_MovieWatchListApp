@@ -65,18 +65,25 @@ struct TableMoviesModel {
         listOfMovies[section].movies.remove(at: row)
     }
     
-    mutating func switchCategory(section: Int, row: Int, newCategory: String){
+    mutating func switchCategory(section: Int, row: Int, newCategory: String) -> (Int, Int){
+        var newSection = section
+        var newRow = row
         let removed = listOfMovies[section].movies.remove(at: row)
         let newCategoryIndex = listOfMovies.firstIndex { m in
             m.category == newCategory
         };
         if let categoryIndex = newCategoryIndex {
             listOfMovies[categoryIndex].movies.append(removed)
+            newSection = categoryIndex
+            newRow = listOfMovies[categoryIndex].movies.count - 1
         }
         else{
             listOfMovies.append(Movies(category: newCategory, isExpanded: true, movies: [removed]))
+            newSection = listOfMovies.count - 1
+            newRow = 0
         }
         
+        return (newSection, newRow)
     }
     mutating func updateRaiting(section: Int, row: Int, newRaiting: String) {
         listOfMovies[section].movies[row].myRating = Int.init(newRaiting) ?? 0

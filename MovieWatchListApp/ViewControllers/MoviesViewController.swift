@@ -11,7 +11,7 @@ func addBackground() {
     self.sendSubviewToBack(backgroundImageView)
 }}
 
-class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateMovieTableData {
+class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTableData {
 
     @IBOutlet weak var moviesTableView: UITableView!
     @IBOutlet weak var filterButton: UIBarButtonItem!
@@ -58,9 +58,10 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateMovie
         filterButton.image = UIImage(systemName: "xmark")
         moviesTableView.reloadData()
     }
-    func updateCategory(section: Int, row: Int, newCategory: String) {
-        movies.switchCategory(section: section, row: row, newCategory: newCategory)
+    func updateCategory(section: Int, row: Int, newCategory: String) -> (Int, Int) {
+        let newSectionAndRow = movies.switchCategory(section: section, row: row, newCategory: newCategory)
         moviesTableView.reloadData()
+        return newSectionAndRow
     }
     func updateRaiting(section: Int, row: Int, newRaiting: String) {
         movies.updateRaiting(section: section, row: row, newRaiting: newRaiting)
@@ -153,16 +154,26 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         var rating = moviesForCategory[indexPath.row].myRating.description
         rating.append("/10⭐️")
         cell.movieRaiting.text = rating
-//        cell.movieImage.image = moviesForCategory[indexPath.row].posterImage
+//        cell.movieImage.load(url: moviesForCategory[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let movieId = movies.listOfMovies[indexPath.section].movies[indexPath.row].movieId
         //GET MOVIE FROM API BY ID
-//        let details = Details(title: movie.title, image: "", myRaiting: movie.myRaiting, raiting: movie.rating, summary: movie.summary, releaseDate: mockMovie.releaseDate!, genre: ["Action", "Comedy", "Horror"], length: 132, category: mockMovies.listOfMovies[indexPath.section].category, section: indexPath.section, row: indexPath.row)
-
-        //self.performSegue(withIdentifier: "openMovieDetails", sender: details)
+        MovieService.shared.getMovie(id: movieId)
+        MovieService.shared.completionHandlerDetails { [weak self] (movie,status,message) in
+                               if status {
+                                   guard let self = self else {return}
+                                   guard let _movie = movie else {return}
+                                let movieFromTable = self.movies.listOfMovies[indexPath.section].movies[indexPath.row]
+                                var details = Details(title: _movie.title, image: _movie.posterPath ?? "", myRaiting: movieFromTable.myRating, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: _movie.duration, category: movieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                _movie.genres?.forEach({ genre in
+                                    details.genre.append(genre.name)
+                                })
+                                self.performSegue(withIdentifier: "openMovieDetails", sender: details)
+                               }
+        }
     }
     
     private func handleCompletition() {
