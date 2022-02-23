@@ -10,6 +10,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var movieOrSeries: UIPickerView!
     @IBOutlet weak var searchTable: UITableView!
+    @IBAction func unwindToDiscover(segue: UIStoryboardSegue) {}
     @IBAction func searchButtonClicked(_ sender: UIButton) {
         if filter.isApplied == false {
             performSegue(withIdentifier: "openSearchBox", sender: nil)
@@ -45,9 +46,9 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
     func addToDB(row: Int) {
         let movieToAdd = movieSearch?.results[row]
         
-        let alert = UIAlertController(title: "Success", message: "You've added the movie to your list", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: "Success", message: "You've added the movie to your list", preferredStyle: UIAlertController.Style.alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
         //add to db
     }
     
@@ -154,6 +155,10 @@ extension DiscoverViewController : UIPickerViewDataSource, UIPickerViewDelegate 
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return movieOrSeriesPickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        return NSAttributedString(string: movieOrSeriesPickerData[row], attributes: [NSAttributedString.Key.foregroundColor:UIColor.blue])
     }
     
 }

@@ -257,7 +257,6 @@
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mG3-c2-CUM">
                                 <rect key="frame" x="0.0" y="121" width="316" height="50"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.39633734967066492" green="0.65923977466934813" blue="0.75207534163330969" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Mip-Ie-Ets" id="efJ-qx-0s4"/>
                                     <outlet property="delegate" destination="Mip-Ie-Ets" id="Rf9-Fm-JPn"/>
@@ -1619,9 +1618,11 @@
                     <connections>
                         <outlet property="picker" destination="bET-hR-ESp" id="gtl-vy-OKG"/>
                         <outlet property="updateButton" destination="qR4-U3-HoV" id="YiB-Cu-cD1"/>
+                        <segue destination="czp-QE-fPm" kind="unwind" identifier="returnToResults" unwindAction="unwindToDiscoverWithSegue:" id="vKR-W3-pxJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BsV-ee-4Zl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="czp-QE-fPm" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5013.8461538461534" y="-302.13270142180096"/>
         </scene>

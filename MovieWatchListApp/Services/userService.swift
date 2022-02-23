@@ -10,7 +10,7 @@ class UserService {
     func addMovieToWatched(movie: Movie) {
         let movieToAdd = MovieShort(movieId: movie.movieId,
                                     title: movie.title,
-                                    myRating: movie.rating,
+                                    myRating: 0,
                                     posterPath: movie.posterPath,
                                     category: Category.watched,
                                     genresIDs: movie.genresIDs)
@@ -23,7 +23,7 @@ class UserService {
     func deleteWatchedMovie(movie: Movie) {
         let movieToDelete = MovieShort(movieId: movie.movieId,
                                        title: movie.title,
-                                       myRating: movie.rating,
+                                       myRating: 0,
                                        posterPath: movie.posterPath,
                                        category: Category.watched,
                                        genresIDs: movie.genresIDs)

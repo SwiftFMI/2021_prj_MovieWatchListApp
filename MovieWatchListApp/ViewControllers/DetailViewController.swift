@@ -210,7 +210,13 @@ class PickerModalViewController : UIViewController {
         
         let result = PickerReturnModel(btnToUpdate: pickerData.btnToUpdate, selectedItem: pickerData.pickerData[picker.selectedRow(inComponent: 0)])
         delegate?.update(entity: result)
-        dismiss(animated: true, completion: nil)
+        if sender.titleLabel?.text == "💾 Update" {
+            dismiss(animated: true, completion: nil)
+        }
+        else{
+            self.performSegue(withIdentifier: "returnToResults", sender: nil)
+        }
+        
     }
 }
 

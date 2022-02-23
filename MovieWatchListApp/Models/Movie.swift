@@ -37,7 +37,7 @@ struct MovieShort: Identifiable,Codable {
     @DocumentID var id: String? = UUID().uuidString
     var movieId: Int
     var title: String
-    var myRating: Double
+    var myRating: Int
     var posterPath: String?
     var category: Category?
     var genresIDs: [Int]?
