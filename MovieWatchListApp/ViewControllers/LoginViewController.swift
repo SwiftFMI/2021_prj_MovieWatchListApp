@@ -42,7 +42,7 @@ class LoginViewController : UIViewController {
     }
     
     @IBAction func LoginPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: "login", sender: sender) // remove
+        //self.performSegue(withIdentifier: "login", sender: sender) // remove
         activityIndicator.startAnimating()
         let error = validateFields()
         if error != nil {
@@ -57,9 +57,13 @@ class LoginViewController : UIViewController {
                 } else {
                     let user = Auth.auth().currentUser
                     if let user = user {
-                        self.finishedLoggingIn(user: user)
+                        let defaults = UserDefaults.standard
+                        defaults.set(true,forKey:"isLogged")
+                        defaults.set(user.uid,forKey:"userId")
+                        defaults.set(user.email,forKey: "userEmail")
+                        self.performSegue(withIdentifier: "login", sender: sender)
+                        //self.finishedLoggingIn(user: user)
                     }
-                    //self.performSegue(withIdentifier: "login", sender: sender)
                 }
                 
             }
@@ -76,20 +80,5 @@ class LoginViewController : UIViewController {
         validationMessage.text = message
         validationMessage.alpha = 1
         activityIndicator.stopAnimating()
-    }
-    func finishedLoggingIn(user: Firebase.User) {
-        let userRef = db.collection("users")
-            .whereField("uid", isEqualTo: user.uid)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    var userFromDB = querySnapshot!.documents[0].data()
-                    
-                    let defaults = UserDefaults.standard
-                    defaults.set(true,forKey:"isLogged")
-                    defaults.set(userFromDB,forKey:"loggedUser")
-                }
-            }
     }
 }

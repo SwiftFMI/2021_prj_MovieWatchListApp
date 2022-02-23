@@ -81,13 +81,13 @@ class RegisterViewController : UIViewController {
                 }
                 else {
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: [
+                    db.collection("users").document(authResult!.user.uid).setData([
                         "username":cleanedUsername,
                         "email":cleanedEmail,
                         "uid":authResult!.user.uid,
                         "registeredAt":Date(),
-                        "watchedMovies":[],
-                        "watchedSeries":[]
+                        "Movies":[],
+                        "Series":[]
                     ]) {(error) in
                         if error != nil {
                             self.showError(error!.localizedDescription)

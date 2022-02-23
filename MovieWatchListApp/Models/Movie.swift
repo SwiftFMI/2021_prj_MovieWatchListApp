@@ -33,23 +33,13 @@ struct Movie: Codable,Media {
 }
 
 
-struct MovieShort: Identifiable,Codable {
-    @DocumentID var id: String? = UUID().uuidString
+struct MovieShort:Codable {
     var movieId: Int
     var title: String
-    var myRating: Int
     var posterPath: String?
-    var category: Category?
+    var myRating: Int
+    var category: String?
     var genresIDs: [Int]?
-    
-    //  enum CodingKeys: String, CodingKey {
-    //        case movieId
-    //        case title
-    //        case myRating
-    //        case posterPath
-    //        case category
-    //
-    //    }
 }
 
 struct Movies {

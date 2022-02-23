@@ -4,6 +4,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
     
     var searchResult: MovieSearch?
     var movie:Movie?
+    var movies: [MovieShort]?
     var movieSearch: MovieSearch?
     var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     var movieOrSeriesPickerData = ["Movies", "Series"]
@@ -20,43 +21,43 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
             filter.genre = nil
             filter.title = nil
             searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-//            mockMovies.listOfMovies = getAllMoviesFrimDB();
-//            moviesTableView.reloadData()
+            //            mockMovies.listOfMovies = getAllMoviesFrimDB();
+            //            moviesTableView.reloadData()
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            super.prepare(for: segue, sender: sender)
-            if segue.identifier == "openMovieDetails" {
-                    if let next = segue.destination as! MovieDetailViewController? {
-                        next.details = sender as? Details
-                        next.addDelegate = self
-                            }
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "openMovieDetails" {
+            if let next = segue.destination as! MovieDetailViewController? {
+                next.details = sender as? Details
+                next.addDelegate = self
             }
-        if segue.identifier == "openSerieDetails" {
-                if let next = segue.destination as! SerieDetailViewController? {
-                    next.details = sender as? Details
-                        }
         }
-            if segue.identifier == "openSearchBox" {
-                let searchViewController = segue.destination as! SearchModalViewController
-                searchViewController.delegate = self
+        if segue.identifier == "openSerieDetails" {
+            if let next = segue.destination as! SerieDetailViewController? {
+                next.details = sender as? Details
             }
+        }
+        if segue.identifier == "openSearchBox" {
+            let searchViewController = segue.destination as! SearchModalViewController
+            searchViewController.delegate = self
+        }
     }
     
     func addToDB(row: Int) {
         let movieToAdd = movieSearch?.results[row]
         
-//        let alert = UIAlertController(title: "Success", message: "You've added the movie to your list", preferredStyle: UIAlertController.Style.alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
+        //        let alert = UIAlertController(title: "Success", message: "You've added the movie to your list", preferredStyle: UIAlertController.Style.alert)
+        //        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+        //        self.present(alert, animated: true, completion: nil)
         //add to db
     }
     
     func updateFilter(searchFilter: SearchFilter) {
         filter.isApplied = true
-//        let IsMovies = movieOrSeriesPickerData[movieOrSeries.selectedRow(inComponent: 0)]
+        //        let IsMovies = movieOrSeriesPickerData[movieOrSeries.selectedRow(inComponent: 0)]
         //searchMovies = getMoviesAndSeries by filters
-//        searchTable.reloadData()
+        //        searchTable.reloadData()
         searchButton.setImage(UIImage(systemName: "xmark"), for: .normal)
     }
     
@@ -67,7 +68,20 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
         searchButton.layer.cornerRadius = searchButton.frame.height/2
         searchTable.tableFooterView = UIView(frame: .zero)
         
-//        let mockMovie = Movie(uid:UUID().uuidString ,movieId:219537,title: "Captain MMarvel", posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", summary:"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.", language: "en",genresIDs:[28,12,878],rating: 6.9, releaseDate:"2019-03-06")
+        let mockMovie = Movie(uid:UUID().uuidString ,movieId:219537,title: "CCCaptain MMarvel", posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", summary:"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.", language: "en",genresIDs:[28,12,878],rating: 6.9, releaseDate:"2019-03-06")
+        
+       UserService.shared.addMovie(movie: mockMovie,category: "Watched")
+        
+        UserService.shared.getAllMovies()
+        UserService.shared.completionHandlerMovies { [weak self] (movies,status,message) in
+            if status {
+                guard let self = self else {return}
+                guard let _movies = movies else {return}
+                self.movies = _movies
+                print(movies?.count)
+            }
+        }
+        
         
         //        MovieService.shared.getMovie(id: 27205)
         //        MovieService.shared.completionHandlerDetails { [weak self] (movie,status,message) in
@@ -81,37 +95,37 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
         //        movie = MovieService.shared.getMovie(id: 27205)
         //MovieService.shared.setMovieDb(movie: mockMovie)
         
-//        MovieService.shared.getMovieDb(movieId: mockMovie.movieId)
-//        MovieService.shared.completionHandlerDetails {[weak self]
-//            (movie,status,message) in
-//            if status {
-//                guard let self = self else {return}
-//                guard let _movie = movie else {return}
-//                self.movie = _movie
-//                //reload
-//                print(self.movie)
-//            }
-//        }
+        //        MovieService.shared.getMovieDb(movieId: mockMovie.movieId)
+        //        MovieService.shared.completionHandlerDetails {[weak self]
+        //            (movie,status,message) in
+        //            if status {
+        //                guard let self = self else {return}
+        //                guard let _movie = movie else {return}
+        //                self.movie = _movie
+        //                //reload
+        //                print(self.movie)
+        //            }
+        //        }
         
         //MovieService.shared.searchMovie(query: "Am")
-
-        }
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         MovieService.shared.popularMovies()
         MovieService.shared.completionHandlerSearch { [weak self] (movieSearch,status,message) in
-                    if status {
-                        guard let self = self else {return}
-                        guard var _movieSearch = movieSearch else {return}
-                        _movieSearch.totalResults = 20
-                        _movieSearch.results = _movieSearch.results.prefix(20).shuffled()
-                        self.movieSearch = _movieSearch
-                        self.searchTable.reloadData()
-                    }
-                }
+            if status {
+                guard let self = self else {return}
+                guard var _movieSearch = movieSearch else {return}
+                _movieSearch.totalResults = 20
+                _movieSearch.results = _movieSearch.results.prefix(20).shuffled()
+                self.movieSearch = _movieSearch
+                self.searchTable.reloadData()
+            }
+        }
     }
     
-    }
+}
 
 extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,7 +142,7 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
         let data = movieSearch?.results[indexPath.row]
         cell.searchTitle.text = data?.title
         cell.searchRaiting.text = data?.rating.description
-//        cell.searchImage.image =
+        //        cell.searchImage.image =
         return cell
     }
     

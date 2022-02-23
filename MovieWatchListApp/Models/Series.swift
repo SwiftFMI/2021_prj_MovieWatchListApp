@@ -29,15 +29,15 @@ struct Series: Codable,Media {
         case nextEpisode = "next_episode_to_air"
     }
 }
+
 struct SeriesShort: Codable {
-    @DocumentID var id: String? = UUID().uuidString
     var seriesId: Int
     var name: String
-    var myRating: Double
+    var myRating: Int
     var posterPath: String?
     var season: Int
     var episode: Int
-    var category: Category?
+    var category: String?
     var genresIDs: [Int]?
     var nextAirDate: String
 }

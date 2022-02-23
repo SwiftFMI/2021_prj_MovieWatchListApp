@@ -67,8 +67,14 @@ class Utilities {
         }
         return [Genre]()
     }
+   
     static func getGenreIdFromStringMovie(name: String) -> Int{
-        var filtered = MovieGenres.movieGenres.first(where: {$0.name == name})
+        let filtered = MovieGenres.movieGenres.first(where: {$0.name == name})
+        return filtered?.id ?? 0
+    }
+    
+    static func getGenreIdFromStringSeries(name: String) -> Int {
+        let filtered = SeriesGenres.seriesGenres.first(where: {$0.name == name})
         return filtered?.id ?? 0
     }
 }
