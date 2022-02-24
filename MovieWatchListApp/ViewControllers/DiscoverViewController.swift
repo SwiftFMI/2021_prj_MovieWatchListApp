@@ -6,7 +6,9 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
     var movie:Movie?
     var movies: [MovieShort]?
     var movieSearch: MovieSearch?
+    var movieSearchCopy: MovieSearch?
     var serieSearch: SeriesSearch?
+    var serieSearchCopy: SeriesSearch?
     var filter = SearchFilter(title: nil, genre: nil, isApplied: false)
     var movieOrSeriesPickerData = ["Movies", "Series"]
     var isMovie: Bool = true
@@ -23,7 +25,14 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
             filter.genre = nil
             filter.title = nil
             searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-            getPopularMoviesOrSeries()
+            if isMovie {
+                movieSearch?.results = movieSearchCopy!.results
+            }
+            else{
+                serieSearch?.results = serieSearchCopy!.results
+            }
+            
+            searchTable.reloadData()
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,14 +75,89 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
     
     func updateFilter(searchFilter: SearchFilter) {
         filter.isApplied = true
-        //searchMovies = getMoviesAndSeries by filters
-        //        searchTable.reloadData()
+        if isMovie {
+            movieSearchCopy = movieSearch!
+            
+            if let queryString = searchFilter.title {
+                MovieService.shared.searchMovie(query: queryString)
+                MovieService.shared.completionHandlerSearch { [weak self] (moviesResult,status,message) in
+                    if status {
+                        guard let self = self else {return}
+                        guard let _movies = moviesResult else {return}
+                        self.movieSearch = _movies
+                        if let genre = searchFilter.genre {
+                            var movieSearchTemp : MovieSearch?
+                            movieSearchTemp?.results = self.movieSearch!.results.filter({ movie in
+                                movie.genresIDs!.contains(genre)
+                            })
+                            if let results = movieSearchTemp?.results {
+                                self.movieSearch?.results = results
+                            }
+                        }
+                        self.searchTable.reloadData()
+                    }
+                    
+                }
+            }
+            else{
+                if let genre = searchFilter.genre {
+                    MovieService.shared.discoverByGennres(genresId: [genre])
+                    MovieService.shared.completionHandlerSearch { [weak self] (moviesResult,status,message) in
+                        if status {
+                            guard let self = self else {return}
+                            guard let _movies = moviesResult else {return}
+                            self.movieSearch = _movies
+                            self.searchTable.reloadData()
+                        }
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            serieSearchCopy = serieSearch!
+            
+            if let queryString = searchFilter.title {
+                SeriesService.shared.searchSeries(query: queryString)
+                SeriesService.shared.completionHandlerSearch { [weak self] (seriesResult,status,message) in
+                    if status {
+                        guard let self = self else {return}
+                        guard let _series = seriesResult else {return}
+                        self.serieSearch = _series
+                        if let genre = searchFilter.genre {
+                            var serieSearchTemp : SeriesSearch?
+                            serieSearchTemp?.results = self.serieSearch!.results.filter({ series in
+                                series.genresIDs!.contains(genre)
+                            })
+                            if let results = serieSearchTemp?.results {
+                                self.serieSearch?.results = results
+                            }
+                        }
+                        self.searchTable.reloadData()
+                    }
+                    
+                }
+            }
+            else{
+                if let genre = searchFilter.genre {
+                    SeriesService.shared.discoverByGennres(genresId: [genre])
+                    SeriesService.shared.completionHandlerSearch { [weak self] (seriesResult,status,message) in
+                        if status {
+                            guard let self = self else {return}
+                            guard let _series = seriesResult else {return}
+                            self.serieSearch = _series
+                            self.searchTable.reloadData()
+                        }
+                    }
+                }
+            }
+        }
         searchButton.setImage(UIImage(systemName: "xmark"), for: .normal)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.view.addBackground()
         searchButton.layer.cornerRadius = searchButton.frame.height/2
         searchTable.tableFooterView = UIView(frame: .zero)
@@ -130,9 +214,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
             MovieService.shared.completionHandlerSearch { [weak self] (movieSearch,status,message) in
                         if status {
                             guard let self = self else {return}
-                            guard var _movieSearch = movieSearch else {return}
-                            _movieSearch.totalResults = 20
-                            _movieSearch.results = _movieSearch.results.prefix(20).shuffled()
+                            guard let _movieSearch = movieSearch else {return}
                             self.movieSearch = _movieSearch
                             self.searchTable.reloadData()
                         }
@@ -141,9 +223,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
             SeriesService.shared.completionHandlerSearch { [weak self] (serieSearch,status,message) in
                 if status {
                     guard let self = self else {return}
-                    guard var _serieSearch = serieSearch else {return}
-                    _serieSearch.totalResults = 20
-                    _serieSearch.results = _serieSearch.results.prefix(20).shuffled()
+                    guard let _serieSearch = serieSearch else {return}
                     self.serieSearch = _serieSearch
                 }
             }
@@ -164,7 +244,7 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
                 return 0
             }
             else{
-                return movieSearch!.totalResults
+                return movieSearch!.results.count
             }
         }
         else{
@@ -172,7 +252,7 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
                 return 0
             }
             else{
-                return serieSearch!.totalResults
+                return serieSearch!.results.count
             }
         }
 
