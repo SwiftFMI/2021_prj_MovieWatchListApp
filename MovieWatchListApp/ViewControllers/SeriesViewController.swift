@@ -193,13 +193,13 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         var rating = series.myRating == 0 ? "-" : series.myRating.description
         rating.append("/10⭐️")
         cell.serieRaiting.text = rating
-        if indexPath.section == 0 {
+        if series.category! == "Watching" {
             var nextEpisodeText = "Next episode will air on: "
             nextEpisodeText.append(Utilities.getFromatedDate(date:series.nextAirDate))
             cell.serieNextEpisode.text = nextEpisodeText
         }
         cell.serieImage.load(url: series.posterURL)
-        if indexPath.section == 0 {
+        if series.category! == "Watching" {
             var myEpsiode = "Episode to watch: "
             myEpsiode.append(series.episode.description)
             cell.serieEpisode.text = myEpsiode
@@ -232,8 +232,14 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
     
     private func handleIncrementEpisode(section: Int, row: Int) {
         let seriesToUpdate = series.listOfSeries[section].series[row]
-        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.watching.rawValue, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode + 1, season: seriesToUpdate.season)
-        seriesTableView.reloadData()
+        if seriesToUpdate.category == "Watching" {
+            let newEpisode = seriesToUpdate.episode + 1
+            if newEpisode < 27 {
+                UserService.shared.updateSeries(series: seriesToUpdate, category: Category.watching.rawValue, rating: seriesToUpdate.myRating, episode: newEpisode, season: seriesToUpdate.season)
+                series.updateEpisode(section: section, row: row, newEpisode: newEpisode.description)
+                seriesTableView.reloadData()
+            }
+        }
     }
     private func handleRemove(section: Int, row: Int) {
         UserService.shared.deleteSeries(series: series.listOfSeries[section].series[row])

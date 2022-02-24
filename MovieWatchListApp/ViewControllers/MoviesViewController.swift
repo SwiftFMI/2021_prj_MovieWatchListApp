@@ -212,9 +212,11 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
     
     private func handleCompletition(section: Int, row: Int) {
         let movieToUpdate = movies.listOfMovies[section].movies[row]
-        UserService.shared.updateMovie(movie: movieToUpdate, category: Category.watched, rating: movieToUpdate.myRating)
-        movies.switchCategory(section: section, row: row, newCategory: "Watched")
-        moviesTableView.reloadData()
+        if movieToUpdate.category! != "Watched" {
+            UserService.shared.updateMovie(movie: movieToUpdate, category: Category.watched, rating: movieToUpdate.myRating)
+            movies.switchCategory(section: section, row: row, newCategory: "Watched")
+            moviesTableView.reloadData()
+        }
     }
     private func handleRemove(section: Int, row: Int) {
         UserService.shared.deleteMovie(movie: movies.listOfMovies[section].movies[row])

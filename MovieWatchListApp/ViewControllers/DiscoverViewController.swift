@@ -68,7 +68,11 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
             SeriesService.shared.getSeries(id: seriesId!)
             SeriesService.shared.completionHandlerDetails { (serie,status,message) in
                 if status {
-                    guard let _serie = serie else {return}
+                    guard var _serie = serie else {return}
+                    _serie.genresIDs = []
+                    _serie.genres?.forEach({ genre in
+                        _serie.genresIDs!.append(Utilities.getGenreIdFromStringSeries(name: genre.name))
+                    })
                     UserService.shared.addSerie(series: _serie, category: category)
                     ChangeDetection.seriesChange = true
                 }
@@ -89,13 +93,11 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
                         guard let _movies = moviesResult else {return}
                         self.movieSearch = _movies
                         if let genre = searchFilter.genre {
-                            var movieSearchTemp : MovieSearch?
-                            movieSearchTemp?.results = self.movieSearch!.results.filter({ movie in
+                            var movieSearchTemp = _movies
+                            movieSearchTemp.results = self.movieSearch!.results.filter({ movie in
                                 movie.genresIDs!.contains(genre)
                             })
-                            if let results = movieSearchTemp?.results {
-                                self.movieSearch?.results = results
-                            }
+                            self.movieSearch?.results = movieSearchTemp.results
                         }
                         self.searchTable.reloadData()
                     }
