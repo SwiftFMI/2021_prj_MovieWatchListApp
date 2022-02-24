@@ -17,7 +17,8 @@ class LoginViewController : UIViewController {
         loginFormView.layer.cornerRadius = 30
         LoginButton.layer.cornerRadius = 15
         LoginButton.layer.masksToBounds = true
-        RegisterButton.layer.cornerRadius = 30
+        RegisterButton.layer.cornerRadius = 15
+        RegisterButton.layer.masksToBounds = true
         logo.layer.cornerRadius = logo.frame.height/2
     }
     
@@ -43,11 +44,9 @@ class LoginViewController : UIViewController {
     }
     
     @IBAction func LoginPressed(_ sender: Any) {
-        //self.performSegue(withIdentifier: "login", sender: sender) // remove
         activityIndicator.startAnimating()
         let error = validateFields()
         if error != nil {
-            // There is an error
             showError(error!)
             activityIndicator.stopAnimating()
         }else{
@@ -64,7 +63,6 @@ class LoginViewController : UIViewController {
                         defaults.set(user.uid,forKey:"userId")
                         defaults.set(user.email,forKey: "userEmail")
                         self.performSegue(withIdentifier: "login", sender: sender)
-                        //self.finishedLoggingIn(user: user)
                         self.activityIndicator.stopAnimating()
                     }
                 }

@@ -18,7 +18,8 @@ class RegisterViewController : UIViewController {
         self.view.addBackground()
         logo.layer.cornerRadius = logo.frame.height/2
         registerFormView.layer.cornerRadius = 30
-        registerButton.layer.cornerRadius = 30
+        registerButton.layer.cornerRadius = 15
+        registerButton.layer.masksToBounds = true
         backButton.layer.cornerRadius = backButton.frame.height/2
     }
     

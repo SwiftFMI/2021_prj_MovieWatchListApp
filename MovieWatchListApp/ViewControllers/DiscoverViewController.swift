@@ -53,7 +53,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
             if let next = segue.destination as! SearchModalViewController? {
                 next.isMovie = sender as? Bool
                 next.delegate = self
-                    }
+            }
         }
     }
     
@@ -67,19 +67,13 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
             let seriesId = serieSearch?.results[row].seriesId
             SeriesService.shared.getSeries(id: seriesId!)
             SeriesService.shared.completionHandlerDetails { (serie,status,message) in
-                                   if status {
-                                       guard let _serie = serie else {return}
-                                        UserService.shared.addSerie(series: _serie, category: category)
-                                    ChangeDetection.seriesChange = true
-                                   }
-                                }
+                if status {
+                    guard let _serie = serie else {return}
+                    UserService.shared.addSerie(series: _serie, category: category)
+                    ChangeDetection.seriesChange = true
+                }
+            }
         }
-    
-
-        
-        //        let alert = UIAlertController(title: "Success", message: "You've added the movie to your list", preferredStyle: UIAlertController.Style.alert)
-        //        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        //        self.present(alert, animated: true, completion: nil)
     }
     
     func updateFilter(searchFilter: SearchFilter) {
@@ -121,7 +115,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
                     }
                 }
             }
-
+            
         }
         else
         {
@@ -170,73 +164,27 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
         self.view.addBackground()
         searchButton.layer.cornerRadius = searchButton.frame.height/2
         searchTable.tableFooterView = UIView(frame: .zero)
-        
-//        let mockMovie = Movie(uid:UUID().uuidString ,movieId:219537,title: "Captain Marvel", posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg", summary:"The story follows Carol Danvers as she becomes one of the universe’s most powerful heroes when Earth is caught in the middle of a galactic war between two alien races. Set in the 1990s, Captain Marvel is an all-new adventure from a previously unseen period in the history of the Marvel Cinematic Universe.", language: "en",genresIDs:[28,12,878],rating: 6.9, releaseDate:"2019-03-06")
-        
-//     UserService.shared.addMovie(movie: mockMovie,category: Category.planedToWatched.rawValue)
-//        
-        
-        
-//
-//        UserService.shared.getAllMovies()
-//        UserService.shared.completionHandlerMovies { [weak self] (movies,status,message) in
-//            if status {
-//                guard let self = self else {return}
-//                guard let _movies = movies else {return}
-//                self.movies = _movies
-//                if let movie = movies?.last {
-//                    UserService.shared.updateMovie(movie: movie, category: .watched, rating: 9)
-//                }
-//            }
-//        }
-        
-        //        MovieService.shared.getMovie(id: 27205)
-        //        MovieService.shared.completionHandlerDetails { [weak self] (movie,status,message) in
-        //                   if status {
-        //                       guard let self = self else {return}
-        //                       guard let _movie = movie else {return}
-        //                       self.movie = _movie
-        //                   }
-        //               }
-        
-        //        movie = MovieService.shared.getMovie(id: 27205)
-        //MovieService.shared.setMovieDb(movie: mockMovie)
-        
-        //        MovieService.shared.getMovieDb(movieId: mockMovie.movieId)
-        //        MovieService.shared.completionHandlerDetails {[weak self]
-        //            (movie,status,message) in
-        //            if status {
-        //                guard let self = self else {return}
-        //                guard let _movie = movie else {return}
-        //                self.movie = _movie
-        //                //reload
-        //                print(self.movie)
-        //            }
-        //        }
-        
-        //MovieService.shared.searchMovie(query: "Am")
-
-        }
+    }
     
     private func getPopularMoviesOrSeries() {
-            MovieService.shared.popularMovies()
-            MovieService.shared.completionHandlerSearch { [weak self] (movieSearch,status,message) in
-                        if status {
-                            guard let self = self else {return}
-                            guard let _movieSearch = movieSearch else {return}
-                            self.movieSearch = _movieSearch
-                            self.searchTable.reloadData()
-                        }
-                    }
-            SeriesService.shared.popularSeries()
-            SeriesService.shared.completionHandlerSearch { [weak self] (serieSearch,status,message) in
-                if status {
-                    guard let self = self else {return}
-                    guard let _serieSearch = serieSearch else {return}
-                    self.serieSearch = _serieSearch
-                }
+        MovieService.shared.popularMovies()
+        MovieService.shared.completionHandlerSearch { [weak self] (movieSearch,status,message) in
+            if status {
+                guard let self = self else {return}
+                guard let _movieSearch = movieSearch else {return}
+                self.movieSearch = _movieSearch
+                self.searchTable.reloadData()
             }
-
+        }
+        SeriesService.shared.popularSeries()
+        SeriesService.shared.completionHandlerSearch { [weak self] (serieSearch,status,message) in
+            if status {
+                guard let self = self else {return}
+                guard let _serieSearch = serieSearch else {return}
+                self.serieSearch = _serieSearch
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -266,7 +214,7 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
                 return serieSearch!.results.count
             }
         }
-
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -295,35 +243,35 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
             let movieId = movieSearch!.results[indexPath.row].movieId
             MovieService.shared.getMovie(id: movieId)
             MovieService.shared.completionHandlerDetails { [weak self] (movie,status,message) in
-                                   if status {
-                                       guard let self = self else {return}
-                                       guard let _movie = movie else {return}
-                                    var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: 0, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: Int.init(_movie.duration ?? 0), category: nil, section: 0, row: indexPath.row, mySeason: 1, myEpisode: 1, seasons: -1)
-                                        _movie.genres?.forEach({ genre in
-                                            details.genre.append(genre.name)
-                                        })
-                                        self.performSegue(withIdentifier: "openMovieDetails", sender: details)
-                                   }
-                                }
+                if status {
+                    guard let self = self else {return}
+                    guard let _movie = movie else {return}
+                    var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: 0, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: Int.init(_movie.duration ?? 0), category: nil, section: 0, row: indexPath.row, mySeason: 1, myEpisode: 1, seasons: -1)
+                    _movie.genres?.forEach({ genre in
+                        details.genre.append(genre.name)
+                    })
+                    self.performSegue(withIdentifier: "openMovieDetails", sender: details)
+                }
+            }
         }
         else {
             let serieId = serieSearch!.results[indexPath.row].seriesId
             SeriesService.shared.getSeries(id: serieId)
             SeriesService.shared.completionHandlerDetails { [weak self] (serie,status,message) in
-                                   if status {
-                                       guard let self = self else {return}
-                                       guard let _serie = serie else {return}
-                                    var episodeDuration = 0
-                                    if _serie.runtime != nil {
-                                        episodeDuration = _serie.runtime![0]
-                                    }
-                                    var details = Details(title: _serie.name, image: _serie.posterURL, myRaiting: 0, raiting: _serie.rating, summary: _serie.summary, releaseDate: _serie.releaseDate ?? "", genre: [], duration: episodeDuration, category: nil, section: 0, row: indexPath.row, mySeason: 1, myEpisode: 1, seasons: _serie.seasons ?? -1)
-                                    _serie.genres?.forEach({ genre in
-                                            details.genre.append(genre.name)
-                                        })
-                                        self.performSegue(withIdentifier: "openSeriesDetails", sender: details)
-                                   }
-                                }
+                if status {
+                    guard let self = self else {return}
+                    guard let _serie = serie else {return}
+                    var episodeDuration = 0
+                    if _serie.runtime != nil {
+                        episodeDuration = _serie.runtime![0]
+                    }
+                    var details = Details(title: _serie.name, image: _serie.posterURL, myRaiting: 0, raiting: _serie.rating, summary: _serie.summary, releaseDate: _serie.releaseDate ?? "", genre: [], duration: episodeDuration, category: nil, section: 0, row: indexPath.row, mySeason: 1, myEpisode: 1, seasons: _serie.seasons ?? -1)
+                    _serie.genres?.forEach({ genre in
+                        details.genre.append(genre.name)
+                    })
+                    self.performSegue(withIdentifier: "openSeriesDetails", sender: details)
+                }
+            }
         }
     }
     
