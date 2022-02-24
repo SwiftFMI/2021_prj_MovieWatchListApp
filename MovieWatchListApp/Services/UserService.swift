@@ -49,7 +49,7 @@ class UserService {
                                       genresIDs: series.genresIDs,
                                       nextAirDate: series.nextEpisode?.airDate ?? "")
         
-       
+        
         encoder.outputFormatting = . prettyPrinted
         let data = try! encoder.encode(seriesToAdd)
         let serialized: String? = String(data: data,encoding: .utf8)
@@ -79,6 +79,41 @@ class UserService {
         
         if let user = Auth.auth().currentUser {
             db.collection("users").document(user.uid).updateData(["Series": FieldValue.arrayRemove([serialized])])
+        }
+    }
+    
+    func updateSeries(series:SeriesShort, category: Category,rating: Int,episode:Int,season: Int) {
+        deleteSeries(series: series)
+        
+        var newSeries=series
+        newSeries.myRating=rating
+        newSeries.category=category.rawValue
+        newSeries.episode = episode
+        newSeries.season = season
+        
+        encoder.outputFormatting = . prettyPrinted
+        let data = try! encoder.encode(newSeries)
+        let serialized: String? = String(data: data,encoding: .utf8)
+        
+        if let user = Auth.auth().currentUser {
+            db.collection("users").document(user.uid)
+                .updateData(["Series": FieldValue.arrayUnion([serialized])])
+        }
+    }
+    func updateMovie(movie:MovieShort, category: Category, rating: Int){
+        deleteMovie(movie: movie)
+        
+        var newMovie=movie
+        newMovie.myRating=rating
+        newMovie.category=category.rawValue
+        
+        encoder.outputFormatting = . prettyPrinted
+        let data = try! encoder.encode(newMovie)
+        let serialized: String? = String(data: data,encoding: .utf8)
+        
+        if let user = Auth.auth().currentUser {
+            db.collection("users").document(user.uid)
+                .updateData(["Movies": FieldValue.arrayUnion([serialized])])
         }
     }
     

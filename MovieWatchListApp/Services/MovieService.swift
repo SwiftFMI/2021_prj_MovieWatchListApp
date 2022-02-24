@@ -112,13 +112,13 @@ class MovieService {
     }
 
     func popularMovies(page: Int = 1) {
-        let url:String = "\(baseURL)/movie/popular?api_key=\(apiKey)&page=\(page)"
+        let url:String = "\(baseURL)/movie/popular?api_key=\(apiKey)&page=\(page)&sort_by=popularity.desc"
         
         AF.request(url,headers: headers)
             .responseDecodable(of: MovieSearch.self) { response in
                 
                 guard let _ = response.data else {
-                    self.movieSearchCallBack?(nil, false, "")
+                    self.movieSearchCallBack?(nil, false, response.error?.localizedDescription ?? "")
                     return}
                 do {
                     let movieSearch = response.value

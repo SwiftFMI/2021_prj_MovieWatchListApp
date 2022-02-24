@@ -92,7 +92,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
 //                guard let _movies = movies else {return}
 //                self.movies = _movies
 //                if let movie = movies?.last {
-//                    UserService.shared.deleteMovie(movie:movie)
+//                    UserService.shared.updateMovie(movie: movie, category: .watched, rating: 9)
 //                }
 //            }
 //        }
