@@ -40,7 +40,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
             navigationBar.title = details.title
             movieTitle.text = details.title
             movieGenres.text = details.genre.joined(separator: ", ")
-            movieReleaseDate.text = details.releaseDate
+            movieReleaseDate.text = Utilities.getFromatedDate(date: details.releaseDate)
             var duration = details.duration == 0 ? "-" : details.duration!.description
             if details.duration != 0
             {
@@ -145,7 +145,7 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
             navigationBar.title = details.title
             serieTitle.text = details.title
             serieGenres.text = details.genre.joined(separator: ", ")
-            serieReleaseDate.text = details.releaseDate
+            serieReleaseDate.text = Utilities.getFromatedDate(date: details.releaseDate)
             var duration = details.duration == 0 ? "-" : details.duration!.description
             if details.duration != 0
             {

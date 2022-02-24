@@ -15,7 +15,8 @@ class LoginViewController : UIViewController {
         super.viewDidLoad()
         self.view.addBackground()
         loginFormView.layer.cornerRadius = 30
-        LoginButton.layer.cornerRadius = 30
+        LoginButton.layer.cornerRadius = 15
+        LoginButton.layer.masksToBounds = true
         RegisterButton.layer.cornerRadius = 30
         logo.layer.cornerRadius = logo.frame.height/2
     }

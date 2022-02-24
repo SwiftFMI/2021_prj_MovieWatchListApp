@@ -45,7 +45,9 @@ class MovieService {
     }
     
     func searchMovie(query: String) {
-        let url:String = "\(baseURL)/search/movie?query=\(query)&api_key=\(apiKey)"
+        var queryEncoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        let url:String = "\(baseURL)/search/movie?query=\(queryEncoded!)&api_key=\(apiKey)"
         
         AF.request(url,headers: headers)
             .responseDecodable(of: MovieSearch.self) { response in

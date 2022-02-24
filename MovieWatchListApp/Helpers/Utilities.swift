@@ -42,7 +42,7 @@ class Utilities {
     
     static let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-mm-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter
     }()
     
@@ -76,6 +76,17 @@ class Utilities {
     static func getGenreIdFromStringSeries(name: String) -> Int {
         let filtered = SeriesGenres.seriesGenres.first(where: {$0.name == name})
         return filtered?.id ?? 0
+    }
+    
+    static func getFromatedDate(date:String?) -> String {
+        if date == "" {
+            return ""
+        }
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: date!)
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let resultString = dateFormatter.string(from: date!)
+        return resultString
     }
 }
 

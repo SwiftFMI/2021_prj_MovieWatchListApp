@@ -44,7 +44,8 @@ class SeriesService {
     }
     
     func searchSeries(query: String) {
-        let url:String = "\(baseURL)/search/tv?query=\(query)&api_key=\(apiKey)"
+        var queryEncoded = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let url:String = "\(baseURL)/search/tv?query=\(queryEncoded!)&api_key=\(apiKey)"
         AF.request(url,headers: headers)
             .responseDecodable(of: SeriesSearch.self) { response in
                 guard let _ = response.data else {

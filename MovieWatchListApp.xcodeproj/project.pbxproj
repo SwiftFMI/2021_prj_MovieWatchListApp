@@ -11,6 +11,7 @@
 		841DD3EA27C44DEB00CC5602 /* MovieGenres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DD3E827C44DEB00CC5602 /* MovieGenres.swift */; };
 		841DD3ED27C44E2700CC5602 /* movieGenres.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DD3EB27C44E2700CC5602 /* movieGenres.json */; };
 		841DD3EE27C44E2700CC5602 /* seriesGenres.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DD3EC27C44E2700CC5602 /* seriesGenres.json */; };
+		84265E8D27C77E2000E3C762 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 84265E8C27C77E2000E3C762 /* Secrets.xcconfig */; };
 		843ECA9F27A856E900F6BE55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */; };
 		8454B7F727BD0D0600E83693 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454B7F627BD0D0600E83693 /* SearchResult.swift */; };
 		8454B7FB27BD2BE300E83693 /* SeriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8454B7FA27BD2BE300E83693 /* SeriesService.swift */; };
@@ -40,7 +41,6 @@
 		F555562F27A882B000DB015E /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F555562E27A882B000DB015E /* DiscoverViewController.swift */; };
 		F5564E4E27C4E62400D19F38 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5564E4D27C4E62400D19F38 /* SearchViewCell.swift */; };
 		F567D09E27B7F82A002BF1C6 /* LogoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */; };
-		F57F0E0D27C76AE800147694 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F57F0E0C27C76AE800147694 /* Secrets.xcconfig */; };
 		F5CDE88927BC31DF00767CBB /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5CDE88827BC31DF00767CBB /* Alamofire */; };
 		F5CDE88D27BC4ECA00767CBB /* SearchModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */; };
 		F5DCE1D927A84D0100E0592C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DCE1D827A84D0100E0592C /* AppDelegate.swift */; };
@@ -58,6 +58,7 @@
 		841DD3E827C44DEB00CC5602 /* MovieGenres.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieGenres.swift; sourceTree = "<group>"; };
 		841DD3EB27C44E2700CC5602 /* movieGenres.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = movieGenres.json; sourceTree = "<group>"; };
 		841DD3EC27C44E2700CC5602 /* seriesGenres.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = seriesGenres.json; sourceTree = "<group>"; };
+		84265E8C27C77E2000E3C762 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Desktop/Secrets.xcconfig; sourceTree = "<group>"; };
 		843ECA9E27A856E900F6BE55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8454B7F627BD0D0600E83693 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		8454B7FA27BD2BE300E83693 /* SeriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesService.swift; sourceTree = "<group>"; };
@@ -82,7 +83,6 @@
 		F555562E27A882B000DB015E /* DiscoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		F5564E4D27C4E62400D19F38 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		F567D09D27B7F82A002BF1C6 /* LogoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModalViewController.swift; sourceTree = "<group>"; };
-		F57F0E0C27C76AE800147694 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
 		F5CDE88C27BC4ECA00767CBB /* SearchModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModalViewController.swift; sourceTree = "<group>"; };
 		F5DCE1D527A84D0100E0592C /* MovieWatchListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieWatchListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DCE1D827A84D0100E0592C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +186,7 @@
 		F5DCE1CC27A84D0100E0592C = {
 			isa = PBXGroup;
 			children = (
+				84265E8C27C77E2000E3C762 /* Secrets.xcconfig */,
 				F5DCE1D727A84D0100E0592C /* MovieWatchListApp */,
 				F5DCE1D627A84D0100E0592C /* Products */,
 				84B6C11D27BAF1F1006A1DD3 /* Frameworks */,
@@ -203,7 +204,6 @@
 		F5DCE1D727A84D0100E0592C /* MovieWatchListApp */ = {
 			isa = PBXGroup;
 			children = (
-				F57F0E0C27C76AE800147694 /* Secrets.xcconfig */,
 				849A8B8F27BC7DB8003CEDF4 /* Services */,
 				845557BD27B52B42005E253B /* Helpers */,
 				F5281A5127B42593003959EC /* ViewControllers */,
@@ -300,7 +300,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F57F0E0D27C76AE800147694 /* Secrets.xcconfig in Resources */,
+				84265E8D27C77E2000E3C762 /* Secrets.xcconfig in Resources */,
 				841DD3ED27C44E2700CC5602 /* movieGenres.json in Resources */,
 				F5DCE1E527A84D0200E0592C /* LaunchScreen.storyboard in Resources */,
 				841DD3EE27C44E2700CC5602 /* seriesGenres.json in Resources */,
@@ -375,7 +375,7 @@
 /* Begin XCBuildConfiguration section */
 		F5DCE1E727A84D0200E0592C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F57F0E0C27C76AE800147694 /* Secrets.xcconfig */;
+			baseConfigurationReference = 84265E8C27C77E2000E3C762 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -437,7 +437,7 @@
 		};
 		F5DCE1E827A84D0200E0592C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F57F0E0C27C76AE800147694 /* Secrets.xcconfig */;
+			baseConfigurationReference = 84265E8C27C77E2000E3C762 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

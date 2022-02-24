@@ -82,12 +82,12 @@ class UserService {
         }
     }
     
-    func updateSeries(series:SeriesShort, category: Category,rating: Int,episode:Int,season: Int) {
+    func updateSeries(series:SeriesShort, category: String,rating: Int,episode:Int,season: Int) {
         deleteSeries(series: series)
         
         var newSeries=series
         newSeries.myRating=rating
-        newSeries.category=category.rawValue
+        newSeries.category=category
         newSeries.episode = episode
         newSeries.season = season
         

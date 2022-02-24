@@ -57,7 +57,7 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
     }
     func updateCategory(section: Int, row: Int, newCategory: String) -> (Int, Int) {
         let seriesToUpdate = series.listOfSeries[section].series[row]
-        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.init(rawValue: newCategory)!, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode, season: seriesToUpdate.season)
+        UserService.shared.updateSeries(series: seriesToUpdate, category: newCategory, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode, season: seriesToUpdate.season)
         let newSectionAndRow = series.switchCategory(section: section, row: row, newCategory: newCategory)
         seriesTableView.reloadData()
         return newSectionAndRow
@@ -65,7 +65,7 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
     
     func updateRaiting(section: Int, row: Int, newRaiting: String) {
         let seriesToUpdate = series.listOfSeries[section].series[row]
-        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.init(rawValue: seriesToUpdate.category!)!, rating: Int.init(newRaiting)!, episode: seriesToUpdate.episode, season: seriesToUpdate.season)
+        UserService.shared.updateSeries(series: seriesToUpdate, category: seriesToUpdate.category!, rating: Int.init(newRaiting)!, episode: seriesToUpdate.episode, season: seriesToUpdate.season)
         series.updateRaiting(section: section, row: row, newRaiting: newRaiting)
         seriesTableView.reloadData()
     }
@@ -182,7 +182,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         cell.serieRaiting.text = rating
         if indexPath.section == 0 {
             var nextEpisodeText = "Next episode will air on: "
-            nextEpisodeText.append(series.nextAirDate)
+            nextEpisodeText.append(Utilities.getFromatedDate(date:series.nextAirDate))
             cell.serieNextEpisode.text = nextEpisodeText
         }
         else{
@@ -199,7 +199,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         }
 
         return cell
-    }
+        }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let seriesId = series.listOfSeries[indexPath.section].series[indexPath.row].seriesId
@@ -225,7 +225,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
     
     private func handleIncrementEpisode(section: Int, row: Int) {
         let seriesToUpdate = series.listOfSeries[section].series[row]
-        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.watching, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode + 1, season: seriesToUpdate.season)
+        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.watching.rawValue, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode + 1, season: seriesToUpdate.season)
         seriesTableView.reloadData()
     }
     private func handleRemove(section: Int, row: Int) {
