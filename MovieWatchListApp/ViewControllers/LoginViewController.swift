@@ -48,6 +48,7 @@ class LoginViewController : UIViewController {
         if error != nil {
             // There is an error
             showError(error!)
+            activityIndicator.stopAnimating()
         }else{
             let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
             let cleanedEmail = emailTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
@@ -63,13 +64,14 @@ class LoginViewController : UIViewController {
                         defaults.set(user.email,forKey: "userEmail")
                         self.performSegue(withIdentifier: "login", sender: sender)
                         //self.finishedLoggingIn(user: user)
+                        self.activityIndicator.stopAnimating()
                     }
                 }
                 
             }
             
         }
-        activityIndicator.stopAnimating()
+        
     }
     
     @IBAction func RegisterPressed(_ sender: Any) {

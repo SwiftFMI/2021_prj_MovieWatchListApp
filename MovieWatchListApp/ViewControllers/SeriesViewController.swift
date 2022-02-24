@@ -37,11 +37,16 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        getSeries()
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             super.prepare(for: segue, sender: sender)
             if segue.identifier == "openSeriesDetails" {
                     if let next = segue.destination as! SerieDetailViewController? {
                         next.details = sender as? Details
+                        next.delegate = self
                             }
             }
             if segue.identifier == "openSearchBox" {
@@ -70,12 +75,16 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
         seriesTableView.reloadData()
     }
     func updateCategory(section: Int, row: Int, newCategory: String) -> (Int, Int) {
+        let seriesToUpdate = series.listOfSeries[section].series[row]
+        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.init(rawValue: newCategory)!, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode, season: seriesToUpdate.season)
         let newSectionAndRow = series.switchCategory(section: section, row: row, newCategory: newCategory)
         seriesTableView.reloadData()
         return newSectionAndRow
     }
     
     func updateRaiting(section: Int, row: Int, newRaiting: String) {
+        let seriesToUpdate = series.listOfSeries[section].series[row]
+        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.init(rawValue: seriesToUpdate.category!)!, rating: Int.init(newRaiting)!, episode: seriesToUpdate.episode, season: seriesToUpdate.season)
         series.updateRaiting(section: section, row: row, newRaiting: newRaiting)
         seriesTableView.reloadData()
     }
@@ -91,6 +100,31 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
             series.listOfSeries = copySeries.listOfSeries
             seriesTableView.reloadData()
         }
+    }
+    private func getSeries() {
+//        UserService.shared.getAllSeries()
+//        UserService.shared.completionHandlerSeries { [weak self] seriesResult, status, message in
+//            if status {
+//                guard let self = self else {return}
+//                guard let _series = seriesResult else {return}
+//                _series.forEach { serie in
+//                    switch serie.category {
+//                    case "Watched":
+//                        self.series.listOfSeries[1].series.append(serie)
+//                        break
+//                    case "Watching":
+//                        self.series.listOfSeries[0].series.append(serie)
+//                        break
+//                    case "Plan to watch":
+//                        self.series.listOfSeries[2].series.append(serie)
+//                        break
+//                    default:
+//                        break
+//                    }
+//                }
+//                self.seriesTableView.reloadData()
+//            }
+//        }
     }
 }
 
@@ -164,8 +198,24 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         var rating = series.myRating == 0 ? "-" : series.myRating.description
         rating.append("/10⭐️")
         cell.serieRaiting.text = rating
-        cell.serieNextEpisode.text = series.nextAirDate
+        if indexPath.section == 0 {
+            var nextEpisodeText = "Next episode will air on: "
+            nextEpisodeText.append(series.nextAirDate)
+            cell.serieNextEpisode.text = nextEpisodeText
+        }
+        else{
+            cell.serieNextEpisode.isHidden = true
+        }
         cell.serieImage.load(url: series.posterURL)
+        if indexPath.section == 0 {
+            var myEpsiode = "Episode to watch: "
+            myEpsiode.append(series.episode.description)
+            cell.serieEpisode.text = myEpsiode
+        }
+        else {
+            cell.serieEpisode.isHidden = true
+        }
+
         return cell
     }
     
@@ -178,7 +228,11 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
                                    guard let self = self else {return}
                                    guard let _series = series else {return}
                                 let serieFromTable = self.series.listOfSeries[indexPath.section].series[indexPath.row]
-                                var details = Details(title: _series.name, image: _series.posterURL, myRaiting: serieFromTable.myRating, raiting: _series.rating, summary: _series.summary, releaseDate: _series.releaseDate ?? "", genre: [], duration: 0, category: serieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                var episodeDuration = 0
+                                if _series.runtime != nil {
+                                    episodeDuration = _series.runtime![0]
+                                }
+                                var details = Details(title: _series.name, image: _series.posterURL, myRaiting: serieFromTable.myRating, raiting: _series.rating, summary: _series.summary, releaseDate: _series.releaseDate ?? "", genre: [], duration: episodeDuration, category: serieFromTable.category, section: indexPath.section, row: indexPath.row)
                                 _series.genres?.forEach({ genre in
                                     details.genre.append(genre.name)
                                 })
@@ -187,10 +241,13 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    private func handleIncrementEpisode() {
-        
+    private func handleIncrementEpisode(section: Int, row: Int) {
+        let seriesToUpdate = series.listOfSeries[section].series[row]
+        UserService.shared.updateSeries(series: seriesToUpdate, category: Category.watching, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode + 1, season: seriesToUpdate.season)
+        seriesTableView.reloadData()
     }
     private func handleRemove(section: Int, row: Int) {
+        UserService.shared.deleteSeries(series: series.listOfSeries[section].series[row])
         series.remove(section: section, row: row)
         
         var indexPaths = [IndexPath]()
@@ -200,7 +257,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: "➕\n1 ep.") { [weak self] (action, view, completitionHandler) in
-            self?.handleIncrementEpisode()
+            self?.handleIncrementEpisode(section: indexPath.section, row: indexPath.row)
             completitionHandler(true)
         }
         action.backgroundColor = .green

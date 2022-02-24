@@ -69,6 +69,7 @@ class RegisterViewController : UIViewController {
         if error != nil {
             // There is an error
             showError(error!)
+            activityIndicator.stopAnimating()
         } else {
             // create user
             let cleanedPassword = passwordTextField.text!.trimmingCharacters(in:.whitespacesAndNewlines)
@@ -96,6 +97,7 @@ class RegisterViewController : UIViewController {
                         }
                     }
                 }
+                self.activityIndicator.stopAnimating()
             }
         }
     }

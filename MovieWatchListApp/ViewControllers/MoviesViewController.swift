@@ -30,13 +30,10 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
                 _movies.forEach { movie in
                     switch movie.category {
                     case "Watched":
-                        self.movies.listOfMovies[1].movies.append(movie)
-                        break
-                    case "Watching":
                         self.movies.listOfMovies[0].movies.append(movie)
                         break
                     case "Plan to watch":
-                        self.movies.listOfMovies[2].movies.append(movie)
+                        self.movies.listOfMovies[1].movies.append(movie)
                         break
                     default:
                         break
@@ -45,6 +42,11 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
                 self.moviesTableView.reloadData()
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //proverki za dali imame promeni
+//        getMovies()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,11 +84,15 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
         moviesTableView.reloadData()
     }
     func updateCategory(section: Int, row: Int, newCategory: String) -> (Int, Int) {
+        let movieToUpdate = movies.listOfMovies[section].movies[row]
+        UserService.shared.updateMovie(movie: movieToUpdate, category: Category.init(rawValue: newCategory)!, rating: movieToUpdate.myRating)
         let newSectionAndRow = movies.switchCategory(section: section, row: row, newCategory: newCategory)
         moviesTableView.reloadData()
         return newSectionAndRow
     }
     func updateRaiting(section: Int, row: Int, newRaiting: String) {
+        let movieToUpdate = movies.listOfMovies[section].movies[row]
+        UserService.shared.updateMovie(movie: movieToUpdate, category: Category.init(rawValue: movieToUpdate.category!)!, rating: Int.init(newRaiting)!)
         movies.updateRaiting(section: section, row: row, newRaiting: newRaiting)
         moviesTableView.reloadData()
     }
@@ -103,6 +109,29 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
             moviesTableView.reloadData()
         }
         
+    }
+    private func getMovies() {
+        //TODO fix not reloading movies
+//        UserService.shared.getAllMovies()
+//        UserService.shared.completionHandlerMovies { [weak self] moviesResult, status, message in
+//            if status {
+//                guard let self = self else {return}
+//                guard let _movies = moviesResult else {return}
+//                _movies.forEach { movie in
+//                    switch movie.category {
+//                    case "Watched":
+//                        self.movies.listOfMovies[0].movies.append(movie)
+//                        break
+//                    case "Plan to watch":
+//                        self.movies.listOfMovies[1].movies.append(movie)
+//                        break
+//                    default:
+//                        break
+//                    }
+//                }
+//                self.moviesTableView.reloadData()
+//            }
+//        }
     }
 }
 
@@ -190,7 +219,7 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
                                    guard let self = self else {return}
                                    guard let _movie = movie else {return}
                                 let movieFromTable = self.movies.listOfMovies[indexPath.section].movies[indexPath.row]
-                                var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: movieFromTable.myRating, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: _movie.duration, category: movieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: movieFromTable.myRating, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: Int.init(_movie.duration ?? 0), category: movieFromTable.category, section: indexPath.section, row: indexPath.row)
                                 _movie.genres?.forEach({ genre in
                                     details.genre.append(genre.name)
                                 })
@@ -199,21 +228,26 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    private func handleCompletition() {
-
+    private func handleCompletition(section: Int, row: Int) {
+        let movieToUpdate = movies.listOfMovies[section].movies[row]
+        UserService.shared.updateMovie(movie: movieToUpdate, category: Category.watched, rating: movieToUpdate.myRating)
+        movies.switchCategory(section: section, row: row, newCategory: "Watched")
+        moviesTableView.reloadData()
     }
     private func handleRemove(section: Int, row: Int) {
+        UserService.shared.deleteMovie(movie: movies.listOfMovies[section].movies[row])
         movies.remove(section: section, row: row)
         
         var indexPaths = [IndexPath]()
         indexPaths.append(IndexPath(row: row, section: section))
         moviesTableView.deleteRows(at: indexPaths, with: .fade)
         
+        
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: "✅Complete") { [weak self] (action, view, completitionHandler) in
-            self?.handleCompletition()
+            self?.handleCompletition(section: indexPath.section, row: indexPath.row)
             completitionHandler(true)
         }
         action.backgroundColor = .green

@@ -41,8 +41,11 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
             movieTitle.text = details.title
             movieGenres.text = details.genre.joined(separator: ", ")
             movieReleaseDate.text = details.releaseDate
-            var duration = details.duration?.description ?? ""
-            duration.append(" minutes")
+            var duration = details.duration == 0 ? "-" : details.duration!.description
+            if details.duration != 0
+            {
+                duration.append(" minutes")
+            }
             movieLength.text = duration
             var raiting = details.raiting == nil ? "-" : details.raiting!.description
             raiting.append("/10⭐️")
@@ -94,7 +97,7 @@ class MovieDetailViewController: UIViewController, UpdateDelegate {
     
     @IBAction func CategoryButtonClicked(_ sender: UIButton) {
         
-        let data = ["Watched", "Watching", "Plan to watch"]
+        let data = ["Watched", "Plan to watch"]
         let index = data.firstIndex(of: (sender.titleLabel?.text)!)
         let pickerData = PickerModel(btnToUpdate: "category", selected: index ?? 0, btnText: sender.titleLabel?.text == "Add to List" ? "➕ Add" : "💾 Update", pickerData: data)
         
@@ -143,8 +146,11 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
             serieTitle.text = details.title
             serieGenres.text = details.genre.joined(separator: ", ")
             serieReleaseDate.text = details.releaseDate
-            var duration = details.duration?.description ?? ""
-            duration.append(" minutes")
+            var duration = details.duration == 0 ? "-" : details.duration!.description
+            if details.duration != 0
+            {
+                duration.append(" minutes")
+            }
             serieLength.text = duration
             var raiting = details.raiting == nil ? "-" : details.raiting!.description
             raiting.append("/10⭐️")
@@ -181,6 +187,7 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
             var title = entity.selectedItem
             title.append("/10")
             myRaitingButton.setTitle(title, for: .normal)
+            delegate?.updateRaiting(section: details.section!, row: details.row, newRaiting: entity.selectedItem)
         }
     }
     

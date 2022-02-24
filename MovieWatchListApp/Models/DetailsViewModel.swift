@@ -8,7 +8,7 @@ struct Details {
     let summary: String
     let releaseDate : String
     var genre: [String]
-    var duration: Double?
+    var duration: Int?
     let category: String?
     var section: Int?
     var row: Int

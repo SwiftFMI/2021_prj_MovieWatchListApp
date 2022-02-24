@@ -6,4 +6,5 @@ class SerieTableViewCell : UITableViewCell {
     @IBOutlet weak var serieTitle: UILabel!
     @IBOutlet weak var serieNextEpisode: UILabel!
     @IBOutlet weak var serieRaiting: UILabel!
+    @IBOutlet weak var serieEpisode: UILabel!
 }

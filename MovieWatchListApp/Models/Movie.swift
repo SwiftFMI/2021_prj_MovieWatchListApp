@@ -60,7 +60,7 @@ struct TableMoviesModel {
 //                            posterPath:"/gTo2r8nNU3ZYAS6DqdeSp1VEqkq.jpg",myRating: 10, category: Category.watching.rawValue, genresIDs:[99,10770])]),
 //
 //        Movies(category: "Watched", isExpanded: true, movies: [MovieShort(movieId:299537,title: "Captain Marvel",  posterPath:"/AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",myRating: 7, category: Category.watched.rawValue, genresIDs:[28,12,878])])]
-    var listOfMovies: [Movies] = [Movies(category: "Watching", isExpanded: true, movies: []), Movies(category: "Watched", isExpanded: true, movies: []), Movies(category: "Plan to watch", isExpanded: true, movies: [])]
+    var listOfMovies: [Movies] = [Movies(category: "Watched", isExpanded: true, movies: []), Movies(category: "Plan to watch", isExpanded: true, movies: [])]
     
     mutating func remove(section: Int, row: Int) {
         listOfMovies[section].movies.remove(at: row)

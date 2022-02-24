@@ -14,6 +14,7 @@ struct Series: Codable,Poster {
     var rating: Double
     var releaseDate: String?
     var nextEpisode: NextEpisode?
+    var runtime: [Int]?
     
     enum CodingKeys: String, CodingKey {
         case seriesId = "id"
@@ -27,6 +28,7 @@ struct Series: Codable,Poster {
         case rating = "vote_average"
         case releaseDate = "first_air_date"
         case nextEpisode = "next_episode_to_air"
+        case runtime = "episode_run_time"
     }
 }
 
