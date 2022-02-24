@@ -69,7 +69,8 @@ struct TableMoviesModel {
     mutating func switchCategory(section: Int, row: Int, newCategory: String) -> (Int, Int){
         var newSection = section
         var newRow = row
-        let removed = listOfMovies[section].movies.remove(at: row)
+        var removed = listOfMovies[section].movies.remove(at: row)
+        removed.category = newCategory
         let newCategoryIndex = listOfMovies.firstIndex { m in
             m.category == newCategory
         };

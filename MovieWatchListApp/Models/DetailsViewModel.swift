@@ -12,4 +12,7 @@ struct Details {
     let category: String?
     var section: Int?
     var row: Int
+    var mySeason: Int
+    var myEpisode: Int
+    var seasons: Int
 }

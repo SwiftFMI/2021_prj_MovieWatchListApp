@@ -1,7 +1,7 @@
 import UIKit
 
 
-class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData {
+class SeriesController : UIViewController, SearchFilterDelegate, UpdateSeriesTableData {
 
     var series = TableSeriesModel()
     var copySeries = TableSeriesModel()
@@ -67,6 +67,19 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
         let seriesToUpdate = series.listOfSeries[section].series[row]
         UserService.shared.updateSeries(series: seriesToUpdate, category: seriesToUpdate.category!, rating: Int.init(newRaiting)!, episode: seriesToUpdate.episode, season: seriesToUpdate.season)
         series.updateRaiting(section: section, row: row, newRaiting: newRaiting)
+        seriesTableView.reloadData()
+    }
+    func updateSeason(section: Int, row: Int, newSeason: String) {
+        let seriesToUpdate = series.listOfSeries[section].series[row]
+        UserService.shared.updateSeries(series: seriesToUpdate, category: seriesToUpdate.category!, rating: seriesToUpdate.myRating, episode: seriesToUpdate.episode, season: Int.init(newSeason)!)
+        series.updateSeason(section: section, row: row, newSeason: newSeason)
+        seriesTableView.reloadData()
+    }
+    
+    func updateEpisode(section: Int, row: Int, newEpisode: String) {
+        let seriesToUpdate = series.listOfSeries[section].series[row]
+        UserService.shared.updateSeries(series: seriesToUpdate, category: seriesToUpdate.category!, rating: seriesToUpdate.myRating, episode: Int.init(newEpisode)!, season: seriesToUpdate.season)
+        series.updateEpisode(section: section, row: row, newEpisode: newEpisode)
         seriesTableView.reloadData()
     }
     @IBAction func searchButtonClicked(_ sender: Any) {
@@ -185,17 +198,11 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
             nextEpisodeText.append(Utilities.getFromatedDate(date:series.nextAirDate))
             cell.serieNextEpisode.text = nextEpisodeText
         }
-        else{
-            cell.serieNextEpisode.isHidden = true
-        }
         cell.serieImage.load(url: series.posterURL)
         if indexPath.section == 0 {
             var myEpsiode = "Episode to watch: "
             myEpsiode.append(series.episode.description)
             cell.serieEpisode.text = myEpsiode
-        }
-        else {
-            cell.serieEpisode.isHidden = true
         }
 
         return cell
@@ -214,7 +221,7 @@ extension SeriesController : UITableViewDataSource, UITableViewDelegate {
                                 if _series.runtime != nil {
                                     episodeDuration = _series.runtime![0]
                                 }
-                                var details = Details(title: _series.name, image: _series.posterURL, myRaiting: serieFromTable.myRating, raiting: _series.rating, summary: _series.summary, releaseDate: _series.releaseDate ?? "", genre: [], duration: episodeDuration, category: serieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                var details = Details(title: _series.name, image: _series.posterURL, myRaiting: serieFromTable.myRating, raiting: _series.rating, summary: _series.summary, releaseDate: _series.releaseDate ?? "", genre: [], duration: episodeDuration, category: serieFromTable.category, section: indexPath.section, row: indexPath.row, mySeason: serieFromTable.season, myEpisode: serieFromTable.episode, seasons: _series.seasons ?? -1)
                                 _series.genres?.forEach({ genre in
                                     details.genre.append(genre.name)
                                 })

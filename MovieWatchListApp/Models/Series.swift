@@ -89,7 +89,8 @@ struct TableSeriesModel {
     mutating func switchCategory(section: Int, row: Int, newCategory: String) -> (Int, Int){
         var newSection = section
         var newRow = row
-        let removed = listOfSeries[section].series.remove(at: row)
+        var removed = listOfSeries[section].series.remove(at: row)
+        removed.category = newCategory
         let newCategoryIndex = listOfSeries.firstIndex { s in
             s.category == newCategory
         };
@@ -106,6 +107,12 @@ struct TableSeriesModel {
     }
     mutating func updateRaiting(section: Int, row: Int, newRaiting: String) {
         listOfSeries[section].series[row].myRating = Int.init(newRaiting) ?? 0
+    }
+    mutating func updateSeason(section: Int, row: Int, newSeason: String) {
+        listOfSeries[section].series[row].season = Int.init(newSeason) ?? 1
+    }
+    mutating func updateEpisode(section: Int, row: Int, newEpisode: String) {
+        listOfSeries[section].series[row].episode = Int.init(newEpisode) ?? 1
     }
     mutating func removeAllSeries() {
         for i in 0...listOfSeries.count - 1 {

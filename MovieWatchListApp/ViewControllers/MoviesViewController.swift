@@ -201,7 +201,7 @@ extension MoviesViewController : UITableViewDataSource, UITableViewDelegate {
                                    guard let self = self else {return}
                                    guard let _movie = movie else {return}
                                 let movieFromTable = self.movies.listOfMovies[indexPath.section].movies[indexPath.row]
-                                var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: movieFromTable.myRating, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: Int.init(_movie.duration ?? 0), category: movieFromTable.category, section: indexPath.section, row: indexPath.row)
+                                var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: movieFromTable.myRating, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: Int.init(_movie.duration ?? 0), category: movieFromTable.category, section: indexPath.section, row: indexPath.row, mySeason: 1, myEpisode: 1, seasons: -1)
                                 _movie.genres?.forEach({ genre in
                                     details.genre.append(genre.name)
                                 })

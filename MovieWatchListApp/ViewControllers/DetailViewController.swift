@@ -7,6 +7,10 @@ protocol UpdateTableData {
     func updateCategory(section: Int, row: Int, newCategory: String) -> (Int, Int)
     func updateRaiting(section: Int, row: Int, newRaiting: String)
 }
+protocol UpdateSeriesTableData : UpdateTableData {
+    func updateSeason(section: Int, row: Int, newSeason: String)
+    func updateEpisode(section: Int, row: Int, newEpisode: String)
+}
 
 protocol AddToDB {
     func addToDB(row: Int, category: String)
@@ -131,7 +135,7 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
     @IBOutlet weak var serieSummary: UILabel!
     @IBOutlet weak var detailsViewContainer: UIView!
     var details: Details!
-    var delegate: UpdateTableData? = nil
+    var delegate: UpdateSeriesTableData? = nil
     var addDelegate: AddToDB? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,6 +171,10 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
                 var myRaiting = details.myRaiting == 0 ? "-" : details.myRaiting!.description
                 myRaiting.append("/10⭐️")
                 myRaitingButton.setTitle(myRaiting, for: .normal)
+                let seasonButtonText = "Season \(details.mySeason)/\(details.seasons)"
+                seasonButton.setTitle(seasonButtonText, for: .normal)
+                let episodeText = "Episode \(details.myEpisode)"
+                episodeButton.setTitle(episodeText, for: .normal)
             }
         }
     }
@@ -183,11 +191,21 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
                 details.row = result?.1 ?? 0
             }
         }
-        else {
+        else if entity.btnToUpdate == "rating"{
             var title = entity.selectedItem
             title.append("/10")
             myRaitingButton.setTitle(title, for: .normal)
             delegate?.updateRaiting(section: details.section!, row: details.row, newRaiting: entity.selectedItem)
+        }
+        else if entity.btnToUpdate == "season" {
+            let title = "Season \(entity.selectedItem)/\(details.seasons)"
+            seasonButton.setTitle(title, for: .normal)
+            delegate?.updateSeason(section: details.section!, row: details.row, newSeason: entity.selectedItem)
+        }
+        else{
+            let title = "Episode \(entity.selectedItem)"
+            episodeButton.setTitle(title, for: .normal)
+            delegate?.updateEpisode(section: details.section!, row: details.row, newEpisode: entity.selectedItem)
         }
     }
     
@@ -213,14 +231,39 @@ class SerieDetailViewController: UIViewController, UpdateDelegate {
         let separator = sender.titleLabel!.text!.firstIndex(of: "/")!
         let mySubstring = sender.titleLabel?.text?.prefix(upTo: separator)
         let index = (data.firstIndex(of: mySubstring!.description) ?? 0)
-        let pickerData = PickerModel(btnToUpdate: "raiting", selected: index, btnText: "💾 Update", pickerData: data)
+        let pickerData = PickerModel(btnToUpdate: "rating", selected: index, btnText: "💾 Update", pickerData: data)
         
         performSegue(withIdentifier: "openPicker", sender: pickerData)
     }
     @IBAction func SeasonButtonClicked(_ sender: UIButton) {
-        
+        var data: [String] = []
+        for i in 1...details.seasons {
+            data.append(i.description)
+        }
+        let separator = sender.titleLabel!.text!.firstIndex(of: "/")!
+        let mySubstring = sender.titleLabel?.text?.prefix(upTo: separator)
+        if let range = mySubstring?.range(of: " ") {
+            let result = mySubstring?[range.upperBound...]
+            let index = (data.firstIndex(of: result!.description) ?? 0)
+            let pickerData = PickerModel(btnToUpdate: "season", selected: index, btnText: "💾 Update", pickerData: data)
+            
+            performSegue(withIdentifier: "openPicker", sender: pickerData)
+        }
+
     }
     @IBAction func EpisodeButtonClicked(_ sender: UIButton) {
+        var data: [String] = []
+        for i in 1...26 {
+            data.append(i.description)
+        }
+        let text = sender.titleLabel!.text!
+        if let range = text.range(of: " ") {
+            let result = text[range.upperBound...]
+            let index = (data.firstIndex(of: result.description) ?? 0)
+            let pickerData = PickerModel(btnToUpdate: "episode", selected: index, btnText: "💾 Update", pickerData: data)
+            
+            performSegue(withIdentifier: "openPicker", sender: pickerData)
+        }
     }
 }
 

@@ -66,7 +66,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
         else{
             let seriesId = serieSearch?.results[row].seriesId
             SeriesService.shared.getSeries(id: seriesId!)
-            SeriesService.shared.completionHandlerDetails { [weak self] (serie,status,message) in
+            SeriesService.shared.completionHandlerDetails { (serie,status,message) in
                                    if status {
                                        guard let _serie = serie else {return}
                                         UserService.shared.addSerie(series: _serie, category: category)
@@ -298,7 +298,7 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
                                    if status {
                                        guard let self = self else {return}
                                        guard let _movie = movie else {return}
-                                    var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: 0, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: Int.init(_movie.duration ?? 0), category: nil, section: 0, row: indexPath.row)
+                                    var details = Details(title: _movie.title, image: _movie.posterURL, myRaiting: 0, raiting: _movie.rating, summary: _movie.summary, releaseDate: _movie.releaseDate ?? "", genre: [], duration: Int.init(_movie.duration ?? 0), category: nil, section: 0, row: indexPath.row, mySeason: 1, myEpisode: 1, seasons: -1)
                                         _movie.genres?.forEach({ genre in
                                             details.genre.append(genre.name)
                                         })
@@ -317,7 +317,7 @@ extension DiscoverViewController : UITableViewDataSource, UITableViewDelegate {
                                     if _serie.runtime != nil {
                                         episodeDuration = _serie.runtime![0]
                                     }
-                                    var details = Details(title: _serie.name, image: _serie.posterURL, myRaiting: 0, raiting: _serie.rating, summary: _serie.summary, releaseDate: _serie.releaseDate ?? "", genre: [], duration: episodeDuration, category: nil, section: 0, row: indexPath.row)
+                                    var details = Details(title: _serie.name, image: _serie.posterURL, myRaiting: 0, raiting: _serie.rating, summary: _serie.summary, releaseDate: _serie.releaseDate ?? "", genre: [], duration: episodeDuration, category: nil, section: 0, row: indexPath.row, mySeason: 1, myEpisode: 1, seasons: _serie.seasons ?? -1)
                                     _serie.genres?.forEach({ genre in
                                             details.genre.append(genre.name)
                                         })
