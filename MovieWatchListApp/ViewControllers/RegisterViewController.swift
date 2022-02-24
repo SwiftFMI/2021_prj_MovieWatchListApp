@@ -12,14 +12,19 @@ class RegisterViewController : UIViewController {
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var validationMessage: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var backButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addBackground()
         logo.layer.cornerRadius = logo.frame.height/2
         registerFormView.layer.cornerRadius = 30
         registerButton.layer.cornerRadius = 30
+        backButton.layer.cornerRadius = backButton.frame.height/2
     }
     
+    @IBAction func backButtonClicked(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     func validateFields() -> String? {
         if usernameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||

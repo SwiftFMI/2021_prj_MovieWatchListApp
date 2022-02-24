@@ -4,16 +4,57 @@ class AccountViewController: UIViewController {
 
     @IBOutlet weak var summaryBackgroundView: UIView!
     @IBOutlet weak var settingsTable: UITableView!
+    @IBOutlet weak var moviesWatched: UILabel!
+    @IBOutlet weak var seriesWatched: UILabel!
+    @IBOutlet weak var topRatingMovies: UILabel!
+    @IBOutlet weak var topRatingSeries: UILabel!
     
     let settings = Setting.getSettingsData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         self.view.addBackground()
         settingsTable.tableFooterView = UIView(frame: .zero)
         settingsTable.backgroundColor = UIColor.clear
         summaryBackgroundView.layer.cornerRadius = 20
+        UserService.shared.getAllMovies()
+        UserService.shared.completionHandlerMovies { [weak self] moviesResult, status, message in
+            if status {
+                guard let self = self else {return}
+                guard let _movies = moviesResult else {return}
+                var counter = 0
+                var topRatedCounter = 0
+                _movies.forEach { movie in
+                    if movie.category == "Watched" {
+                        counter = counter + 1
+                    }
+                    if movie.myRating == 10 {
+                        topRatedCounter = topRatedCounter + 1
+                    }
+                }
+                self.moviesWatched.text = counter.description
+                self.topRatingMovies.text = topRatedCounter.description
+            }
+        }
+        UserService.shared.getAllSeries()
+        UserService.shared.completionHandlerSeries { [weak self] seriesResult, status, message in
+            if status {
+                guard let self = self else {return}
+                guard let _series = seriesResult else {return}
+                var counter = 0
+                var topRatedCounter = 0
+                _series.forEach { serie in
+                    if serie.category == "Watched" {
+                        counter = counter + 1
+                    }
+                    if serie.myRating == 10 {
+                        topRatedCounter = topRatedCounter + 1
+                    }
+                }
+                self.seriesWatched.text = counter.description
+                self.topRatingSeries.text = topRatedCounter.description
+            }
+        }
     }
 
 
