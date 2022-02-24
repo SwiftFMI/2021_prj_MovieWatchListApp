@@ -89,5 +89,10 @@ struct TableMoviesModel {
     mutating func updateRaiting(section: Int, row: Int, newRaiting: String) {
         listOfMovies[section].movies[row].myRating = Int.init(newRaiting) ?? 0
     }
+    mutating func removeAllMovies() {
+        for i in 0...listOfMovies.count - 1 {
+            listOfMovies[i].movies.removeAll()
+        }
+    }
     
 }

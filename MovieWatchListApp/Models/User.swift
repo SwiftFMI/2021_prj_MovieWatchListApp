@@ -8,3 +8,8 @@ struct User: Identifiable, Codable {
     var Movies: [MovieShort]?
     var Series: [SeriesShort]?
 }
+
+struct ChangeDetection {
+    static var moviesChange = true
+    static var seriesChange = true
+}

@@ -22,31 +22,13 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
         super.viewDidLoad()
         self.view.addBackground()
         moviesTableView.tableFooterView = UIView(frame: .zero)
-        UserService.shared.getAllMovies()
-        UserService.shared.completionHandlerMovies { [weak self] moviesResult, status, message in
-            if status {
-                guard let self = self else {return}
-                guard let _movies = moviesResult else {return}
-                _movies.forEach { movie in
-                    switch movie.category {
-                    case "Watched":
-                        self.movies.listOfMovies[0].movies.append(movie)
-                        break
-                    case "Plan to watch":
-                        self.movies.listOfMovies[1].movies.append(movie)
-                        break
-                    default:
-                        break
-                    }
-                }
-                self.moviesTableView.reloadData()
-            }
-        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //proverki za dali imame promeni
-//        getMovies()
+        if ChangeDetection.moviesChange == true {
+            getMovies()
+            ChangeDetection.moviesChange = false
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -111,27 +93,27 @@ class MoviesViewController : UIViewController, SearchFilterDelegate, UpdateTable
         
     }
     private func getMovies() {
-        //TODO fix not reloading movies
-//        UserService.shared.getAllMovies()
-//        UserService.shared.completionHandlerMovies { [weak self] moviesResult, status, message in
-//            if status {
-//                guard let self = self else {return}
-//                guard let _movies = moviesResult else {return}
-//                _movies.forEach { movie in
-//                    switch movie.category {
-//                    case "Watched":
-//                        self.movies.listOfMovies[0].movies.append(movie)
-//                        break
-//                    case "Plan to watch":
-//                        self.movies.listOfMovies[1].movies.append(movie)
-//                        break
-//                    default:
-//                        break
-//                    }
-//                }
-//                self.moviesTableView.reloadData()
-//            }
-//        }
+        movies.removeAllMovies()
+            UserService.shared.getAllMovies()
+            UserService.shared.completionHandlerMovies { [weak self] moviesResult, status, message in
+                if status {
+                    guard let self = self else {return}
+                    guard let _movies = moviesResult else {return}
+                    _movies.forEach { movie in
+                        switch movie.category {
+                        case "Watched":
+                            self.movies.listOfMovies[0].movies.append(movie)
+                            break
+                        case "Plan to watch":
+                            self.movies.listOfMovies[1].movies.append(movie)
+                            break
+                        default:
+                            break
+                        }
+                    }
+                    self.moviesTableView.reloadData()
+                }
+        }
     }
 }
 

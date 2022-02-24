@@ -13,33 +13,14 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
         super.viewDidLoad()
         self.view.addBackground()
         seriesTableView.tableFooterView = UIView(frame: .zero)
-        UserService.shared.getAllSeries()
-        UserService.shared.completionHandlerSeries { [weak self] seriesResult, status, message in
-            if status {
-                guard let self = self else {return}
-                guard let _series = seriesResult else {return}
-                _series.forEach { serie in
-                    switch serie.category {
-                    case "Watched":
-                        self.series.listOfSeries[1].series.append(serie)
-                        break
-                    case "Watching":
-                        self.series.listOfSeries[0].series.append(serie)
-                        break
-                    case "Plan to watch":
-                        self.series.listOfSeries[2].series.append(serie)
-                        break
-                    default:
-                        break
-                    }
-                }
-                self.seriesTableView.reloadData()
-            }
-        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        getSeries()
+        if ChangeDetection.seriesChange == true {
+            getSeries()
+            ChangeDetection.seriesChange = false
+        }
+        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             super.prepare(for: segue, sender: sender)
@@ -102,29 +83,30 @@ class SeriesController : UIViewController, SearchFilterDelegate, UpdateTableData
         }
     }
     private func getSeries() {
-//        UserService.shared.getAllSeries()
-//        UserService.shared.completionHandlerSeries { [weak self] seriesResult, status, message in
-//            if status {
-//                guard let self = self else {return}
-//                guard let _series = seriesResult else {return}
-//                _series.forEach { serie in
-//                    switch serie.category {
-//                    case "Watched":
-//                        self.series.listOfSeries[1].series.append(serie)
-//                        break
-//                    case "Watching":
-//                        self.series.listOfSeries[0].series.append(serie)
-//                        break
-//                    case "Plan to watch":
-//                        self.series.listOfSeries[2].series.append(serie)
-//                        break
-//                    default:
-//                        break
-//                    }
-//                }
-//                self.seriesTableView.reloadData()
-//            }
-//        }
+        series.removeAllSeries()
+        UserService.shared.getAllSeries()
+        UserService.shared.completionHandlerSeries { [weak self] seriesResult, status, message in
+            if status {
+                guard let self = self else {return}
+                guard let _series = seriesResult else {return}
+                _series.forEach { serie in
+                    switch serie.category {
+                    case "Watched":
+                        self.series.listOfSeries[1].series.append(serie)
+                        break
+                    case "Watching":
+                        self.series.listOfSeries[0].series.append(serie)
+                        break
+                    case "Plan to watch":
+                        self.series.listOfSeries[2].series.append(serie)
+                        break
+                    default:
+                        break
+                    }
+                }
+                self.seriesTableView.reloadData()
+            }
+        }
     }
 }
 

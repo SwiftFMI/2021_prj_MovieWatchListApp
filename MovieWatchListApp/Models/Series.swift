@@ -107,5 +107,9 @@ struct TableSeriesModel {
     mutating func updateRaiting(section: Int, row: Int, newRaiting: String) {
         listOfSeries[section].series[row].myRating = Int.init(newRaiting) ?? 0
     }
-    
+    mutating func removeAllSeries() {
+        for i in 0...listOfSeries.count - 1 {
+            listOfSeries[i].series.removeAll()
+        }
+    }
 }

@@ -61,6 +61,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
         if isMovie {
             let movieToAdd = movieSearch?.results[row]
             UserService.shared.addMovie(movie: movieToAdd!, category: category)
+            ChangeDetection.moviesChange = true
         }
         else{
             let seriesId = serieSearch?.results[row].seriesId
@@ -69,6 +70,7 @@ class DiscoverViewController: UIViewController, SearchFilterDelegate, AddToDB {
                                    if status {
                                        guard let _serie = serie else {return}
                                         UserService.shared.addSerie(series: _serie, category: category)
+                                    ChangeDetection.seriesChange = true
                                    }
                                 }
         }
